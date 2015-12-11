@@ -1,0 +1,141 @@
+export EMAIL_ADDR=Arun.Srinivasa@alcatel-lucent.com
+#source /usr/local/timostools/git-dts
+
+i386 () { cd bin/7xxx-i386/
+          cp iom.tim i386-iom.tim
+          cp cpm.tim i386-cpm.tim
+          cp boot.tim i386-boot.tim
+          cp both.tim i386-both.tim
+          cp isa-aa.tim i386-isa-aa.tim
+          scp i3*.tim $1@$1.mv.usa.alcatel.com:/home/$1/images
+          cd ../.. ;}
+i386n () { cd bin/7xxx-i386/
+          cp iom.tim i386-iom.tim
+          cp cpm.tim i386-cpm.tim
+          cp boot.tim i386-boot.tim
+          cp both.tim i386-both.tim
+          cp isa-aa.tim i386-isa-aa.tim
+          scp i3*.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+          cd ../.. ;}
+i386np () { cd bin/7xxx-i386/
+          cp iom.tim i386-iom.tim
+          cp cpm.tim i386-cpm.tim
+          cp boot.tim i386-boot.tim
+          cp both.tim i386-both.tim
+          cp isa-aa.tim i386-isa-aa.tim
+          scp i3*.tim $1@$1.ih.lucent.com:/home/$1/images
+          cd ../.. ;}
+hops () { cd bin/7xxx-hops/
+          scp *.tim $1@$1.mv.usa.alcatel.com:/home/$1/images
+          cd ../7xxx-chile/
+          scp isa-aa.tim $1@$1.mv.usa.alcatel.com:/home/$1/images
+          cd ../.. ;}
+hopsn () { cd bin/7xxx-hops/
+          scp *.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+          cd ../7xxx-chile/
+          scp isa-aa.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+          cd ../.. ;}
+
+
+hopsnp () { cd bin/7xxx-hops/
+          scp *.tim $1@$1.ih.lucent.com:/home/$1/images
+          cd ../7xxx-chile/
+          scp isa-aa.tim $1@$1.ih.lucent.com:/home/$1/images
+          cd ../.. ;}
+
+hopsnpcfg () { cd bin/7xxx-hops/
+          scp *.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+          cd ../7xxx-chile/
+          scp isa-aa.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+          cd ../test/
+          scp setup_cli.cfg $1@$1.us.alcatel-lucent.com:/home/$1/images/
+          scp teardown_cli.cfg $1@$1.us.alcatel-lucent.com:/home/$1/images/
+          cd ../.. ; }
+
+queen () { cd bin/7xxx-i386/
+           cp iom.tim i386-iom.tim
+           cp cpm.tim i386-cpm.tim
+           cp boot.tim i386-boot.tim
+           cp both.tim i386-both.tim
+           cp isa-aa.tim i386-isa-aa.tim
+           scp i3*.tim
+           arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+           cd ../.. ;}
+
+queenhops () { cd bin/7xxx-hops/
+          scp *.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+          cd ../7xxx-chile/
+          scp isa-aa.tim
+          arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+          cd ../.. ;}
+
+# $1: Test Bed Name
+# $2: Reason
+regrv2submit () {
+    regress -testbed $1 -priority P0  -subTopology ismMgB -nobuild -reason $2 -runLevel quick -runSuite mgQuick mgCli;
+}
+
+# $1: Test Bed Name
+# $2: Reason
+regrv2expresssubmit () {
+    regress -testbed $1 -priority P0  -subTopology ismMgB -nobuild -reason $2 -runLevel express -runSuite mgExpress;
+}
+
+# $1: Test Bed Name
+# $2: Reason
+regrv3submit () {
+    regress -testbed $1 -priority P0  -subTopology ismMgV3 -nobuild -reason $2 -runLevel quick -runSuite mgQuick mgCli;
+}
+
+# $1: Test Bed Name
+# $2: Reason
+regrv3expresssubmit () {
+    regress -testbed $1 -priority P0  -subTopology ismMgV3 -nobuild -reason $2 -runLevel express -runSuite mgExpress;
+}
+
+# $1: Test Bed Name
+# $2: Reason
+regrvfpsubmit () {
+    regress -subTopology vfp -testbed $1 -runLevel express -reason $2 -nobuild;
+}
+
+# $1: Test Bed Name
+# $2: Reason
+regrsubmit() {
+    regrv2submit $1  $2;
+    regrv3submit $1 $2;
+    regrvfpsubmit $1 $2;
+}
+
+# $1: Test Bed Name
+# $2: Reason
+regrv2_ver0imgsubmit () {
+    regress -testbed $1 -priority P0  -subTopology ismMgB -useimages 7750mg/0.0/latest -reason $2 -runLevel quick -runSuite mgQuick mgCli;
+}
+
+# $1: Test Bed Name
+# $2: Reason
+regrv3_ver0submit () {
+    regress -testbed $1 -priority P0  -subTopology ismMgV3 -useimages 7750mg/0.0/latest -reason $2 -runLevel quick -runSuite mgQuick mgCli;
+}
+
+# $1: Test Bed Name
+# $2: Reason
+regrvfp_ver0submit () {
+    regress -subTopology vfp -testbed $1 -runLevel express -reason $2 -useimages 7750mg/0.0/latest;
+}
+
+# $1: Test Bed Name
+# $2: Reason
+# $3: Topology -- It can be either: ismMgB or ismMgV3
+regrv2v3latimgsubmit () {
+    regress -testbed $1 -priority P0  -subTopology $3 -useimages 7750mg/0.0/latest -reason $2 -runLevel quick -runSuite mgQuick mgCli;
+}
+
+# $1: Test Bed Name
+# $2: Reason
+regrvfp_ver0submit () {
+    regress -subTopology vfp -testbed $1 -runLevel express -reason $2 -useimages 7750mg/0.0/latest;
+}
+
+

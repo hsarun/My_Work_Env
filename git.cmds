@@ -1,0 +1,11 @@
+git status
+
+
+Optional:
+git add <file name>
+
+git commit -am "comments"
+
+git push
+
+
