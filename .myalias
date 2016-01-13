@@ -1,9 +1,0 @@
-
-
-alias vi=vim
-alias l="ls -l"
-alias setws='export MYTREE=`pwd`'
-alias cdws='cd $HOME/ws'
-
-
-

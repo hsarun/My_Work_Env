@@ -124,6 +124,7 @@ pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
 # set every new windows hardstatus line to somenthing descriptive
 defhstatus "^Et"
 
+#defscrollback 9999
 defscrollback 100000
 
 # don't kill window after the process died
@@ -277,7 +278,14 @@ hardstatus string "[screen %n] %h"
 hardstatus on
 hardstatus alwayslastline
 #hardstatus string "%{.bW}%-Lw%{.rW}%n %t%{-}%+Lw %=%{..G} %H %{..Y} %m/%d %C%a "
-hardstatus string "%{.bW}%-Lw%{.rW}%n %t%{-}%+Lw %=%{..G} %H %{..Y}"
+#hardstatus string "%{.bW}%-Lw%{.rW}%n %t%{-}%+Lw %=%{..G} %H %{..Y}"
+
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} [%c:%s, %D, %d/%m/%y]"
+
+termcapinfo xterm ti@:te@
+
+bindkey "^[[1;3C" next 
+bindkey "^[[1;3D" prev
 
 # bindkey -k k9  other 
 bindkey -k k;  select 10

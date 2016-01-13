@@ -308,8 +308,6 @@ fi
 
 unset JAVA_HOME
 
-source ~/.myalias
-
 #
 # Finally, if a ~/.bashrc.local exists, source it
 #
@@ -321,3 +319,6 @@ fi
 if [ -f ~/.bashrc.panos ]; then
         . ~/.bashrc.panos
 fi
+
+source ~/.myalias
+
