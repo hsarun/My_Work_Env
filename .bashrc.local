@@ -1,3 +1,86 @@
+#.bashrc.local 07/13/00 mbs
+#
+# This script is invoked automatically by the example .bashrc
+#
+# It is intended that you modify this file and put customized things here
+# so that the group can share one common .bashrc file.
+#
+
+# Because Windows thinks my user name is "Mike Shoemaker", change it, and
+# update CVSROOT.
+#%%%export USER=mbs
+#export CVSROOT=:pserver:$USER@justtryme:f:\\swdev\\cvsrep
+#%%%export CVSROOT=$(echo ${CVSROOT} | sed -e "s/:[^:@]*@/:${USER}@/")
+
+
+# Turn on vi-style command line editing.
+# If you prefer EMACS-style editing, use -o emacs
+set -o vi
+
+#
+# If I'm not at work, then use REF_DIR from local drive
+#
+#if [ "$HOSTNAME" != "MBSPC" ]
+#then
+#    export REF_DIR=/cvs/panos
+#fi
+
+unset noclobber
+
+#
+# Generic aliases
+#
+alias cda='cd $a'
+alias cdb='cd $b'
+alias cdc='cd $c'
+alias cdd='cd $d'
+alias cde='cd $e'
+alias cdp='cd $p'
+alias cdt='cd $t'
+alias copy=cp
+alias del=rm
+alias ren=mv
+alias seta='set a=$PWD'
+alias setb='set b=$PWD'
+alias setc='set c=$PWD'
+alias setd='set d=$PWD'
+
+unalias mv
+unalias rm
+
+
+#
+# For building tornado things on x86 using Cygwin tools
+#
+alias ar386=ar
+alias as386=as
+alias cc386=gcc
+alias ld386=ld
+alias nm386=nm
+alias ranlib386=ranlib
+alias size386=size
+
+#
+# Shortcuts/Aliases for panos
+#
+export p=/cvs/panos
+export e=$p/wind/target/config/ev64120
+export t=$WIND_BASE/target/h
+
+#
+# Do a 'make sys' from the top level. Save all output in proj.err
+#
+alias mksys='(cd $p ; make sys 2>&1 | tee $p/proj.err)'
+
+#alias tgt='cd /cvs/panos/bin/mips-galileo-vxworks ; tgtsvr.exe 192.168.1.169 -n 192.168.1.169 -V -c C:/vxworks/vxWorks'
+
+#
+# Make the files writable in the rapidlogic tree to enable using the GUI
+# builder tool.
+# 
+alias rapidedit='cd $p/rapidlogic ; cvs edit panos.ccp panos.rcp panos.wcp rc_options.h rcc_cli.c rcc_cli.h rcc_handlers.c rcc_handlers.h'
+
+
 export EMAIL_ADDR=Arun.Srinivasa@alcatel-lucent.com
 #source /usr/local/timostools/git-dts
 
