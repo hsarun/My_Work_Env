@@ -221,4 +221,25 @@ regrvfp_ver0submit () {
     regress -subTopology vfp -testbed $1 -runLevel express -reason $2 -useimages 7750mg/0.0/latest;
 }
 
+# $1: Reason
+dregrv2submit () {
+    dregress -v2 -reason $1 -pkg basic;
+}
+
+# $1: Reason
+dregrv3submit () {
+    dregress -v3 -reason $1 -pkg basic;
+}
+
+# $1: Reason
+dregrvfpsubmit () {
+    dregress -vfp -reason $1 -pkg express;
+}
+
+# $1: Reason
+dregrsubmit () {
+    dregrv2submit $1;
+    dregrv3submit $1;
+    dregrvfpsubmit $1;
+}
 
