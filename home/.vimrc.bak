@@ -14,50 +14,45 @@ call vundle#begin()
 " Plugin 'VundleVim/Vundle.vim'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
+Plugin 'L9'
 
 " Install L9 and avoid a Naming conflict if you've already installed a
 " " different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+Plugin 'ascenator/L9', {'name': 'newL9'}
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'vim-scripts/ctags.vim--Johnson'
 Plugin 'vim-scripts/MultipleSearch'
 Plugin 'vim-scripts/DirDiff.vim'
 Plugin 'antiAgainst/cscope-macros.vim'
-Plugin 'jlanzarotta/bufexplorer'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'justinmk/vim-sneak'
 Plugin 'edsono/vim-matchit'
-Plugin 'sjl/gundo.vim'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'vim-scripts/python_match.vim'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'jeetsukumaran/vim-buffersaurus'
+Plugin 'vim-scripts/ShowFunc.vim'
+Plugin 'sjl/clam.vim'                         "Clam shellcmd
+Plugin 'vim-scripts/OmniCppComplete'
 Plugin 'vim-scripts/vimtabs.vim'
-Plugin 'flazz/vim-colorschemes'
-
-"Plugin 'vim-scripts/ShowFunc.vim'
-"Plugin 'sjl/clam.vim'                         "Clam shellcmd
-"Plugin 'vim-scripts/OmniCppComplete'
-"Plugin 'fholgado/minibufexpl.vim'
-"Plugin 'vim-scripts/CursorLineCurrentWindow'
-"Plugin 'bling/vim-airline'
-"Plugin 'majutsushi/tagbar'                    "Enables the c-function names with g:airline#extensions#tagbar#enabled below.
-"Plugin 'ctrlpvim/ctrlp.vim'
-"Plugin 'rking/ag.vim'
+Plugin 'fholgado/minibufexpl.vim'
+Plugin 'vim-scripts/CursorLineCurrentWindow'
+Plugin 'bling/vim-airline'
+Plugin 'majutsushi/tagbar'                    "Enables the c-function names with g:airline#extensions#tagbar#enabled below.
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'rking/ag.vim'
 "Plugin 'maxbrunsfeld/vim-yankstack'
-"Plugin 'tarmolov/TabLineNumbers.vim'
-"Plugin 'Shougo/vimproc.vim'
-"Plugin 'Shougo/vimshell.vim'
-"Plugin 'trapd00r/neverland-vim-theme'
-"Plugin 'vim-scripts/AnsiEsc.vim'
-"Plugin 'ofavre/vimcat.git'
-"Plugin 'airblade/vim-gitgutter'
-"Plugin 'ujihisa/tabpagecolorscheme'
-"Plugin 'scrooloose/nerdcommenter'
+Plugin 'tarmolov/TabLineNumbers.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/vimshell.vim'
+Plugin 'trapd00r/neverland-vim-theme'
+Plugin 'vim-scripts/AnsiEsc.vim'
+Plugin 'ofavre/vimcat.git'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'ujihisa/tabpagecolorscheme'
+Plugin 'scrooloose/nerdcommenter'
 
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -97,8 +92,7 @@ set ls=2
 set undolevels=1000
 syntax on
 
-" colorscheme desertEx
-colorscheme phd 
+colorscheme desertEx
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -109,7 +103,7 @@ if &t_Co > 2 || has("gui_running")
   " colorscheme koehler
   " colorscheme ir_black
   " colorscheme colorer
-  " colorscheme desertEx
+  colorscheme desertEx
   " colorscheme freya
   " colorscheme golden
   " colorscheme hhspring
@@ -127,7 +121,6 @@ if &t_Co > 2 || has("gui_running")
   " colorscheme umber-green
   " colorscheme vividchalk
   " colorscheme xemacs
-  colorscheme phd 
 endif
 
 set splitright
@@ -246,52 +239,4 @@ set tags=tags
     "
     "set ttimeoutlen=100
 
-"Key Mappings for cscope
-"source  ~/.vim/plugin/cscope_maps.vim
-
-"Key Mappings for quickfix
-set cscopequickfix=s-,c-,d-,i-,t-,f-,e-
-:map <C-Up> :cope 15<CR>
-:map <C-Down> :ccl<CR>
-:map <C-Right> :cn<CR>
-:map <C-Left> :cp<CR>
-
-"Key Mappings for BufExplorer - To work on multiple buffers in the same VIM window
-let bufExplorerOpenMode=1
-let bufExplorerSplitBelow=1
-let bufExplorerSplitHorzSize=10
-:map <S-Right> :bnext<CR>
-:map <S-Left>  :bprev<CR>
-:map <S-Up>  \bs
-
-
-"SHIFT-Insert are Paste
-nmap <S-Insert>        "+gP
-imap <S-Insert>        <ESC><S-Insert>i
-
-"vim-fugitive plugin command - To see git diff of a file type :<F9> in vim
-:cmap <F9> :tabnew %\|Gdiff<CR>
-
-"Added by Lakshman Kumar
-if has("win32unix")
-    let g:showfuncctagsbin="/usr/local/timostools/ctags"
-else
-    let g:showfuncctagsbin="/home/udayakut/software/ctags/ctags-5.8/installed_binaries/bin/ctags"
-endif
-let g:ctags_statusline=1
-let g:ctags_title=0
-let generate_tags=1
-
-"To copy vbox centos vm to windows clipboard
-function! DumpToClipBoard()
-    "call writefile(split(@","\n"), '/dev/clipboard')
-    call system("xsel -i -b", getreg("\""))
-endfunction
-
-map <Leader>clip :call DumpToClipBoard()<CR>
-vmap <C-c> y:call DumpToClipBoard()<CR>
-
-if has("win32unix")
-    set guifont=Bitstream\ Vera\ Sans\ Mono\ 13
-endif
 
