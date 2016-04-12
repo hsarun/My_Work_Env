@@ -1,0 +1,1013 @@
+diff --git a/iom/iom_hash_tbl.h b/iom/iom_hash_tbl.h
+index 6378086..d3df2b9 100644
+--- a/iom/iom_hash_tbl.h
++++ b/iom/iom_hash_tbl.h
+@@ -519,6 +519,10 @@ void np_hash_##name##_TABLE::np_write_initial_table(NP_HASH_BUCKET_DATA * bucket
+             (iom_has_vfp ? CONSTRUCT_VFP_HASH_TABLE (cplx, chain, name,  k2mode, rafn, ppm)                 \
+                          : CONSTRUCT_ANY_HASH_TABLE(cplx, chain, name, k2mode, rafn, thfn, ppm, sync))
+ 
++#define CONSTRUCT_HASH_TABLE_COM_INC_VFP(cplx, chain, name, rafn, thfn, ppm)                                \
++            (iom_has_vfp ? CONSTRUCT_VFP_HASH_TABLE(cplx, chain, name, true, rafn, ppm)                     \
++                         : CONSTRUCT_HASH_TABLE_COM(cplx, chain, name, rafn, thfn, ppm))
++
+ #define CONSTRUCT_NP_VFP_HASH_TABLE(cplx, chain, name, rafn, thfn, ppm)                                     \
+             (iom_has_vfp ? CONSTRUCT_VFP_HASH_TABLE (cplx, chain, name,  false, rafn, ppm)                  \
+                          : CONSTRUCT_NP_HASH_TABLE(cplx, chain, name, false, rafn, thfn, ppm, false))
+diff --git a/iom/iom_main.cpp b/iom/iom_main.cpp
+index 6667e763..8cc51b1 100644
+--- a/iom/iom_main.cpp
++++ b/iom/iom_main.cpp
+@@ -18155,7 +18155,7 @@ void IOM_INFO::queue_icc_response_async (IOM_ICC_ACTION action, tIccTransaction
+ 
+     semTake(icc_async_resp_list_lock, WAIT_FOREVER);
+     {
+-        IOM_EVENT("Queueing ICC Async Response a=%u t=%p socket=%u qlen=%zu", action, t, t->Socket, icc_async_resp_list.size());
++//        IOM_EVENT("Queueing ICC Async Response a=%u t=%p socket=%u qlen=%zu", action, t, t->Socket, icc_async_resp_list.size());
+         do_sem_give = icc_async_resp_list.empty();
+         icc_async_resp_list.push_back(make_pair(action, t));
+     }
+diff --git a/iom/iom_msm_main.cpp b/iom/iom_msm_main.cpp
+index ff2735b..9b63aa7 100644
+--- a/iom/iom_msm_main.cpp
++++ b/iom/iom_msm_main.cpp
+@@ -3669,7 +3669,7 @@ void IOM_MSM::send_msm_stats_req_msg(UINT32 tbl_idx)
+ void IOM_MSM::calculate_rpt_stats_poll_time (UINT32 stats_active_count)
+ {
+     gRPT_STATS_POLL_TIME = 1 + (RPT_STATS_POLL_OPT_TIME/(iom_msm_num_sdfs/stats_active_count));
+-    IOM_EVENT("gRPT_STATS_POLL_TIME %d stats_active_count %d RPT_STATS_POLL_OPT_TIME %d MAX_PER_MSM_SESSION_SDFS %d", gRPT_STATS_POLL_TIME, stats_active_count, RPT_STATS_POLL_OPT_TIME, iom_msm_num_sdfs);
++//    IOM_EVENT("gRPT_STATS_POLL_TIME %d stats_active_count %d RPT_STATS_POLL_OPT_TIME %d MAX_PER_MSM_SESSION_SDFS %d", gRPT_STATS_POLL_TIME, stats_active_count, RPT_STATS_POLL_OPT_TIME, iom_msm_num_sdfs);
+     if ((MY_IOM->get_gw_type() == MSM_PGW_GGSN || MY_IOM->get_gw_type() == MSM_SCCG) && stats_active_count < RPT_STATS_ACTIVE_THRESHOLD_MAX)
+     {
+         /*
+diff --git a/iom/iom_subscriber.cpp b/iom/iom_subscriber.cpp
+index a4d8b2a..98f5b33 100644
+--- a/iom/iom_subscriber.cpp
++++ b/iom/iom_subscriber.cpp
+@@ -46,6 +46,9 @@ static const char rcsid[] = "$Id$";
+ #include "iom/iom_subscriber.h"
+ #include "iom_api/iom_qos_common.h"
+ #include "iom_api/iom_svc_types.h"
++#ifndef __mips__
++#include "pchip_code/vfp_hash.h"
++#endif
+ 
+ DEFINE_HASH_TABLE            (INGRESS_SUBSCRIBER)
+ DEFINE_P_ONLY_HASH_TABLE     (DPI_INGRESS_SUB_NEXTHOP)
+@@ -53,12 +56,47 @@ DEFINE_HASH_TABLE            (EGRESS_SUB)
+ 
+ DEFINE_P_ONLY_HASH_TABLE     (INGRESS_SUB_NEXTHOP)
+ DEFINE_NP_HASH_TABLE_FNS     (INGRESS_NP_SUB_NEXTHOP)
++DEFINE_VFP_HASH_TABLE_FNS    (INGRESS_NP_SUB_NEXTHOP)
+ 
+ DEFINE_HASH_CONVERT_KEY1     (np_hash_, INGRESS_NP_SUB_NEXTHOP, INGRESS_NP_SUB_NEXTHOP_LOOKUP_KEY)
+ DEFINE_HASH_CONVERT_KEY2     (np_hash_, INGRESS_NP_SUB_NEXTHOP, INGRESS_SUB_NEXTHOP_LOOKUP_KEY)
+ 
+ /*=========================================================================================*/
+ 
++UINT32 vfp_hash_INGRESS_NP_SUB_NEXTHOP_TABLE::get_signature(void * key)
++{
++    UINT32 sig = 0;
++#ifndef __mips__
++    INGRESS_NP_SUB_NEXTHOP_LOOKUP_KEY * key_in = (INGRESS_NP_SUB_NEXTHOP_LOOKUP_KEY *)key;
++
++    if (key_in->is_alt_type)
++    {
++        if (key_in->alt_type == NP_SUB_NEXTHOP_ALT_TYPE_RDI)
++        {
++            sig = vfp_hash_1word(key_in->rdi);
++        }
++    }
++    else
++    {
++        if (key_in->type == NP_SUB_NEXTHOP_TYPE_NONE)
++        {
++            sig = vfp_hash_2words(key_in->routed.vrf, *(UINT32 *) &key_in->routed.ip);
++        }
++        else if (key_in->type == NP_SUB_NEXTHOP_TYPE_L2TP)
++        {
++            sig = vfp_hash_2words(key_in->l2tp.tunnel_id, key_in->l2tp.session_id);
++        }
++        else if (key_in->type == NP_SUB_NEXTHOP_TYPE_GTP)
++        {
++            // not supported yet
++        }
++    }
++#endif
++    return sig;
++}
++
++/*=========================================================================================*/
++
+ #define SUBSCRIBER_IOM_LOCK_BOUNCE_TICKS               (TIMOS_TICKS_PER_SEC / 10)
+ 
+ #define NUM_SUBSCRIBER_L2_HOSTS_PER_ESR                (MIN(iom_max_subscribers_per_esr, iom_max_saps_per_esr))
+@@ -11265,9 +11303,11 @@ IOM_SUBSCRIBER::IOM_SUBSCRIBER (PP_PROG_MASK ingress_init_pp_mask, PP_PROG_MASK
+       subscriber_incipient_group_allocator(),
+       subscriber_ip_nexthop_allocator (),
+       sub_host_v6_prefix_group_allocator (),
+-      INGRESS_SUB_NEXTHOP_hash_table (iom_has_npchips ? CONSTRUCT_NP_HASH_TABLE (NULL, CHAIN_MASK_FLAG, INGRESS_NP_SUB_NEXTHOP, false, 
++      INGRESS_SUB_NEXTHOP_hash_table (iom_has_vfp ? CONSTRUCT_VFP_HASH_TABLE (NULL, CHAIN_MASK_FLAG, INGRESS_NP_SUB_NEXTHOP, false,
++                                                                              IOM_INFO::reallocate_sub_host_entry, ingress_init_pp_mask)
++                                                  : iom_has_npchips ? CONSTRUCT_NP_HASH_TABLE (NULL, CHAIN_MASK_FLAG, INGRESS_NP_SUB_NEXTHOP, false, 
+                                                                                  IOM_INFO::reallocate_sub_host_entry, NULL,ingress_init_pp_mask, false)
+-                                                      : CONSTRUCT_P_HASH_TABLE (NULL, CHAIN_MASK_FLAG, INGRESS_SUB_NEXTHOP, false, 
++                                                                    : CONSTRUCT_P_HASH_TABLE (NULL, CHAIN_MASK_FLAG, INGRESS_SUB_NEXTHOP, false, 
+                                                                                 IOM_INFO::reallocate_sub_host_entry, ingress_init_pp_mask)),
+       DPI_INGRESS_SUB_NEXTHOP_hash_table (NULL),
+       low_prio_sub_work_queue ("-SubsLoWQ-", WORK_QUEUE_PRIORITY_LOW, (iom_max_subscriber_hosts_per_esr + NUM_SUBSCRIBER_L2_HOSTS_PER_ESR + NUM_SUBSCRIBER_APPS_PER_IOM)),
+diff --git a/pchip_code/egress_frame.inc b/pchip_code/egress_frame.inc
+index 4429bdf..d948d38 100644
+--- a/pchip_code/egress_frame.inc
++++ b/pchip_code/egress_frame.inc
+@@ -644,6 +644,7 @@ typedef struct
+ } IPV4_SVC_HDR;                                   //  20 + 4 = 24 bytes
+ 
+ // The L3/L4 network service header which goes on a PPPOE frame on its way to an L2TP LAC
++.export_macros_start
+ export typedef struct
+ {
+     struct
+@@ -654,6 +655,7 @@ export typedef struct
+     L2TP_HEADER             l2tp;
+     POS_ADDR_AND_CTRL       addr_and_ctrl;
+ } IPV4_L2TP_HDR;                                // 20 + 8 + 6 + 2 = 36 bytes
++.export_macros_end
+ 
+ export typedef struct
+ {
+diff --git a/pchip_code/np_ingress_c.cpp b/pchip_code/np_ingress_c.cpp
+index c90c5d7..d849bc8 100644
+--- a/pchip_code/np_ingress_c.cpp
++++ b/pchip_code/np_ingress_c.cpp
+@@ -13907,6 +13907,7 @@ l2tp_ppp_lcp_echo_req_reply:
+ 
+ l2tp_ppp_data_to_msm:
+     /*LOG(); TB TODO*/
++    pchip_log_criteria("l2tp-mg-data=1");
+     pchip_logpf("L2TP PPP Data frame Chunk id %u\n", sub_nexthop_record.msm_chunk_id);
+     psi.msm.chunk_id = sub_nexthop_record.msm_chunk_id;
+     psi.msm_reason_code = TO_MSM_REASON_L2TP_OR_EXT;
+diff --git a/pchip_code/vfp_egress_c.cpp b/pchip_code/vfp_egress_c.cpp
+index ea12c48..ede91ac 100755
+--- a/pchip_code/vfp_egress_c.cpp
++++ b/pchip_code/vfp_egress_c.cpp
+@@ -3079,6 +3079,97 @@ vfp_egr_gre_tunnel_encap(tVfpPacketDesc         *pDesc,
+     return (true); 
+ }
+ 
++/**************************************************************************************************
++ * l2tp tunnel
++ *************************************************************************************************/
++VFP_INLINE void VFP_FUNCTION_TAG VFP_FN_HOT
++vfp_egr_build_ipv4_l2tp(UINT8                           *frame_out,
++                        INT32                           *out_ptr,
++                        UINT32                           frame_length,
++                        const L2TP_BINDING_AND_SESSION  *l2tp_binding,
++                        UINT8                            l2tp_dscp)
++{
++    EGRESS_L2TP_CONFIG *l2tp_config = &EGRESS_L2TP_CFG_TABLE_CTABLE[l2tp_binding->binding_index];
++    pchip_logpf("Read EGRESS_L2TP_CFG_TABLE - l2tp_tunnel=%u dest_port=%u dont_fragment=%u\n",
++        l2tp_config->tunnel_id, l2tp_config->dest_port, l2tp_config->dont_fragment);
++
++    if (l2tp_binding->ip_not_ppp)
++    {
++        *out_ptr -= NAT_IPV4_L2TP_HDR__BYTES;
++        *(UINT16 *)&frame_out[*out_ptr + IPV4_L2TP_HDR__BYTES] = rte_constant_bswap16(PPP_PROTOCOL_IPV4);
++    }
++    else
++    {
++        *out_ptr -= IPV4_L2TP_HDR__BYTES;
++    }
++
++    pchip_logpf("Building IPv4_L2TP header ");
++
++#define l2tp_raw_ptr &frame_out[*out_ptr]
++
++    // addr_and_ctrl
++    UINT16 *pos = (UINT16 *)fetch_IPV4_L2TP_HDR__addr_and_ctrl_ptr(l2tp_raw_ptr);
++    *pos = ((POS_ADDR_VAL << 0) | (POS_CTRL_VAL << 8));
++
++    pchip_logpf("[addr=%u ctrl=%u] ",
++        fetch_IPV4_L2TP_HDR__addr_and_ctrl_addr(l2tp_raw_ptr),
++        fetch_IPV4_L2TP_HDR__addr_and_ctrl_ctrl(l2tp_raw_ptr)
++        );
++
++    // l2tp
++    UINT8 *l2tp = (UINT8 *)fetch_IPV4_L2TP_HDR__l2tp_ptr(l2tp_raw_ptr);
++    put_L2TP_HEADER__flags_and_vers(l2tp, L2TP_VERSION);
++    put_L2TP_HEADER__ids_tunnel_id (l2tp, l2tp_config->tunnel_id);
++    put_L2TP_HEADER__ids_session_id(l2tp, l2tp_binding->session_id);
++
++    pchip_logpf("l2tp [version=%u tunnel_id=%u session_id=%u] ",
++        fetch_IPV4_L2TP_HDR__l2tp_flags_and_vers_version(l2tp_raw_ptr),
++        fetch_IPV4_L2TP_HDR__l2tp_ids_tunnel_id (l2tp_raw_ptr),
++        fetch_IPV4_L2TP_HDR__l2tp_ids_session_id(l2tp_raw_ptr)
++        );
++
++    // udp
++    UINT8 *udp = (UINT8 *)fetch_IPV4_L2TP_HDR__ipv4_udp_udp_ptr(l2tp_raw_ptr);
++    put_UDP_HEADER__ports_source(udp, UDP_PORT_L2TP);
++    put_UDP_HEADER__ports_dest  (udp, l2tp_config->dest_port);
++    if (l2tp_binding->ip_not_ppp)
++        put_UDP_HEADER__length(udp, frame_length + UDP_HEADER__BYTES + L2TP_HEADER__BYTES + POS_ADDR_AND_CTRL__BYTES + POS_HEADER__BYTES);
++    else
++        put_UDP_HEADER__length(udp, frame_length + UDP_HEADER__BYTES + L2TP_HEADER__BYTES + POS_ADDR_AND_CTRL__BYTES);
++    put_UDP_HEADER__checksum(udp, 0);
++
++    pchip_logpf("udp [src=%u dst=%u len=%u] ",
++        fetch_IPV4_L2TP_HDR__ipv4_udp_udp_ports_source(l2tp_raw_ptr),
++        fetch_IPV4_L2TP_HDR__ipv4_udp_udp_ports_dest(l2tp_raw_ptr),
++        fetch_IPV4_L2TP_HDR__ipv4_udp_udp_length(l2tp_raw_ptr)
++        );
++
++    // ip
++    UINT8 *ip4 = (UINT8 *)fetch_IPV4_L2TP_HDR__ipv4_udp_ipv4_ptr(l2tp_raw_ptr);
++    put_IPV4_HEADER__version_ihl  (ip4, DEFAULT_IPV4_VERSION_IHL);
++    put_IPV4_HEADER__dscp_dscp_val(ip4, l2tp_dscp);
++    put_IPV4_HEADER__total_length (ip4, frame_length + (l2tp_binding->ip_not_ppp ? NAT_IPV4_L2TP_HDR__BYTES : IPV4_L2TP_HDR__BYTES));
++    put_IPV4_HEADER__frag_offset_and_flags(ip4, (l2tp_config->dont_fragment ? 0x4000 : 0x0000));
++    put_IPV4_HEADER__ttl(ip4, INITIAL_TTL);
++    put_IPV4_HEADER__protocol(ip4, IP_PROTOCOL_UDP);
++    put_IPV4_HEADER__checksum(ip4, 0);
++
++    put_IPV4_HEADER__addresses_sa(ip4, rte_bswap32(*(UINT32 *)&l2tp_config->tunnel_addresses.sa));
++    put_IPV4_HEADER__addresses_da(ip4, rte_bswap32(*(UINT32 *)&l2tp_config->tunnel_addresses.da));
++
++    pchip_logpf("ipv4 [vihl=0x%x dscp=0x%x ttl=%u len=%u sa=0x%08x da=0x%08x]\n",
++        fetch_IPV4_L2TP_HDR__ipv4_udp_ipv4_version_ihl(l2tp_raw_ptr),
++        fetch_IPV4_L2TP_HDR__ipv4_udp_ipv4_dscp_dscp_val(l2tp_raw_ptr),
++        fetch_IPV4_L2TP_HDR__ipv4_udp_ipv4_ttl(l2tp_raw_ptr),
++        fetch_IPV4_L2TP_HDR__ipv4_udp_ipv4_total_length(l2tp_raw_ptr),
++        fetch_IPV4_L2TP_HDR__ipv4_udp_ipv4_addresses_sa(l2tp_raw_ptr),
++        fetch_IPV4_L2TP_HDR__ipv4_udp_ipv4_addresses_da(l2tp_raw_ptr)
++        );
++
++#undef l2tp_raw_ptr
++}
++
++
+ #define SVC_PARMS       sw_fab_hdr->parm.svc
+ #define CORE_PARMS      sw_fab_hdr->parm.core
+ 
+@@ -3661,10 +3752,11 @@ gtp_v0_done:
+ msm_reason_l2tp_pkt:
+             msm_offset_to_reread = msm_sw_fab_hdr.parm.raw.main.to_msm.sess_ip_offset;
+ #endif
+-            /*LOG_MSM_FWD(); TB TODO*/ 
+-            pchip_log_criteria("l2tp-mg-dl-data"); 
++            /*LOG_MSM_FWD(); TB TODO*/
++            pchip_log_criteria("l2tp-mg-dl-data");
+             msm_frame_info.teid.is_l2tp = 1;
+-            tunnel_id.id = msm_sw_fab_hdr.parm.raw.main.to_msm.tunnel_id;
++            //tunnel_id.id = msm_sw_fab_hdr.parm.raw.main.to_msm.tunnel_id; // This is made zero above...
++            tunnel_id.id = sw_fab_hdr->parm.raw.main.to_msm.tunnel_id;
+ 
+             {
+             L2TP_HEADER l2tp_hdr = {{ 0 }};
+@@ -3673,21 +3765,21 @@ msm_reason_l2tp_pkt:
+             if (l2tp_hdr.flags_and_vers.length_present)
+             {
+                 /*LOG_MSM_FWD(); TB TODO*/
+-                L2TP_HEADER_AND_LENGTH l2tp_hdr_len = {{ 0 }}; 
++                L2TP_HEADER_AND_LENGTH l2tp_hdr_len = {{ 0 }};
+                 convert_to_L2TP_HEADER_AND_LENGTH(&l2tp_hdr_len, &buf[sizeof(msm_sw_fab_hdr) + UDP_HEADER__BYTES], 0);
+-                pchip_logpf("Perform MSM L2TP lookup teid %x sessid %x\n", l2tp_hdr_len.ids.tunnel_id, l2tp_hdr_len.ids.session_id);
+-                msm_session_id_lkup_key.l2tp_key.tunnel_id = l2tp_hdr_len.ids.tunnel_id; 
+-                msm_session_id_lkup_key.l2tp_key.session_id = l2tp_hdr_len.ids.session_id; 
++                pchip_logpf("Perform MSM L2TP lookup teid %x sessid %x (length_present)\n", l2tp_hdr_len.ids.tunnel_id, l2tp_hdr_len.ids.session_id);
++                msm_session_id_lkup_key.l2tp_key.tunnel_id = l2tp_hdr_len.ids.tunnel_id;
++                msm_session_id_lkup_key.l2tp_key.session_id = l2tp_hdr_len.ids.session_id;
+             }
+             else
+             {
+                 pchip_logpf("Perform MSM L2TP lookup teid %x sessid %x\n", l2tp_hdr.ids.tunnel_id, l2tp_hdr.ids.session_id);
+-                msm_session_id_lkup_key.l2tp_key.tunnel_id = l2tp_hdr.ids.tunnel_id; 
+-                msm_session_id_lkup_key.l2tp_key.session_id = l2tp_hdr.ids.session_id; 
++                msm_session_id_lkup_key.l2tp_key.tunnel_id = l2tp_hdr.ids.tunnel_id;
++                msm_session_id_lkup_key.l2tp_key.session_id = l2tp_hdr.ids.session_id;
+             }
+             }
+ #if EGRESS_MSM_TWAG_SUPPORT
+-lookup_msm_session_id:                  
++lookup_msm_session_id:
+ #endif
+             UINT32 sig;
+             const EGRESS_MSM_SESSION_ID_RECORD *msm_session_id_rec;
+@@ -3767,7 +3859,7 @@ l2tp_hash_lookup_done:
+             else
+             {
+                 /*LOG_MSM_FWD(); TB TWAG TODO*/
+-                pchip_logpf("Found session %d l2tp header len %d\n", msm_session_id_rec->session_id, msm_sw_fab_hdr.parm.raw.main.to_msm.sess_ip_offset);
++                pchip_logpf("Found session: %d l2tp header len: %d\n", msm_session_id_rec->session_id, msm_sw_fab_hdr.parm.raw.main.to_msm.sess_ip_offset);
+                 msm_offset_to_reread += UDP_HEADER__BYTES;
+             }
+ #else
+@@ -5140,6 +5232,7 @@ vfp_egr_core_handler(tVfpPacketDesc *pDesc, SW_FABRIC_HEADER *sw_fab_hdr)
+     bool                            sap_qos_filter_override = FALSE; 
+     bool                            clear_df_for_frag = FALSE;
+     bool                            drop_pref_queue = FALSE;
++    UINT8                           l2tp_outer_dscp = 0;
+ 
+     // Define variable to store jump labels.
+     jump_var(jump_addr);
+@@ -5158,7 +5251,12 @@ vfp_egr_core_handler(tVfpPacketDesc *pDesc, SW_FABRIC_HEADER *sw_fab_hdr)
+         frame_out    += sizeof(SW_FAB_HDR_IPV6_EXTRA);
+         frame_length -= sizeof(SW_FAB_HDR_IPV6_EXTRA); 
+     }
+-    
++    else if (unlikely(sw_fab_hdr->common.has_l2tp_extra))
++    {
++        frame_out    += SW_FAB_HDR_L2TP_EXTRA__BYTES;
++        frame_length -= SW_FAB_HDR_L2TP_EXTRA__BYTES;
++    }
++   
+     out_ptr         = - IPV4_HEADER__BYTES;
+     drop_pref_queue = !!(sw_fab_hdr->common.qos.in_profile & 0x01);
+     fc              = sw_fab_hdr->common.qos.fc;
+@@ -5515,6 +5613,8 @@ jump_label(sap_filter)
+                     tos = (tos & 0x1f) | ((sap_fc_dscp_marking->value.dscp << 2) & 0xe0);
+                 
+                 XLOG(sap_fc_dscp_marking->prec_bits_only);
++
++                l2tp_outer_dscp = sap_fc_dscp_marking->value.dscp;
+             }
+ 
+             pchip_logpf("SAP FC->DSCP remarking, fli %u fc %u profile %s remarking %s, remarks to 0x%x prec_only %u (tbl=0x%x)\n",
+@@ -5559,6 +5659,8 @@ nw_qos_marking:
+                 tos = (tos & 3) | (qos_entry->dscp << 2);
+                 CORE_PARMS.cp3.bits.exp = qos_entry->exp;
+             }
++
++            l2tp_outer_dscp = qos_entry->dscp;
+             
+             // We already decided to egress via network i/f. So avoiding another conditional jump
+             // on same while adding egress tags.
+@@ -5566,7 +5668,32 @@ nw_qos_marking:
+         }
+     }
+ 
+-    if (CORE_PARMS_1.flags.ip_not_mpls)
++    if (unlikely((sw_fab_hdr->common.has_l2tp_extra)))
++    {
++        //PCHIP_ASSERT((UINT8 *)sw_fab_hdr != buf);       // we expect the fabric header is cached
++
++        UINT8 *l2tp_data = (UINT8 *)(sw_fab_hdr +1);
++        SW_FAB_HDR_L2TP_EXTRA l2tp_extra;
++        L2TP_BINDING_AND_SESSION l2tp_info;
++
++        convert_to_SW_FAB_HDR_L2TP_EXTRA(&l2tp_extra, l2tp_data);
++        l2tp_info  = l2tp_extra.binding_and_session;
++
++        pchip_logpf("Read L2TP extra [binding-index=%u:0x%x ip_not_ppp=%u is_gtp=%u] [session=%u:0x%x]\n",
++            l2tp_info.binding_index, l2tp_info.binding_index, l2tp_info.ip_not_ppp, l2tp_info.is_gtp, l2tp_info.session_id, l2tp_info.session_id);
++
++        vfp_egr_build_ipv4_l2tp(frame_out, &out_ptr, frame_length + IPV4_HEADER__BYTES, &l2tp_info, l2tp_outer_dscp);
++
++        ip_ptr = &frame_out[out_ptr];
++        if (unlikely(rte_memiszero(fetch_IPV4_HEADER__addresses_da_ptr(ip_ptr), sizeof(IP_ADDRESS))))
++        {
++            return (vfp_egr_discard(pDesc, EGRESS_STAT_NULL_DEST_IP));
++        }
++
++        UINT16 checksum = vfp_egr_ipv4_hdr_checksum_calc(ip_ptr);
++        put_IPV4_HEADER__checksum(ip_ptr, checksum);
++    }
++    else if (CORE_PARMS_1.flags.ip_not_mpls)
+     {
+         /**************************************************************************************************
+         * update ip hdr/check for frag
+diff --git a/pchip_code/vfp_ingress_c.cpp b/pchip_code/vfp_ingress_c.cpp
+index 0e64729..3be11a5 100755
+--- a/pchip_code/vfp_ingress_c.cpp
++++ b/pchip_code/vfp_ingress_c.cpp
+@@ -240,8 +240,21 @@ typedef struct t_vfp_msm_reason
+     {
+         IP_ADDRESS                  ipv4_da_for_routing_lookup;      //32
+         IPV6_ADDRESS                ipv6_da_for_routing_lookup;
++        UINT8                       l2tp_tunnel_id_msb;
++        UINT8                       l2tp_tunnel_id_lsb;
++        F_UINT(7,                   l2tp_hdrs_length);
+     } ip_routing;
+-
++    struct
++    {
++        L2TP_OR_GTP_SESSION_AND_GLOBAL_SUB_ID   l2tp_or_gtp_session;
++        bool                                    msm_l2tp_ip_not_ppp;
++    };
++    struct
++    {
++        bool                        is_sap_to_l2tp;
++    }svc_bits;
++    INGRESS_L2_HEADER_SIZE          l2_hdr_size;
++ 
+ } t_vfp_msm_reason;  // unpacked version of psi.msm
+ 
+ /**************************************************************************************************
+@@ -983,8 +996,12 @@ vfp_ing_l4hdr_classify(UINT8 *ip_ptr, t_ing_unpacked_ipv4 *unpacked_ip, t_vfp_cp
+             switch (ports.dest)
+             {
+                 case UDP_PORT_L2TP:
+-                    if (!is_ipv6)
++                    if (!is_ipv6) {
+                         SET_TO_CPM_CODE_PROVISIONAL(cpm_reason, TO_CPM_RAW_REASON_L2TP_CONTROL);
++                        pchip_logpf("Provisional to CPM reason code L2TP\n");
++                        msm->l4_offset   = (l4_hdr -ip_ptr) >> 2;
++                        pchip_logpf("msm->l4_offset: %d\n", msm->l4_offset);
++                    }
+                     break;
+                 case UDP_PORT_BOOTPC:
+                 case UDP_PORT_BOOTPS:
+@@ -2215,7 +2232,7 @@ vfp_ing_forward_to_msm(tVfpPacketDesc *pDesc, tVfpWorkerHandlerData *worker_info
+         
+     queue_info = &INGRESS_QUEUE_INFO_TABLE_CTABLE[msm_group_dest->q];
+     //    q2_output_context = &INGRESS_Q2_OUT_CTXT_TABLE_CTABLE[queue_info->voq_num];
+-    pchip_logpf("Tunnel_id 0x%x Chunk %d Micronet %d Offset %d ", sw_hdr->parm.raw.main.to_msm.tunnel_id, msm->chunk_id, sw_hdr->parm.raw.main.to_msm.micronet_id, sw_hdr->parm.raw.main.to_msm.sess_ip_offset); 
++    pchip_logpf("Tunnel_id 0x%x Chunk %d(0x%x) Micronet %d Offset %d ", sw_hdr->parm.raw.main.to_msm.tunnel_id, msm->chunk_id, msm->chunk_id, sw_hdr->parm.raw.main.to_msm.micronet_id, sw_hdr->parm.raw.main.to_msm.sess_ip_offset); 
+ 
+ #if INGRESS_MSM_FWD_SUPPORT
+     // UE to UE, MSM to MSM
+@@ -2413,7 +2430,10 @@ forward_to_msm_cont:
+         output_frame_offset = ing->ip_ptr - frame_start;
+ 
+     if (((MSM_REASON_CODE(msm) == TO_MSM_REASON_L2TP_OR_EXT) && !((msm->msm_reason_code_ext >> 1) == (TO_MSM_REASON_EXT_TWAG >> 1))))
++    {
+         output_frame_offset += (msm->l4_offset << 2);
++        pchip_logpf("Skip to L4 %d\n", msm->l4_offset << 2);
++    }
+     
+     if (likely(ing->ip_ptr != NOT_AN_IP_FRAME))
+         packet_length = buf_len - pad_to_remove - output_frame_offset;
+@@ -2765,6 +2785,8 @@ vfp_ing_routing_dest_lookup(tVfpPacketDesc *pDesc, tVfpWorkerHandlerData *worker
+     const INGRESS_IPV6_LOCAL_SUBNET_RECORD2 *local_v6_subnet_record2        VFP_TABLE_PTR_INIT;
+     const INGRESS_IPV6_SUBNET_INTF_ADDRS    *ipv6_local_subnet_addresses    VFP_TABLE_PTR_INIT;
+     const INTERFACE_DEST_DPI_INFO           *if_dest_dpi_info               VFP_TABLE_PTR_INIT;
++    const INGRESS_NP_SUB_NEXTHOP_RECORD     *sub_nexthop_record             VFP_TABLE_PTR_INIT;
++    const INGRESS_NP_SUB_NEXTHOP_RECORD2    *sub_nexthop_data               VFP_TABLE_PTR_INIT;
+ 
+     IOM_IP_INTERFACE_INDEX                  dest_if_index;
+     IP_PREFIX_LEN                           subnet_prefix_len;
+@@ -3182,7 +3204,7 @@ route_to_local_subnet:
+     *if_dest_info = &INGRESS_INTERFACE_DEST_INFO_TABLE_CTABLE[dest_if_index];
+     if (unlikely(rte_memequal(&local_subnet_record->subnet_ip_addr, &nexthop_ip_and_l2tp->ip, 4)))
+     {
+-        goto send_routed_frame_to_cpm_check_gtp;
++        goto send_routed_frame_to_cpm_check_l2tp;
+     }
+     if (unlikely((*if_dest_info)->is_loopback))
+         goto host_unreachable_routing;
+@@ -3469,12 +3491,242 @@ discard_to_sdp_frame_invalid:
+     ing->discard_stat_num = INGRESS_STAT_SDP_TO_ROUTING_FAILED;
+     goto dont_forward_just_copy;
+ 
++discard_frame_invalid_l2tp_header:
++    pchip_logpf("discard frame invalid L2TP header\n");
++    ing->discard_stat_num = INGRESS_STAT_L2TP_OR_PPPOE_FRAME_INVALID;
++    goto dont_forward_just_copy;
++
+ dont_forward_just_copy:
+     // in the future we may need to copy this frame but for now we only discard
+     return vfp_ing_discard(pDesc, ing->discard_stat_num, port_record);
+ 
+ 
+     /**************************************************************************************************
++    * network side l2tp sub-lookup
++    ***************************************************************************************************/
++
++send_routed_frame_to_cpm_check_l2tp:
++
++    // can only get here if fwd_path == VFP_FWD_PATH_IP_ROUTING, otherwise special_ucast_l3 == NULL
++    if (ing->cpm_reason.code != TO_CPM_RAW_REASON_L2TP_CONTROL) goto send_routed_frame_to_cpm_check_gtp;
++
++    {
++        UINT8 *l2tp_hdr = ing->ip_ptr + IPV4_HEADER__BYTES + UDP_HEADER__BYTES;
++        UINT8 *post_l2tp_hdr = l2tp_hdr;
++        L2TP_TUNNEL_AND_SESSION l2tp_ids;
++        UINT8 *mpls_or_ipv4 = ing->ip_ptr;
++
++        // The v4 frame should already be sent to the CPM if options are present.
++        if (fetch_L2TP_HEADER__flags_and_vers_control(l2tp_hdr))
++        {
++            LOG();
++            pchip_logpf("l2tp control - to be forwarded to CPM\n");
++            goto send_routed_frame_to_cpm;
++        }
++
++        if (fetch_L2TP_HEADER__flags_and_vers_version(l2tp_hdr) != L2TP_VERSION)
++        {
++            LOG();
++            goto discard_frame_invalid_l2tp_header;
++        }
++
++        // Length validation - the normal routing code ensures the frame is large enough given the length in the ip hdr.
++        // This code ensures the IP+UDP+L2TP+PosAC hdrs < length in ip hdr, and IP+UDP+L2TP+PosAC hdrs < 128 (the max we strip).
++        // Note, no validation done of L2TP length, it is ignored (though L2TP hdr will still be parsed correctly if present)
++
++        if (fetch_L2TP_HEADER__flags_and_vers_length_present(l2tp_hdr))
++        {
++            LOG();
++            post_l2tp_hdr += 2; // +2=size of length field
++        }
++
++        l2tp_ids.tunnel_id = fetch_L2TP_HEADER__ids_tunnel_id(post_l2tp_hdr);
++        l2tp_ids.session_id = fetch_L2TP_HEADER__ids_session_id(post_l2tp_hdr);
++
++        if (fetch_L2TP_HEADER__flags_and_vers_sequence_present(l2tp_hdr))
++        {
++            // Skip over the sequence numbers, we don't look at them if they are present
++            LOG();
++            post_l2tp_hdr += 4; // +4=size of sequence field
++        }
++        if (fetch_L2TP_HEADER__flags_and_vers_offset_present(l2tp_hdr))
++        {
++            UINT32 l2tp_hdr_and_off;
++            LOG();
++
++            l2tp_hdr_and_off = fetch_L2TP_HEADER_AND_OFFSET__offset_length(post_l2tp_hdr);
++
++            pchip_logpf("Adding l2tp offset %u\n", l2tp_hdr_and_off);
++            post_l2tp_hdr += l2tp_hdr_and_off + 2;  // +2 = offset_length size
++        }
++
++        post_l2tp_hdr += L2TP_HEADER__BYTES + POS_ADDR_AND_CTRL__BYTES;
++
++        UINT32 l2tp_hdrs_length = (UINT32) (post_l2tp_hdr - ing->ip_ptr);
++
++        // KWH TODO - have full length in unpacked hdr..
++        if (fetch_IPV4_HEADER__total_length(ing->ip_ptr) <= l2tp_hdrs_length)
++        {
++            LOG();
++            pchip_logpf("L2TP: invalid ip hdr len %u l2tp hdrs %u\n", fetch_IPV4_HEADER__total_length(ing->ip_ptr), l2tp_hdrs_length);
++            goto discard_frame_invalid_l2tp_header;
++        }
++        //    if (l2tp_hdrs_length >= 128) goto done_l2tp_check; // only support 7 bits of hdr to strip - doesn't matter on vfp
++
++        pchip_logpf("Doing l2tp subscriber lookup tunnel 0x%x session 0x%x psi.incoming_ttl %u\n",
++                l2tp_ids.tunnel_id, l2tp_ids.session_id, incoming_ttl);
++
++        //XLOG(incoming_ttl <= 1); // don't do TTL expiry if terminating tunnel
++
++        // don't send dest unreachables, as the destination is reachable just the tunnel/session might not be
++        ing->no_icmp = 1;
++
++        UINT32                                  sig, sub_rec_index;
++        sig = vfp_hash_2words(l2tp_ids.tunnel_id, l2tp_ids.session_id);
++        sig = sig % VFP_INGRESS_NP_SUB_NEXTHOP_INITIAL_VFP_HASH_TABLE__ENTRIES;
++        sub_rec_index = INGRESS_NP_SUB_NEXTHOP_INITIAL_VFP_HASH_TABLE_CTABLE[sig];
++        pchip_logpf("initial idx=%u sub_rec_index=%u\n", sig, sub_rec_index);
++        while (1)
++        {
++            sub_nexthop_record = &INGRESS_NP_SUB_NEXTHOP_RECORD_TABLE_CTABLE[sub_rec_index];
++            sub_nexthop_data = &INGRESS_NP_SUB_NEXTHOP_RECORD2_TABLE_copy_0_CTABLE[sub_rec_index];
++            if (likely((sub_nexthop_data->key.l2tp.tunnel_id == l2tp_ids.tunnel_id) &&
++                        (sub_nexthop_data->key.l2tp.session_id == l2tp_ids.session_id) &&
++                        (sub_nexthop_data->key.is_alt_type == 0) &&
++                        (sub_nexthop_data->key.type == NP_SUB_NEXTHOP_TYPE_L2TP)))
++                break;
++
++            sub_rec_index = sub_nexthop_record->next;
++            if (unlikely(sub_rec_index == 0))
++            {
++                pchip_logpf("sub_rec_index is 0\n");
++                goto sub_nh_not_found;
++            }
++        }
++
++        if (sub_nexthop_record->dest_sap_index == 0)
++        {
++            LOG();
++            pchip_logpf("sub_nexthop_record->dest_sap_index is 0\n");
++            goto sub_nh_unreachable;
++        }
++
++        LOG();
++        pchip_logpf("Got sub index %u global_sub_index %u dest_sap_index %u spoke-if-index %u dest VRF ID %d is_lac %u\n",
++                0/*sub_nh_index*/, sub_nexthop_record->global_sub_index, sub_nexthop_record->dest_sap_index,
++                sub_nexthop_record->redirect_to_if ? sub_nexthop_record->red_data.redirect_if_index : 0, sub_nexthop_data->sub_vrf_id,
++                sub_nexthop_record->is_lac);
++
++        // swap to l2tp service type
++        svc_tx_info->ids = l2tp_ids;
++        p1_flags->is_svc_frame = 1;
++
++        svc_tx_info->endpoint.is_sap = 1;
++        svc_tx_info->endpoint.sap_idx = sub_nexthop_record->dest_sap_index;
++        svc_tx_info->strip_l2_hdr_size = (UINT16) (post_l2tp_hdr - VFP_PACKET_DESC_GET_DPTR(pDesc));
++
++        //      psi.service_type = SERVICE_TYPE_L2TP;
++        //        PCHIP_ZERO(psi.svc);
++        //        svc_bits.evpn_type = EVPN_TYPE_NONE;
++        //        p1_flags.strip_l2_hdr.l2tp_ip_not_ppp = sub_nexthop_record->sub_host.is_l2tp_to_ipoe_or_gtp;
++        //        psi.dscp_marking.in.value.dscp = l2tp_dscp;
++        //        XLOG(p1_flags.strip_l2_hdr.l2tp_ip_not_ppp);
++        //        XLOG(ing->source_endpoint_is_sap);
++        //        psi.incoming_ttl = 0;
++
++        if (sub_nexthop_record->global_sub_index)
++        {
++            *hash_res = vfp_ing_hash64(sub_nexthop_record->global_sub_index);
++            pchip_logpf("hash_res %#x sub-host %#x\n", *hash_res, sub_nexthop_record->global_sub_index);
++            LOG();
++        }
++
++        if (sub_nexthop_record->is_lac)
++        {
++            // l2tp tunnels should also hit a sub record where this is set
++            pchip_logpf("sub nexthop to lac l2tp_hdr_length %u is_l2tp_to_ipoe %u from_sap %u\n", l2tp_hdrs_length,
++                    sub_nexthop_record->is_l2tp_to_ipoe, ing->source_endpoint_is_sap);
++            msm->l2_hdr_size = msm->ip_routing.l2tp_hdrs_length;
++
++            if (sub_nexthop_record->is_l2tp_mg)
++            {
++                pchip_logpf("Sub is l2tp mobile Chunk id %u\n", sub_nexthop_record->msm_chunk_id);
++                goto sub_nh_l2tp_mobile;
++            }
++        }
++        return true;
++
++sub_nh_l2tp_mobile:
++        pchip_log_criteria("l2tp-mg=1");
++
++        //check for PPP data vs control. If PPP ctrl send to CPM.
++        POS_ADDR_AND_CTRL ppp_addr_ctrl_bytes;
++        convert_to_POS_ADDR_AND_CTRL(&ppp_addr_ctrl_bytes, mpls_or_ipv4 + msm->ip_routing.l2tp_hdrs_length - sizeof(POS_ADDR_AND_CTRL), 0);
++
++        pchip_logpf("L2TP PPP Addr 0x%x Ctrl 0x%x\n", ppp_addr_ctrl_bytes.addr, ppp_addr_ctrl_bytes.ctrl);
++        if (ppp_addr_ctrl_bytes.addr != POS_ADDR_VAL) goto discard_frame_invalid_l2tp_header;
++        if (ppp_addr_ctrl_bytes.ctrl != POS_CTRL_VAL) goto discard_frame_invalid_l2tp_header;
++
++        POS_HEADER ppp_protocol;
++        convert_to_POS_HEADER(&ppp_protocol, mpls_or_ipv4 + msm->ip_routing.l2tp_hdrs_length, 0);
++
++        pchip_logpf("L2TP PPP Protocol 0x%x\n", ppp_protocol.protocol_id);
++        if ((ppp_protocol.protocol_id & PPP_PROTOCOL_IS_CONTROL) == 0)
++        {
++            /*LOG(); TB TODO*/
++            // overide ip offset with l2tp_hdr_len
++            msm->msm_sess_ip_offset = (msm->ip_routing.l2tp_hdrs_length - (sizeof(IPV4_HEADER)+sizeof(UDP_HEADER))) + POS_HEADER__BYTES; // + POS_ADDR_AND_CTRL__BYTES are already in l2tp_hdrs_length
++            pchip_logpf("L2TP and PPP hdr len %d\n", msm->msm_sess_ip_offset);
++            goto l2tp_ppp_data_to_msm;
++        }
++        if (ppp_protocol.protocol_id != PPP_PROTOCOL_LCP)
++        {
++            /*LOG(); TB TODO*/
++            goto l2tp_ppp_control_frame;
++        }
++
++        INGRESS_PPP_LCP_HDR ppp_lcp_hdr;
++        convert_to_INGRESS_PPP_LCP_HDR(&ppp_lcp_hdr, mpls_or_ipv4 + msm->ip_routing.l2tp_hdrs_length, 0);
++        pchip_logpf("l2tp_ppp_control, prot_id = 0x%x lcp_code = 0x%x\n", ppp_lcp_hdr.ppp_prot_id, ppp_lcp_hdr.ppp_lcp_code);
++
++
++        if ((ppp_lcp_hdr.ppp_lcp_code == PPP_LCP_CODE_ECHO_REQ) ||
++                (ppp_lcp_hdr.ppp_lcp_code == PPP_LCP_CODE_ECHO_REPLY))
++        {
++            /*LOG(); TB TODO*/
++            goto l2tp_ppp_lcp_echo_req_reply;
++        }
++
++l2tp_ppp_control_frame:
++        /*LOG(); TB TODO*/
++        SET_TO_CPM_CODE(&ing->cpm_reason, TO_CPM_RAW_REASON_PPPOE_CONTROL);
++        pchip_logpf("L2TP PPP Redirect PPP Control to CPM\n");
++        goto send_routed_frame_to_cpm;
++
++l2tp_ppp_lcp_echo_req_reply:
++        // Use reason code TO_CPM_RAW_REASON_PPPOE_CONTROL instead of
++        // TO_CPM_RAW_REASON_PPPOE_LCP_ECHO, so that the packet goes to
++        // CPU1, where the L2TP Proxy Agent is running.
++        /*LOG(); TB TODO*/
++        SET_TO_CPM_CODE(&ing->cpm_reason, TO_CPM_RAW_REASON_PPPOE_CONTROL);
++        pchip_logpf("L2TP PPP Redirect LCP Echo to CPM\n");
++        goto send_routed_frame_to_cpm;
++
++l2tp_ppp_data_to_msm:
++        /*LOG(); TB TODO*/
++        pchip_logpf("L2TP PPP Data frame Chunk id %u\n", sub_nexthop_record->msm_chunk_id);
++        msm->chunk_id = sub_nexthop_record->msm_chunk_id;
++        msm->msm_reason_code = TO_MSM_REASON_L2TP_OR_EXT;
++        msm->msm_internal_nexthop_index = 0;
++        return (vfp_ing_iom_forward_to_msm(pDesc, worker_info, port_record, ing, source_vrf_id, msm, pad_to_remove, ing_qos, hash_res));
++
++sub_nh_not_found:
++sub_nh_unreachable:
++        pchip_logpf("Can't find subscriber nexthop\n");
++        goto host_unreachable_routing;
++    }
++
++    /**************************************************************************************************
+     * to cpm code
+     ***************************************************************************************************/
+ 
+@@ -4559,6 +4811,10 @@ fab_hdr_core_ipv4_vprn:
+             LOG();
+             sw_hdr->parm.core.cp3.ucast.nw.is_vprn = 1;                   // 6PE/6VPE
+         }
++        if (msm->svc_bits.is_sap_to_l2tp)
++        {
++            sw_hdr->parm.core.cp3.ucast.nw.is_vprn = 1;
++        }
+         // no 6to4 tunnel support yet
+     }
+ 
+@@ -6694,6 +6950,7 @@ pchip_run_filters_v6:
+     goto multicast_and_routing_common_v6;
+ 
+ pchip_run_filters:
++
+     if (unlikely(ing.is_nat_sub))
+     {
+       return vfp_ing_l2tp_tunnel_from_sap(pDesc, worker_info, &ing, &ing_qos, qos_queue_info, port_record, sap_info, subscriber_record, sub_app_rec, &msm);
+@@ -7047,13 +7304,83 @@ gre_common_network_code:
+     goto mpls_common_network_code;
+ 
+ 
+-
+-
+     /**************************************************************************************************
+     * common ip hdr verification code
+     ***************************************************************************************************/
+ 
+ verify_ip_hdr:
++
++    pchip_logpf("Frame to CPM reason: %d\n", ing.cpm_reason.code);
++
++    if (ing.cpm_reason.code == TO_CPM_RAW_REASON_L2TP_CONTROL)
++    {
++
++        XLOG(ing.is_mpls);
++        UINT8 *l2tp_ptr = ing.ip_ptr + sizeof(IPV4_HEADER)+sizeof(UDP_HEADER);
++        if ((fetch_IPV4_HEADER__version_ihl(ing.ip_ptr) & 0xf) != (IPV4_HEADER__BYTES/4)) goto done_l2tp_check;
++
++        L2TP_HEADER l2tp_hdr;
++        convert_to_L2TP_HEADER(&l2tp_hdr, l2tp_ptr);
++        pchip_logpf("control: %d, vers: 0x%x\n", l2tp_hdr.flags_and_vers.control, l2tp_hdr.flags_and_vers.version);
++        if (l2tp_hdr.flags_and_vers.control)
++        {
++            LOG();
++            goto done_l2tp_check;
++        }
++        if (l2tp_hdr.flags_and_vers.version != L2TP_VERSION)
++        {
++            LOG();
++            goto done_l2tp_check;
++        }
++
++        // Length validation - the normal routing code ensures the frame is large enough given the length in the ip hdr.
++        // This code ensures the IP+UDP+L2TP+PosAC hdrs < length in ip hdr, and IP+UDP+L2TP+PosAC hdrs < 128 (the max we strip).
++        // Note, no validation done of L2TP length, it is ignored (though L2TP hdr will still be parsed correctly if present)
++
++        if (l2tp_hdr.flags_and_vers.length_present)
++        {
++            LOG();
++            l2tp_ptr += 2; // +2=size of length field
++        }
++        if (l2tp_hdr.flags_and_vers.sequence_present)
++        {
++            // Skip over the sequence numbers, we don't look at them if they are present
++            LOG();
++            l2tp_ptr += 4; // +4=size of sequence field
++        }
++        if (l2tp_hdr.flags_and_vers.offset_present)
++        {
++            L2TP_HEADER_AND_OFFSET l2tp_hdr_and_off;
++            LOG();
++            convert_to_L2TP_HEADER_AND_OFFSET(&l2tp_hdr_and_off, l2tp_ptr);
++            pchip_logpf("Adding l2tp offset %u\n", l2tp_hdr_and_off.offset_length);
++            if (l2tp_hdr_and_off.offset_length >= 128) goto done_l2tp_check; // only support 7 bit offset length
++            l2tp_ptr += (UINT8) (l2tp_hdr_and_off.offset_length & 0x7f);
++            l2tp_ptr += sizeof(L2TP_HEADER) + sizeof(POS_ADDR_AND_CTRL) + 2; // +2 = offset_length size
++        }
++        else
++        {
++            l2tp_ptr += sizeof(L2TP_HEADER) + sizeof(POS_ADDR_AND_CTRL);
++        }
++
++        UINT16 l2tp_hdrs_length = (l2tp_ptr - ing.ip_ptr);
++
++        if (fetch_IPV4_HEADER__total_length(ing.ip_ptr) <= l2tp_hdrs_length)
++        {
++            LOG();
++            pchip_logpf("L2TP: invalid ip hdr len %u l2tp hdrs %u\n", fetch_IPV4_HEADER__total_length(ing.ip_ptr), l2tp_hdrs_length);
++            goto done_l2tp_check;
++        }
++
++        //if (l2tp_hdrs_length >= 128) goto done_l2tp_check; // only support 7 bits of hdr to strip - doesn't matter on vfp
++
++        pchip_logpf("L2TP got valid hdrs length %u\n", l2tp_hdrs_length);
++        // In the l2tp code on the second P the frame is discarded unless l2tp_hdr_length is non-zero.
++        msm.ip_routing.l2tp_hdrs_length = l2tp_hdrs_length;
++    }
++
++done_l2tp_check:
++
+     if_record = &VFP_INGRESS_IP_INTERFACE_RECORD_TABLE_CTABLE[source_interface];
+     vrf_record = INGRESS_VRF_TABLE_CTABLE[source_vrf_id];
+     pchip_logpf("IPv4 TTL %s mode from %s record\n", ttl_mode_to_str(vrf_record.ttl_flags.ttl_mode), source_vrf_id == 0 ? "GRT" : "VRF");
+@@ -7671,6 +7998,41 @@ handle_dest_and_q_ucast:
+ 
+         sw_hdr->common.has_ipv6_extra = 1;
+     }
++    else if (msm.svc_bits.is_sap_to_l2tp)
++    {
++        SW_FAB_HDR_L2TP_EXTRA l2tp_extra;
++        UINT8 *msm_encap_ptr = (UINT8 *) sw_hdr + extra_header_size + sizeof(*sw_hdr);
++
++        XLOG(sw_hdr->parm.core.cp1.flags.ip_not_mpls);
++        PCHIP_ZERO(l2tp_extra);
++        l2tp_extra.binding_and_session.session_id = msm.l2tp_or_gtp_session.session_id;
++#if INGRESS_MSM_FWD_SUPPORT
++        if (msm.msm_l2tp_ip_not_ppp)
++        {
++            UINT8 bitsof_l2tp_tunnel_id_lsb = 8;
++            l2tp_extra.binding_and_session.binding_index = (msm.ip_routing.l2tp_tunnel_id_msb << bitsof_l2tp_tunnel_id_lsb) & (1 << bitsof_l2tp_tunnel_id_lsb);
++            l2tp_extra.binding_and_session.binding_index |= ((msm.ip_routing.l2tp_tunnel_id_lsb) & ((1 << bitsof_l2tp_tunnel_id_lsb) - 1));
++            pchip_logpf("To %s tunnel - sess %#x/%#x bind %#x \n", msm.l2tp_or_gtp_session.is_gtp ? "GTP" : "MSM L2TP", msm.l2tp_or_gtp_session.session_id, l2tp_extra.binding_and_session.session_id, l2tp_extra.binding_and_session.binding_index);
++        }
++        l2tp_extra.binding_and_session.ip_not_ppp = msm.msm_l2tp_ip_not_ppp;
++#else
++        l2tp_extra.binding_and_session.ip_not_ppp = msm.msm_l2tp_ip_not_ppp;;
++#endif
++        pchip_logpf("To %s tunnel - sess %#x/%#x bind %#x (stripping %u)\n", msm.l2tp_or_gtp_session.is_gtp ? "GTP" : "L2TP", msm.l2tp_or_gtp_session.session_id, l2tp_extra.binding_and_session.session_id, l2tp_extra.binding_and_session.binding_index, msm.l2_hdr_size);
++
++        pchip_logpf("payload_length: %d, output_frame_offset: %d, msm.l2_hdr_size: %d, extra_header_size: %d\n",
++                payload_length, output_frame_offset, msm.l2_hdr_size, extra_header_size);
++
++        output_frame_offset += msm.l2_hdr_size;
++        payload_length -= msm.l2_hdr_size;
++
++        PCHIP_MEMSET(msm_encap_ptr, 0, SW_FAB_HDR_L2TP_EXTRA__BYTES);
++        convert_from_SW_FAB_HDR_L2TP_EXTRA(&l2tp_extra, msm_encap_ptr);
++        sw_hdr->parm.core.cp1.flags.is_ipv6 = 0;
++
++        sw_hdr->common.has_l2tp_extra = 1;
++        extra_header_size += SW_FAB_HDR_L2TP_EXTRA__BYTES;
++    }
+ 
+     vfp_ing_build_core_swfab_hdr_common(sw_hdr, &ing, if_dest_info ? if_dest_info->to_svc_interface : 0, 
+                             &nexthop_ip_and_l2tp, dest_vrf_id,
+@@ -7907,6 +8269,8 @@ msm_dpi_join:
+ 
+     rte_memcpy(&sw_hdr, frame_start, sizeof(sw_hdr));
+     msm.msm_reason_code = sw_hdr.parm.raw.main.to_msm.reason.msm_reason;
++    pchip_log_criteria("msm-frame2, reason = %d", msm.msm_reason_code);
++    pchip_logpf("msm.msm_reason_code: %d\n", msm.msm_reason_code);
+ #ifdef VFP_DEBUG
+     for (unsigned i = 0; i < sizeof(sw_hdr); i++)
+         pchip_logpf("%02x ", frame_start[i]);
+@@ -8170,6 +8534,23 @@ got_sdf:
+ 
+     if (unlikely(msm_bearer_rec.nh_info.nh_index == 0)) { LOG_MSM(); goto discard_msm_no_nexthop; }
+ 
++    if (msm_bearer_rec.nh_info.encap == MSM_ENCAP_L2TP)
++    {
++        UINT8 bitsof_l2tp_tunnel_id_lsb = 8;
++
++        msm.l2tp_or_gtp_session.session_id = (msm_bearer_rec.tunnel_id & ((1 << L2TP_TUNNEL_ID__BITS) - 1));
++        msm.ip_routing.l2tp_tunnel_id_msb = ((msm_bearer_rec.tunnel_id >> (L2TP_TUNNEL_ID__BITS+bitsof_l2tp_tunnel_id_lsb)) & ((1 << (L2TP_TUNNEL_ID__BITS-bitsof_l2tp_tunnel_id_lsb)) - 1));
++        msm.ip_routing.l2tp_tunnel_id_lsb = ((msm_bearer_rec.tunnel_id >> L2TP_TUNNEL_ID__BITS) & ((1 << L2TP_TUNNEL_ID__BITS) - 1));
++        msm.msm_l2tp_ip_not_ppp = 1;
++
++        pchip_log_criteria("l2tp-mg-ingress-ul");
++
++        pchip_logpf("GTP To L2TP tunnel - sess %#x bind %#x (stripping %u)\n", (msm_bearer_rec.tunnel_id & ((1 << L2TP_TUNNEL_ID__BITS) - 1)),
++                ((msm_bearer_rec.tunnel_id >> L2TP_TUNNEL_ID__BITS) & ((1 << L2TP_TUNNEL_ID__BITS) - 1)));
++
++        goto msm_l2tp_encap_join;
++    }
++
+ 
+     if ((msm_bearer_rec.nh_info.encap == MSM_ENCAP_GTP) ||
+         (msm_bearer_rec.nh_info.encap == MSM_ENCAP_GTP_LPBK) ||
+@@ -8254,6 +8635,7 @@ got_sdf:
+ #endif
+     }
+ 
++msm_l2tp_encap_join:
+ 
+     ing.ip_ptr = frame_start + msm.msm_overhead_length;
+     pchip_logpf("Direction %s Encap %d Headers %d Gateway Instance %d Nexthop Id %d\n", 
+@@ -9260,7 +9642,12 @@ mscp_route_packet:
+     hash_res = vfp_ing_hash_mix(tunnel_bytes, 32, hash_res);
+     pchip_logpf("MSCP Hash 0x%06x\n", hash_res);
+ 
+-    
++    if (msm.msm_l2tp_ip_not_ppp && (ing.is_ipv6 == 0))
++    {
++        msm.svc_bits.is_sap_to_l2tp = 1;
++        pchip_logpf("msm.msm_l2tp_ip_not_ppp\n");
++    }
++
+     goto multicast_and_routing_common;
+     }
+     else
+diff --git a/pchip_code/vfp_tables.cpp b/pchip_code/vfp_tables.cpp
+index 5bf3044..fcc4fbc 100755
+--- a/pchip_code/vfp_tables.cpp
++++ b/pchip_code/vfp_tables.cpp
+@@ -1083,18 +1083,13 @@ void write_INGRESS_SUBSCRIBER_RECORD2_TABLE_VFP(INGRESS_SUBSCRIBER_RECORD2 *p_in
+     p_out->ipv6_sub_prefix_len = p_in->ipv6_sub_prefix_len;
+     p_out->subscriber_disabled = p_in->subscriber_disabled;
+     p_out->is_incipient_host = p_in->is_incipient_host;
+-#ifdef PENDING_SR_MERGE
+-    p_out->is_l2tp = p_in->normal_host.host_info.is_l2tp;
+-    if (p_in->normal_host.host_info.is_l2tp)
+-    {
+-        p_out->normal_host.host_info.l2tp_info = p_in->normal_host.host_info.l2tp_info;
+-    }
+-    else
++
++    p_out->is_l2tp = p_in->normal_host.l2tp_info.is_l2tp;
++    if (p_in->normal_host.l2tp_info.is_l2tp)
+     {
+-        p_out->normal_host.host_info.source_vrf.replace_vrf_id_bit = p_in->normal_host.host_info.use_source_vrf;
+-        p_out->normal_host.host_info.source_vrf.vrf_id = p_in->normal_host.host_info.use_source_vrf ? p_in->normal_host.host_info.source_vrf : 0;
++        p_out->normal_host.host_info.l2tp_info = p_in->normal_host.l2tp_info;
+     }
+-#endif
++
+     VFP_TBL_UNLOCK();
+ }
+ 
+@@ -1243,11 +1238,16 @@ BOOLEAN read_EGRESS_SUB_RECORD_TABLE_VFP(EGRESS_SUB_RECORD *p_out, UINT32 n)
+     
+     p_out->key.s.global_sap_index = p_in->one.key.global_sap_index; 
+     p_out->key.s.is_ipv6          = p_in->one.key.is_ipv6;
++    p_out->key.s.is_l2tp          = p_in->one.key.is_l2tp;
+ 
+     if (p_out->key.s.is_ipv6)
+     {
+         rte_memcpy(&p_out->key.s.dest_ipv6, &p_in->one.key.dest_ipv6, sizeof(p_out->key.s.dest_ipv6)); 
+     }
++    else if (p_out->key.s.is_l2tp)
++    {
++        rte_memcpy(&p_out->key.s.l2tp, &p_in->one.key.l2tp, sizeof(p_out->key.s.l2tp));
++    }
+     else
+     {
+         rte_memcpy(&p_out->key.s.dest_ip, &p_in->one.key.dest_ip, sizeof(p_out->key.s.dest_ip)); 
+@@ -1269,11 +1269,16 @@ void write_EGRESS_SUB_RECORD_TABLE_VFP(EGRESS_SUB_RECORD *p_in, UINT32 n)
+ 
+     p_out->one.key.global_sap_index = p_in->key.s.global_sap_index; 
+     p_out->one.key.is_ipv6          = p_in->key.s.is_ipv6;
++    p_out->one.key.is_l2tp          = p_in->key.s.is_l2tp;
+     
+     if (p_out->one.key.is_ipv6)
+     {
+         rte_memcpy(&p_out->one.key.dest_ipv6, &p_in->key.s.dest_ipv6, sizeof(p_out->one.key.dest_ipv6)); 
+     }
++    else if (p_out->one.key.is_l2tp)
++    {
++        rte_memcpy(&p_out->one.key.l2tp, &p_in->key.s.l2tp, sizeof(p_out->one.key.l2tp));
++    }
+     else
+     {
+         rte_memcpy(&p_out->one.key.dest_ip, &p_in->key.s.dest_ip, sizeof(p_out->one.key.dest_ip)); 
+@@ -1582,6 +1587,8 @@ VFP_DEFINE_TABLE_AND_READ_WRITE_FN(EGRESS_SDP_QTYPE_TABLE, ETHERTYPE)
+ 
+ VFP_DEFINE_TABLE_AND_READ_WRITE_FN(EGRESS_MPLS_NHLFE_TABLE, EGRESS_MPLS_NHLFE_INFO)
+ 
++VFP_DEFINE_TABLE_AND_READ_WRITE_FN(EGRESS_L2TP_CFG_TABLE, EGRESS_L2TP_CONFIG)
++
+ VFP_DEFINE_TABLE_AND_READ_WRITE_FN(EGRESS_NP_TLS_MCAST_TABLE, EGRESS_TLS_MCAST_LIST_INFO)
+ VFP_DEFINE_TABLE_AND_READ_WRITE_FN(EGRESS_TLS_MCAST_LIST_TABLE, EGRESS_TLS_MCAST_ENTRY)
+ VFP_DEFINE_TABLE_AND_READ_WRITE_FN(EGRESS_MCAST_LAG_INDEX_RECORD_TABLE, EGRESS_LAG_INDEX_RECORD)
+@@ -1856,6 +1863,8 @@ vfp_init_tables_and_install_hooks(PP_PROG_MASK pp_mask, t_vfp_table_calloc_fn ta
+     
+     VFP_TABLE_ALLOCATE(EGRESS_MPLS_NHLFE_TABLE, EGRESS_MPLS_NHLFE_INFO, pp_mask);
+ 
++    VFP_TABLE_ALLOCATE(EGRESS_L2TP_CFG_TABLE, EGRESS_L2TP_CONFIG, pp_mask);
++
+     VFP_TABLE_ALLOCATE(EGRESS_NP_TLS_MCAST_TABLE, EGRESS_TLS_MCAST_LIST_INFO, pp_mask); 
+     VFP_TABLE_ALLOCATE(EGRESS_TLS_MCAST_LIST_TABLE, EGRESS_TLS_MCAST_ENTRY, pp_mask); 
+     VFP_TABLE_ALLOCATE(EGRESS_MCAST_LAG_INDEX_RECORD_TABLE, EGRESS_LAG_INDEX_RECORD, pp_mask); 
+diff --git a/pchip_code/vfp_tables.h b/pchip_code/vfp_tables.h
+index 2883f1c..36244b3 100644
+--- a/pchip_code/vfp_tables.h
++++ b/pchip_code/vfp_tables.h
+@@ -373,12 +373,14 @@ typedef struct
+     
+     union
+     {
+-        IP_ADDRESS                  dest_ip;         // !is_ipv6
+-        EGRESS_SUB_IPV6_PREFIX      dest_ipv6;       // !is_ipv6;
++        IP_ADDRESS                  dest_ip;         // !is_ipv6 && !is_l2tp
++        EGRESS_SUB_IPV6_PREFIX      dest_ipv6;       // is_ipv6 && !is_l2tp;
++        L2TP_TUNNEL_AND_SESSION     l2tp;            // is_l2tp
+ 
+     };                                               // +8 = 12
+     
+     BOOLEAN                         is_ipv6;         // +1 = 13
++    BOOLEAN                         is_l2tp;         // +1 = 13
+                                                      // +3 (pad) = 16 
+ } VFP_EGRESS_SUBSCRIBER_KEY;
+ 
+@@ -715,6 +717,9 @@ extern ETHERTYPE *EGRESS_SDP_QTYPE_TABLE_CTABLE;
+ // mpls
+ extern EGRESS_MPLS_NHLFE_INFO *EGRESS_MPLS_NHLFE_TABLE_CTABLE;
+ 
++// l2tpv2
++extern EGRESS_L2TP_CONFIG  *EGRESS_L2TP_CFG_TABLE_CTABLE;
++
+ // vpls/tls
+ extern EGRESS_TLS_MCAST_LIST_INFO *EGRESS_NP_TLS_MCAST_TABLE_CTABLE;     
+ extern EGRESS_TLS_MCAST_ENTRY *EGRESS_TLS_MCAST_LIST_TABLE_CTABLE;
