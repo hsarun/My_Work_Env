@@ -1,0 +1,1103 @@
+? cscope.files
+? common/pqt3s2/src/pqt2_interfaces.vhc.i3
+? common/pqt3s2/src/brcm/WarpCore_wrapper_H.v
+? common/pqt3s2/src/brcm/WarpCore_wrapper_V.v
+? common/pqt3s2/src/brcm/WarpCore_wrapper_empty.v
+? common/pqt3s2/src/brcm/WarpCore_wrapper_rel.v
+? common/pqt3s2/src/brcm/delay_cell_structural_v_hack.v
+? common/pqt3s2/src/brcm/min_delay_wr_hack.v
+? common/pqt3s2/src/brcm/slave_delay_wr_hack.v
+? common/pqt3s2/tb/WarpCore_wrapper_behav.v
+? common/pqt3s2/tb/XGXS_WarpCore_behav_rel.v
+? common/vendors/agere/cln90g_custom/BYPASSCAPS90NMT10W_hacked.v
+? common/vendors/agere/cln90g_custom/CTCML3G3B1G1T10_hacked.v
+? common/vendors/agere/cln90g_custom/DELAYLINEG1T10W_hacked.v
+? common/vendors/agere/cln90g_custom/DELAYLINEG1T10W_hacked2.v
+? common/vendors/agere/cln90g_custom/DELAYLINEG1T10W_hacked3.v
+? common/vendors/agere/cln90g_custom/DLYLINE90nm_hacked.v
+? common/vendors/agere/cln90g_custom/HSTLOSRRAIV18G8T10F_hacked.v
+? common/vendors/agere/cln90g_custom/HSTLOTRBAIV18G8T10F_hacked.v
+? common/vendors/agere/cln90g_custom/HSTLOTRBAIV18G8T10F_hacked2.v
+? common/vendors/agere/cln90g_custom/MASTERG1T10W_hacked.v
+? common/vendors/agere/cln90g_custom/MASTERG1T10W_hacked2.v
+? common/vendors/agere/cln90g_custom/MASTERG1T10W_hacked3.v
+? common/vendors/agere/cln90g_custom/MINDELC1G1T10W_hacked.v
+? common/vendors/agere/cln90g_custom/MINDELC1G1T10W_hacked2.v
+? common/vendors/agere/cln90g_custom/P6GCMU18FC_hacked.v
+? common/vendors/agere/cln90g_custom/P6GCMU18FC_hacked2.v
+? common/vendors/agere/cln90g_custom/P6GRXTX18FC_hacked.v
+? common/vendors/agere/cln90g_custom/PLLCSPQV18G8T10_hacked.v
+? common/vendors/broadcom/brcm40g_pqt3s2/ANA_DPLLPHY25_40G_M7FC.hacked.v
+? common/vendors/broadcom/brcm40g_pqt3s2/ANA_DPLLPHY_40G_M6NP.hacked.v
+? common/vendors/broadcom/brcm40g_pqt3s2/ANA_LDONLDL40G_M7NP.hacked.v
+? common/vendors/broadcom/brcm40g_pqt3s2/ANA_LDONLDL40G_M7NP.hacked2.v
+? common/vendors/broadcom/brcm40g_pqt3s2/ANA_VTMON40G_M7FC.hacked.v
+? common/vendors/broadcom/brcm40g_pqt3s2/DDR_LDO.hacked.v
+? common/vendors/broadcom/brcm40g_pqt3s2/NLDL.hacked.v
+? common/vendors/broadcom/brcm40g_pqt3s2/NLDLMINDELAY.hacked.v
+? common/vendors/broadcom/brcm40g_pqt3s2/T40m6_AP3A_00000_1.hacked.v
+? common/vendors/broadcom/brcm40g_pqt3s2/T40m6_AP3A_20000_0.hacked.v
+? common/vendors/broadcom/brcm40g_pqt3s2/serdes/WarpCore_XGSWC.hacked.fv
+? common/vendors/broadcom/brcm40g_pqt3s2/serdes/WarpCore_XGSWC.hacked2.fv
+? common/vendors/broadcom/brcm40g_pqt3s2/serdes/WarpCore_XGSWC.hacked3.fv
+? common/vendors/broadcom/brcm40g_pqt3s2/serdes/WarpCore_XGSWC.hacked4.fv
+? common/vendors/broadcom/brcm40g_pqt3s2/serdes/WarpCore_XGSWC.patched.fv
+? common/vendors/broadcom/tsmc40g/tsmc40g_misc.hacked.v
+? common/vendors/broadcom/tsmc40g/tsmc40g_sc10t090v.hacked.v
+? common/vendors/broadcom/tsmc40g/tsmc40g_sc23t250v.hacked.v
+? common/vendors/broadcom/tsmc40g/udp.u.hacked.v
+? common/vendors/broadcom/tsmc40gio/tsmc40g_iopads.hacked.v
+? common/vendors/broadcom/tsmc40gio/tsmc40g_iopads.hacked2.v
+? common/vendors/broadcom/tsmc40gio/tsmc40g_iopads.hacked3.v
+? common/vendors/broadcom/tsmc40gio/tsmc40g_iopads_q3b0.hacked.v
+? common/vendors/broadcom/tsmc40gio/tsmc40g_iopads_q3b0.hacked2.v
+? np3chip/sim
+? np3chip/src/brcm/allBRF.hacked.v
+? np3chip/src/brcm/allG40FSRF.hacked.v
+? np3chip/src/brcm/allG40FSRF.hacked2.v
+? np3chip/src/brcm/allG40HDOTP.hacked.v
+? np3chip/src/brcm/allG40PD.hacked.v
+? np3chip/src/brcm/allG40PD.hacked2.v
+? np3chip/src/brcm/allG40SP.hacked.v
+? np3chip/src/brcm/allG40SP.hacked2.v
+? np3chip/src/brcm/allL65DP.hacked.v
+? np3chip/src/brcm/allL65OTPL.hacked.v
+? np3chip/src/brcm/allL65SP.hacked.v
+? np3chip/tb/auto/gen
+? npchip/sim
+? npchip/src/agere/mdly_hacked.v
+? npchip/src/agere/p2_2.v
+? npchip/src/agere/p2_hacked.v
+? npchip/src/agere/p2_model.v
+? npchip/src/agere/p2_real.v
+? npchip/src/agere/p2_serdes_2.v
+? npchip/src/agere/p2_serdes_2_2.v
+? npchip/src/agere/p2_serdes_model.v
+? npchip/src/agere/p2_serdes_real.v
+? npchip/src/vendors/virage/asap512d1p_1024x48cm4sw0.v.hacked
+? npchip/src/vendors/virage/asap512d1p_1024x8cm4sw0.v.hacked
+? npchip/src/vendors/virage/asap512d2p_1024x34cm4sw0.v.hacked
+? npchip/src/vendors/virage/asap512s2p_10240x18cm16sw0.v.hacked
+? npchip/src/vendors/virage/asaprfsd2p_128x132cm1sw0.v.hacked
+? npchip/src/vendors/virage/asaprfsd2p_128x144cm1sw0.v.hacked
+? npchip/src/vendors/virage/asaprfsd2p_256x144cm2sw0.v.hacked
+? npchip/src/vendors/virage/asaprfsd2p_32x16cm1sw1.v.hacked
+? npchip/src/vendors/virage/asaprfsd2p_32x93cm1sw1.v.hacked
+? npchip/src/vendors/virage/asaprfsd2p_384x66cm2sw0.v.hacked
+? npchip/src/vendors/virage/asaprfsd2p_384x72cm2sw0.v.hacked
+? npchip/src/vendors/virage/asaprfsd2p_96x64cm1sw1.v.hacked
+? npchip/src/vendors/virage/star08md1p_10240x32cm16sw0bk2_p.v.hacked
+? npchip/src/vendors/virage/star08md1p_2048x288cm4sw1bk2_p.v.hacked
+? npchip/src/vendors/virage/star08md1p_4096x144cm8sw1bk1_p.v.hacked
+? npchip/src/vendors/virage/star08md1p_4096x288cm4sw1bk2_p.v.hacked
+? npchip/src/vendors/virage/star512s1p_1024x52cm8sw0_p.v.hacked
+? npchip/tb/assembler/npasm.linux
+? npchip/tb/assembler/work.linux
+? npchip/tb/auto/gen/lava_egress.tstl2
+? npchip/tb/auto/gen/lava_ingress.tstl2
+? npchip/tb/auto/gen/lava_msm_egress.tstl2
+? npchip/tb/auto/gen/lava_msm_ingress.tstl2
+? npchip/tb/auto/gen/pumice_msm_ingress.tstl2
+? npchip/tb/main/npchip.tpd
+? pchip/tb/tests/iom/egress/.egress.h.swp
+? pchip/tb/tests/iom/egress/.egress_frames.cpp.swp
+? pchip/tb/tests/iom/egress/.egress_main.cpp.swp
+? pchip/tb/tests/iom/egress/.egress_tables.cpp.swp
+? pchip/tb/tests/iom/ingress/.ingress_frames.cpp.swo
+? pchip/tb/tests/iom/ingress/.ingress_frames.cpp.swp
+? pchip/tb/tests/iom/ingress/.ingress_main.cpp.swp
+? q2chip/src/packages/q2_headers.vhdl
+? q3chip2/src/packages/q3_headers.vhdl
+Index: common/scripts/unix/setup.bash
+===================================================================
+RCS file: /hwcvs/vhdl/common/scripts/unix/setup.bash,v
+retrieving revision 1.28
+diff -r1.28 setup.bash
+257a258,259
+> echo $SCRIPTS
+> 
+259c261,262
+<   for perlscript in $(/bin/ls ${SCRIPTS}/${dir} | grep .*\.pl | grep -v "^syn.\|^get.\|which.pl\|^put.\|^v.\|download.pl" | cut -d"." -f1); do
+---
+> echo $dir
+>   for perlscript in $(/bin/ls ${SCRIPTS}/${dir} | grep ".*\.pl" | grep -v "^syn.\|^get.\|which.pl\|^put.\|^v.\|download.pl" | cut -d"." -f1); do
+Index: pchip/scripts/testbench_scripts/run_suite.sh
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/scripts/testbench_scripts/run_suite.sh,v
+retrieving revision 1.5.2.1
+diff -r1.5.2.1 run_suite.sh
+44c44,45
+< source ~/.bashrc
+---
+> #source ~/.bashrc
+> source ~/.zshrc
+Index: pchip/tb/tests/iom/egress/egress.h
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/tb/tests/iom/egress/egress.h,v
+retrieving revision 1.605.2.14
+diff -r1.605.2.14 egress.h
+3115a3116,3117
+>     EGRESS_MSM_TESTBENCH_TYPE_L2TP_CTRL,
+>     EGRESS_MSM_TESTBENCH_TYPE_L2TP_DATA,
+3204a3207,3222
+>                                      EGRESS_MSM_SESSION_ID(EGRESS_MSM_SESSION * session, bool is_l2tp, UINT32 lcl_sess_id, UINT32 sess_id, UINT32 tunnel_id) :
+>                                          session_id_hash_rec_index(0xFFFFFFFF),
+>                                          session(session)
+>                                          {
+>                                          memset(&key, 0, sizeof(key));
+>                                          memset(&rec, 0, sizeof(rec));
+>                                          memset(&ue_mac, 0, sizeof(ue_mac));
+>                                          //rec.session_id = lcl_sess_id;
+>                                          //rec.chunk_id = GET_CHUNK_ID(sess_id);
+>                                          //rec.key.l2tp_key.tunnel_id = tunnel_id;
+>                                          //rec.key.l2tp_key.session_id = sess_id;
+> 
+>                                          key.l2tp_key.tunnel_id = tunnel_id;
+>                                          //key.l2tp_key.session_id = sess_id;
+>                                          key.l2tp_key.session_id = lcl_sess_id;
+>                                          }
+3295c3313
+<                                  EGRESS_MSM_SESSION(EGRESS_MSM_MICRONET * mn, UINT16 bundle, UINT16 sid, UINT32 num_sdfs1 = 1, UINT32 num_sdfs2 = 1, bool buffering = false, bool extracting = false, bool extract_ipv6_ctrl = false, bool skip_bb = false, bool extraction_test = false, UINT32 bad_bearers = 0);
+---
+>                                  EGRESS_MSM_SESSION(EGRESS_MSM_MICRONET * mn, UINT16 bundle, UINT16 sid, UINT32 num_sdfs1 = 1, UINT32 num_sdfs2 = 1, bool buffering = false, bool extracting = false, bool extract_ipv6_ctrl = false, bool skip_bb = false, bool extraction_test = false, UINT32 bad_bearers = 0, bool v_test_l2tp_session = false);
+3324a3343
+>     void                         set_l2tp_sess() { test_l2tp_session = true; }
+3325a3345
+>     void                         add_session_l2tp_entry();
+3341a3362
+>     bool                         test_l2tp_session;
+Index: pchip/tb/tests/iom/egress/egress_frames.cpp
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/tb/tests/iom/egress/egress_frames.cpp,v
+retrieving revision 1.747.2.23
+diff -r1.747.2.23 egress_frames.cpp
+1336a1337,1343
+>         else if (msm_tb_type == EGRESS_MSM_TESTBENCH_TYPE_L2TP_DATA)
+>         {
+>             frame->delete_subframe(FR_SEGMENT_UDP_DATA, false);
+>             frame->delete_subframe(FR_SEGMENT_L2TP_HDR, false);
+>             frame->delete_subframe(FR_SEGMENT_POS_ADDR_CTRL, false);
+>             frame->delete_subframe(FR_SEGMENT_PPP_PROTOCOL_ID, false);
+>         }
+1344c1351
+< Frame * make_new_mscp_frame (EGRESS_MSM_SESSION * session, const char * text, int tunnel_encap, TO_MSM_REASON reason, EGRESS_MSM_TESTBENCH_TYPE msm_tb_type, bool gtp_v0, IP_ADDR &addr, UINT32 &tunnel_id, UINT32 &ip_offset, UINT32 &l4_offset, bool &error, bool eom_frame = false, bool pdcp_frame = false, bool from_cpm = false, Frame * payload = NULL, UINT8 * TOS = NULL, bool force_zero_tunnel = false, bool extraction_test_session = false, bool sci_frame = false, bool set_tunnel_sa = false)
+---
+> Frame * make_new_mscp_frame (EGRESS_MSM_SESSION * session, const char * text, int tunnel_encap, TO_MSM_REASON reason, EGRESS_MSM_TESTBENCH_TYPE msm_tb_type, bool gtp_v0, IP_ADDR &addr, UINT32 &tunnel_id, UINT32 &ip_offset, UINT32 &l4_offset, bool &error, bool eom_frame = false, bool pdcp_frame = false, bool from_cpm = false, Frame * payload = NULL, UINT8 * TOS = NULL, bool force_zero_tunnel = false, bool extraction_test_session = false, bool sci_frame = false, bool set_tunnel_sa = false, UINT32 session_id = 0)
+1622a1630,1687
+>         else if (msm_tb_type == EGRESS_MSM_TESTBENCH_TYPE_L2TP_DATA)
+>             {
+>             UDP_HEADER udp = {};
+>             udp.ports.dest = UDP_PORT_L2TP;
+>             udp.ports.source = UDP_PORT_L2TP;
+>             *frame += new UDP_Data(&udp);
+> 
+> #if 0
+>             SW_FAB_HDR_L2TP_EXTRA l2tp_extra = {};
+>             UINT8 l2tp_lsb, l2tp_msb;
+>             UINT8 bitsof_l2tp_tunnel_id_lsb = 8;
+> 
+>             l2tp_msb = ((tunnel_id >> (L2TP_TUNNEL_ID__BITS+bitsof_l2tp_tunnel_id_lsb)) & ((1 << (L2TP_TUNNEL_ID__BITS-bitsof_l2tp_tunnel_id_lsb)) - 1));
+>             l2tp_lsb = ((tunnel_id >> L2TP_TUNNEL_ID__BITS) & ((1 << L2TP_TUNNEL_ID__BITS) - 1));
+> 
+>             l2tp_extra.binding_and_session.session_id = (tunnel_id & ((1 << L2TP_TUNNEL_ID__BITS) - 1));
+>             //l2tp_extra.binding_and_session.binding_index = tunnel_id;
+>             l2tp_extra.binding_and_session.binding_index = (l2tp_msb << bitsof_l2tp_tunnel_id_lsb) & (1 << bitsof_l2tp_tunnel_id_lsb);
+>             l2tp_extra.binding_and_session.binding_index |= ((l2tp_lsb) & ((1 << bitsof_l2tp_tunnel_id_lsb) - 1));
+>             l2tp_extra.binding_and_session.ip_not_ppp = 1;
+> 
+> 
+>             *frame += new L2TP_Extra_Hdr(&l2tp_extra);
+> #endif
+>             L2TP_FULL_HEADER l2tp_hdr = {};
+>             l2tp_hdr.flags_and_vers.version = L2TP_VERSION;
+>             l2tp_hdr.ids.tunnel_id  = tunnel_id;
+>             l2tp_hdr.ids.session_id = session_id;
+> 
+>             *frame += new L2TP_Hdr(&l2tp_hdr);
+> 
+>             POS_ADDR_AND_CTRL ac = { POS_ADDR_VAL, POS_CTRL_VAL };
+>             *frame += new POS_Addr_Ctrl(&ac);
+>             *frame += new PPP_Protocol_Id(PPP_PROTOCOL_IPV4);
+> 
+>             if (encap_ipv4) {
+>                 frame->delete_subframe(FR_SEGMENT_IPV4_HDR, false); // only delete first IPv4 header
+>                 encap_ipv4 = NULL;
+>             }
+>             else {
+> #if 0
+>                 //IP_Hdr   *ip = new IPV4_Hdr (0, 0, 100, IP_PROTOCOL_ICMP, RAND_IP, RAND_IP);
+>                 IPV4_Hdr *ip = new IPV4_Hdr ();
+>                 //*frame += new IPV4_Hdr ();
+>                 logpf("Sett TTL to 101\n");
+>                 ip->set_ttl(0x65);
+>                 ip->set_protocol(IP_PROTOCOL_ICMP);
+>                 //ip->set_da(addr.get_ipv4());
+>                 *frame += ip;
+> 
+>                 ICMP_HEADER icmp = {};
+>                 icmp.tc.type = ICMP_TYPE_ECHO_REPLY;
+>                 *frame += new ICMP_Data(&icmp);
+> #endif
+>                 frame->print_frame();
+>                 logpf("l2tp-----\n");
+>             }
+>             }
+1648a1714,1718
+>     if (msm_tb_type == EGRESS_MSM_TESTBENCH_TYPE_L2TP_DATA)
+>     {
+>         ip_offset = l4_offset = 0;
+>     }
+>     logpf("ip_offset %d, l4_offset: %d\n", ip_offset, l4_offset);
+2409a2480
+>         logpf("Add payload\n");
+2428c2499
+<     Frame * frame = make_new_mscp_frame (this, text, tunnel_type, reason, msm_tb_type, gtp_v0, addr, tunnel_id, ip_offset, l4_offset, error, eom_frame, pdcp_frame, from_cpm, payload, &TOS, false, extraction_test_session, sci_frame, twag_handover);
+---
+>     Frame * frame = make_new_mscp_frame (this, text, tunnel_type, reason, msm_tb_type, gtp_v0, addr, tunnel_id, ip_offset, l4_offset, error, eom_frame, pdcp_frame, from_cpm, payload, &TOS, false, extraction_test_session, sci_frame, twag_handover, /*sess_id.id*/ local_session_id);
+2503a2575,2580
+>         else if (msm_tb_type == EGRESS_MSM_TESTBENCH_TYPE_L2TP_DATA)
+>         {
+>             logpf("msm_tb_type == EGRESS_MSM_TESTBENCH_TYPE_L2TP_DATA\n");
+>             sw_fabric_header.parm.raw.main.to_msm.sess_ip_offset = 10;
+>             logpf("sw_fabric_header.parm.raw.main.to_msm.sess_ip_offset: %d\n", sw_fabric_header.parm.raw.main.to_msm.sess_ip_offset);
+>         }
+2541a2619,2621
+>     if (msm_tb_type == EGRESS_MSM_TESTBENCH_TYPE_L2TP_DATA)
+>         sw_fabric_header.parm.raw.main.to_msm.tunnel_id = tunnel_id;
+> 
+2909a2990,2994
+>     else if (test_l2tp_session)
+>     {
+>         logpf("Generating L2TP frames\n");
+>         generate_frame ("L2TP packet Downlink", true,  TO_MSM_REASON_L2TP_OR_EXT, EGRESS_MSM_TESTBENCH_TYPE_L2TP_DATA, false, MSCP_TUNNEL_NONE);
+>     }
+6743a6829
+>         logpf("l2tp_tunnel, l2tp_ip_not_ppp: %d, l2tp_tunnel->is_gtp_tunnel(): %d\n", l2tp_ip_not_ppp, l2tp_tunnel->is_gtp_tunnel());
+Index: pchip/tb/tests/iom/egress/egress_main.cpp
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/tb/tests/iom/egress/egress_main.cpp,v
+retrieving revision 1.851.2.21
+diff -r1.851.2.21 egress_main.cpp
+5348c5348
+<         l2tp_net1_nh.generate_core_ip_frame             ("L2TP tunnel on network interface",    RAND_SIZE, RAND_BOOL, RAND_FC, RAND_PROFILE, false, NW_FORCE_NO_MARK, false, RAND_OPTS_LEN, false, false, false, &l2tp_tunnel1, RAND_16, false);
+---
+>         l2tp_net1_nh.generate_core_ip_frame             ("L2TP tunnel on network interface1",    RAND_SIZE, RAND_BOOL, RAND_FC, RAND_PROFILE, false, NW_FORCE_NO_MARK, false, RAND_OPTS_LEN, false, false, false, &l2tp_tunnel1, RAND_16, false);
+5623c5623,5625
+<         l2tp_net1_nh.generate_core_ip_frame             ("L2TP tunnel on network interface",    RAND_L2TP_SIZE, RAND_BOOL, RAND_FC, RAND_PROFILE, false, NW_FORCE_NO_MARK, false, 0, false, false, false, &l2tp_tunnel1, RAND_16, false);
+---
+>         logpf("L2TP NETWORK INTERFACE FRAME\n");
+>         l2tp_net1_nh.generate_core_ip_frame             ("L2TP tunnel on network interface2",    RAND_L2TP_SIZE, RAND_BOOL, RAND_FC, RAND_PROFILE, false, NW_FORCE_NO_MARK, false, 0, false, false, false, &l2tp_tunnel1, RAND_16, false);
+>         logpf("L2TP NETWORK INTERFACE FRAME DONE\n");
+7289a7292
+>         logpf("CORE ETH LI MIRROR\n");
+7290a7294
+>         logpf("CORE ETH LI MIRROR Done\n");
+10965a10970,10977
+> 
+>     logpf ("EGRESS: MSM Session L2TP\n");
+>     EGRESS_MSM_MICRONET  msm_ipv4_mn_l2tp(msm_addr, 24);
+>     //EGRESS_MSM_SESSION msm_sess_l2tp(&msm_ipv4_mn_l2tp, 2, 1);
+>     EGRESS_MSM_SESSION msm_sess_l2tp(&msm_ipv4_mn_l2tp, 2, 1, 1, 1, false, false, true, false, false, 0, true);
+>     msm_sess_l2tp.set_l2tp_sess(); 
+>     msm_sess_l2tp.add_session_l2tp_entry();
+>     MSM_NEXT_ADDR(msm_addr, 1, 3);
+11000a11013,11016
+> 
+>     logpf("EGRESS - Building L2TP Frames\n");
+>     msm_sess_l2tp.build_frames();
+>     logpf("EGRESS - Building L2TP Frames - Done\n");
+Index: pchip/tb/tests/iom/egress/egress_tables.cpp
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/tb/tests/iom/egress/egress_tables.cpp,v
+retrieving revision 1.637.2.21
+diff -r1.637.2.21 egress_tables.cpp
+8717c8717
+< EGRESS_MSM_SESSION::EGRESS_MSM_SESSION(EGRESS_MSM_MICRONET * mn, UINT16 bundle, UINT16 sid, UINT32 num_sdfs1, UINT32 num_sdfs2, bool buffering, bool extracting, bool extract_ipv6_ctrl, bool skip_bb, bool extraction_test, UINT32 bad_bearers) : 
+---
+> EGRESS_MSM_SESSION::EGRESS_MSM_SESSION(EGRESS_MSM_MICRONET * mn, UINT16 bundle, UINT16 sid, UINT32 num_sdfs1, UINT32 num_sdfs2, bool buffering, bool extracting, bool extract_ipv6_ctrl, bool skip_bb, bool extraction_test, UINT32 bad_bearers, bool v_test_l2tp_session) : 
+8723a8724
+>     test_l2tp_session(v_test_l2tp_session),
+8876a8878,8901
+> void EGRESS_MSM_SESSION::add_session_l2tp_entry()
+> {
+>     void * hash_entry_ptr;
+>     UINT32 tunnel_id = sess_id.id;
+>     MSM_TUNNEL_ID temp_tunnel_id = { 0 };
+>     temp_tunnel_id.id = tunnel_id;
+>     msm_tunnel_id_convert(&temp_tunnel_id, MSM_TUNNEL_ID_id, &temp_tunnel_id, MSM_TUNNEL_ID_composite);
+>     temp_tunnel_id.composite.session.direction = 0;
+>     msm_tunnel_id_convert(&temp_tunnel_id, MSM_TUNNEL_ID_composite, &temp_tunnel_id, MSM_TUNNEL_ID_id);
+>     tunnel_id = temp_tunnel_id.id;
+> 
+>     logpf("local_session_id: 0x%x, sess_id.id: 0x%x, tunnel_id: 0x%x\n", local_session_id, sess_id.id, tunnel_id);
+>     // Add L2TP entry for this session
+>     msm_session_id_hash_entry = new EGRESS_MSM_SESSION_ID(this, true, local_session_id, sess_id.id, tunnel_id);
+>     hash_entry_ptr = hash_EGRESS_MSM_SESSION_ID->add_entry(&msm_session_id_hash_entry->rec, &msm_session_id_hash_entry->key, 0, NULL, msm_session_id_hash_entry, 0);
+> 
+> #if 0
+>     UINT8   raw[MAX((T_AENG_STAT_ENTRY68__BITS+7)/8, SPLIT_COUNTER__BYTES)] = {};
+>     *(UINT64 *)raw = 0;
+>     MSM_SESSION_ID_HASH_INDEX this_hash_index = hash_EGRESS_MSM_SESSION_ID->get_hash_table_index(hash_entry_ptr);
+>     write_raw_table_entries  (0, raw, &EGRESS_MSM_AP_ID_SWAP_TABLE__PARMS_PTRS[0], this_hash_index, 1, 0);
+> #endif
+> }
+> 
+8905c8930,8931
+<         imsi_index = egress_next_imsi_index++;
+---
+>         if (!test_l2tp_session)
+>             imsi_index = egress_next_imsi_index++;
+Index: pchip/tb/tests/iom/ingress/ingress_base.h
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/tb/tests/iom/ingress/ingress_base.h,v
+retrieving revision 1.105.2.18
+diff -r1.105.2.18 ingress_base.h
+173a174,178
+> #define EXTRACT_BITS_32(element, rshift, bitwidth)  (UINT32) (((element) >> (rshift)) & ((1 << (bitwidth)) - 1))
+> // Get chunk id 
+> //#define GET_CHUNK_ID(x) (UINT32)((x >> (32 - MSM_CHUNK_ID__BITS)) & ((1 << MSM_CHUNK_ID__BITS) -1))
+> #define GET_CHUNK_ID(x) EXTRACT_BITS_32(x, MSM_SESSION_BEARER_ID__BITS, MSM_CHUNK_ID__BITS)
+> 
+183a189,190
+>     INGRESS_MSM_TEST_BENCH_TYPE_L2TP_CTRL   = 7,
+>     INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM    = 8,
+416c423
+<     LAG_PORT_INDEX          get_lag_index (CHV_VALUE lag_chv) { return chv_mod64 (lag_chv, ports.size()); }
+---
+>     LAG_PORT_INDEX          get_lag_index (CHV_VALUE lag_chv) { logpf("Return Lag index in class lag\n"); return chv_mod64 (lag_chv, ports.size()); }
+Index: pchip/tb/tests/iom/ingress/ingress_frames.cpp
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/tb/tests/iom/ingress/ingress_frames.cpp,v
+retrieving revision 1.1372.2.49
+diff -r1.1372.2.49 ingress_frames.cpp
+666a667
+>     logpf("incoming ttl: %d\n", sw_fabric_header.parm.core.cp3.bits.ttl);
+673c674
+<             if (php_ttl < incoming_mpls_hdr->bits.ttl)
+---
+>             if (php_ttl < incoming_mpls_hdr->bits.ttl) {
+674a676,677
+>                 logpf("ttl: %d\n", sw_fabric_header.parm.core.cp3.bits.ttl);
+>                 }
+1428a1432
+>         logpf ("%s called\n", __FUNCTION__);
+1705c1709
+< void add_l2tp_headers(Frame *frame, L2TP_TUNNEL_ID l2tp_tunnel_id, L2TP_SESSION_ID l2tp_session_id)
+---
+> void add_l2tp_headers(Frame *frame, L2TP_TUNNEL_ID l2tp_tunnel_id, L2TP_SESSION_ID l2tp_session_id, bool both_l2tp)
+1710a1715,1717
+>     if (both_l2tp)
+>         udp_hdr.ports.source = UDP_PORT_L2TP;
+>     else
+1833c1840
+<             add_l2tp_headers(frame, l2tp_tunnel_id, l2tp_session_id);
+---
+>             add_l2tp_headers(frame, l2tp_tunnel_id, l2tp_session_id, 0);
+3691c3698,3699
+<                        DCPU_INFO * dcpu_info = NULL)
+---
+>                        DCPU_INFO * dcpu_info = NULL,
+>                        INGRESS_MSM_TEST_BENCH_TYPE msm_tb_type = INGRESS_MSM_TEST_BENCH_TYPE_NONE)
+3698a3707
+>     logpf("%s: cpm_reason: %d, msm_tb_type: %d\n", __FUNCTION__, reason, msm_tb_type);
+3731c3740
+<     if (is_ip_reason_code(reason))
+---
+>     if (is_ip_reason_code(reason) || msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_CTRL)
+4088c4097
+<         if ((msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_IP_IN_IP) || (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_SSG_UL)) // add direction bit
+---
+>         if ((msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_IP_IN_IP) || (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_SSG_UL) || (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)) // add direction bit
+4101a4111,4117
+>             else if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)
+>             {
+>             sw_fabric_header.parm.raw.main.to_msm.tunnel_id = tunnel_id;
+>             sw_fabric_header.parm.raw.main.to_msm.tunnel_id &= ~(((1 << MSM_CHUNK_TASK_ID__BITS) - 1) << MSM_SESSION_BEARER_ID__BITS);
+>             sw_fabric_header.parm.raw.main.to_msm.sess_ip_offset = sess_ip_offset;
+>             sw_fabric_header.parm.raw.main.to_msm.micronet_id = micronet_id;
+>             }
+15095a15112
+>     logpf("no_header_compression: %d\n", no_header_compression);
+15117c15134
+<     Frame * result = new Software_Fabric_Header (&sw_fabric_header, NULL, false, ((! no_header_compression) && (dpi_ext_hdr == NULL) && (! sw_fabric_header.common.has_ipv6_extra)));
+---
+>     Frame * result = new Software_Fabric_Header (&sw_fabric_header, NULL, false, ((! no_header_compression) && (dpi_ext_hdr == NULL) && (! sw_fabric_header.common.has_ipv6_extra) && (! sw_fabric_header.common.has_l2tp_extra)));
+16241c16258
+<         if ((udpDp == UDP_PORT_L2TP) && dest_sub && get_l2tp_subnet())
+---
+>         if ((udpDp == UDP_PORT_L2TP) && (dest_sub) && ((msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_CTRL) || (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)))
+16243c16260,16290
+<             add_l2tp_headers(frame, dest_sub->get_l2tp_tunnel_id(), dest_sub->get_l2tp_session_id());
+---
+>             logpf("%s: Calling add_l2tp_headers: 0x%x, 0x%x\n", __FUNCTION__, dest_sub->get_l2tp_tunnel_id(), dest_sub->get_l2tp_session_id());
+>             add_l2tp_headers(frame, dest_sub->get_l2tp_tunnel_id(), dest_sub->get_l2tp_session_id(), 1);
+>             if ((l2tp_flags == L2TP_SET_CTRL_BIT_AND_OPTS) || (l2tp_flags == L2TP_SET_CTRL_BIT) || (l2tp_flags == L2TP_IP_HDR_HAS_OPTIONS))
+>                 {
+>                 dest_sub = NULL;
+>                 cpm_type = TO_CPM_RAW_REASON_L2TP_CONTROL;
+>                 logpf("cpm_type = TO_CPM_RAW_REASON_L2TP_CONTROL\n");
+>                 }
+>             else
+>                 no_icmp = 1;
+>             if (l2tp_flags == L2TP_NORMAL)
+>                 {
+>                     if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_CTRL)
+>                        {
+>                        *frame += new PPP_Protocol_Id(PPP_PROTOCOL_IS_CONTROL | PPP_PROTOCOL_IPV4);
+>                        //*frame += new IPV4_Hdr();
+>                        cpm_type = TO_CPM_RAW_REASON_PPPOE_CONTROL;
+>                        }
+>                     else if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)
+>                        {
+>                        *frame += new PPP_Protocol_Id(PPP_PROTOCOL_IPV4);
+>                        *frame += new IPV4_Hdr();
+>                        msm_chunk_id = GET_CHUNK_ID(dest_sub->get_l2tp_tunnel_id());
+>                        }
+>                 }
+>             if (force_error == FORCE_ERROR_TTL_EXPIRED) force_error = FORCE_ERROR_NONE;
+>             }
+>         else if ((udpDp == UDP_PORT_L2TP) && dest_sub && get_l2tp_subnet())
+>             {
+>             logpf("%s: Calling add_l2tp_headers: 0x%x, 0x%x\n", __FUNCTION__, dest_sub->get_l2tp_tunnel_id(), dest_sub->get_l2tp_session_id());
+>             add_l2tp_headers(frame, dest_sub->get_l2tp_tunnel_id(), dest_sub->get_l2tp_session_id(), 0);
+16783a16831,16832
+>             else if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM) // assuming this can only happen for ip_in_ip case
+>                 strcpy(comment, "L2TP_OR_EXT frame to MSM DATA");
+16936a16986
+>     logpf("fr_len: %d @ %d & actual-len: %d\n", fr_len, __LINE__, frame->frame_length());
+16962a17013,17016
+>                 logpf ("Calling remove_l2_hdrs_for_ip\n");
+>                 if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)
+>             remove_l2_hdrs_for_ip(msm_frame, port, false, true, false, true, true);
+>                 else
+17241a17296
+>                 logpf ("Calling remove_l2_hdrs_for_ip @ %d\n", __LINE__);
+17246a17302
+>         logpf("fr_len: %d @ %d\n", fr_len, __LINE__);
+17301c17357,17358
+<     if (msm_tb_type != INGRESS_MSM_TEST_BENCH_TYPE_TWAG_ENCAP)
+---
+>     if (msm_tb_type != INGRESS_MSM_TEST_BENCH_TYPE_TWAG_ENCAP && msm_tb_type != INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM) {
+>                 logpf ("Calling remove_l2_hdrs_for_ip @ %d\n", __LINE__);
+17302a17360
+>     }
+17569c17627,17628
+<         else if (ip_sa_da)
+---
+>         else if (ip_sa_da) {
+>             logpf("ip_sa_da->sa: 0x%x, ip_dest.v4: 0x%x\n", ip_sa_da->sa, ip_dest.v4);
+17570a17630,17631
+>         }
+>         logpf("fr_len Now : %d @ %d & actual-len: %d\n", fr_len, __LINE__, frame->frame_length());
+17576a17638
+>         logpf("TunnelId=0x%08x Hash (pre_ecmp_chv)  0x%08x\n", msm_tunnel_id, pre_ecmp_chv);
+17581a17644
+>     logpf("TunnelId=0x%08x Hash (pre_ecmp_chv)  0x%08x\n", msm_tunnel_id, pre_ecmp_chv);
+17596a17660
+>             logpf("@ %d: vport: %p, vport's lag: %d\n", __LINE__, vport, vport?vport->is_lag():-1);
+17601a17666
+>             logpf("@ %d: vport: %p, vport's lag: %d\n", __LINE__, vport, vport?vport->is_lag():-1);
+17754a17820,17823
+>         if (intf)
+>         {
+>             logpf("intf NH non null: %d, %s\n", intf->get_if_lag_profile_index(adi), intf->intf_get_comment());
+>         }
+17758c17827
+<         else if (ip_nh)
+---
+>         else if (ip_nh) {
+17759a17829,17830
+>             logpf("intf->get_if_index(): %d\n", intf->get_if_index());
+>         }
+17760a17832
+>             logpf("@ %d: vport: %p, vport's lag: %d\n", __LINE__, vport, vport?vport->is_lag():-1);
+17764c17836
+<     if (dest_sub && dest_sub->sub_get_global_subscriber_id() && !dest_sub->get_redirect_if() && dest_sub->ipsec_do_alt_hash() /* true for non-ipsec */)
+---
+>     if (dest_sub && dest_sub->sub_get_global_subscriber_id() && !dest_sub->get_redirect_if() && dest_sub->ipsec_do_alt_hash() /* true for non-ipsec */ && (msm_tb_type != INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM))
+17810a17883
+>             logpf("@ %d: vport: %p, vport's lag: %d\n", __LINE__, vport, vport?vport->is_lag():-1);
+17855a17929
+>             logpf("@ %d: vport: %p, vport's lag: %d\n", __LINE__, vport, vport?vport->is_lag():-1);
+17919a17994,18001
+>         if (dest_tls_ep)
+>             logpf("dest_tls_ep non null: %d\n", dest_tls_ep->get_lag_profile_index(adi));
+>         if (intf)
+>         {
+>             logpf("intf non null: %d\n", intf->get_if_lag_profile_index(adi));
+>             logpf("TunnelId=0x%08x Hash (pre_ecmp_chv)  0x%08x\n", msm_tunnel_id, pre_ecmp_chv);
+>         }
+>             logpf("@ %d: vport: %p, vport's lag: %d\n", __LINE__, vport, vport?vport->is_lag():-1);
+17935a18018
+>             logpf("hash: 0x%x for lag: 0x%x\n", lag_chv, adi.di.lag);
+17939a18023,18024
+>     //        if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)
+>                 logpf("lag_dest @ %d: 0x%x, 0x%x\n", __LINE__, lag_dest.idx, lag_dest.port);
+17941a18027,18029
+>       //      if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)
+>                 logpf("lag_dest @ %d: 0x%x, 0x%x\n", __LINE__, lag_dest.idx, lag_dest.port);
+>         logpf("fr_len Now : %d @ %d & actual-len: %d\n", fr_len, __LINE__, frame->frame_length());
+18083a18172,18173
+>             if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)
+>                 logpf("lag_dest @ %d: 0x%x, 0x%x\n", __LINE__, lag_dest.idx, lag_dest.port);
+18090a18181,18182
+>             if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)
+>                 logpf("lag_dest @ %d: 0x%x, 0x%x\n", __LINE__, lag_dest.idx, lag_dest.port);
+18357c18449
+<         copy_frame_to_cpm(port, cpm_frame, correlator, cpm_type, sap_qos.fab_hdr_fc, &cpm_parms, &cpm_extra_parms, false, is_sap, false, &dcpu_info);
+---
+>         copy_frame_to_cpm(port, cpm_frame, correlator, cpm_type, sap_qos.fab_hdr_fc, &cpm_parms, &cpm_extra_parms, false, is_sap, false, &dcpu_info, msm_tb_type);
+18412c18504
+<     if (dest_sub && ((dest_sub->is_l2tp_sub() && !dest_sub->is_l2tp_lns_sub()) || dest_sub->is_gtp_sub()))
+---
+>     if (dest_sub && ((dest_sub->is_l2tp_sub() && !dest_sub->is_l2tp_lns_sub()) || dest_sub->is_gtp_sub()) && msm_tb_type != INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)
+18416a18509
+>         logpf("if (dest_sub && \n");
+18513a18607,18618
+>         else if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)
+>             {
+>             IPV4_Hdr * ipv4 = dynamic_cast<IPV4_Hdr *>(msm_frame->get_next_segment_by_name(FR_SEGMENT_IPV4_HDR));
+>             assert(ipv4);
+>             tos = ipv4->get_tos();
+>             logpf ("tos: 0x%x, 0x%x\n", tos, ipv4->get_tos());
+>             l4_offset = 0;
+>             //l4_offset = find_offset_of_udp_or_gre_hdr(msm_frame, msm_type);
+>             sess_ip_offset = 10;
+>             logpf("Data packets IP Offset %d L4 offset %d tos 0x%02x, sess_ip_offset: %d\n", ip_offset, l4_offset, tos, sess_ip_offset);
+>             msm_frame->delete_subframe(FR_SEGMENT_IPV4_HDR, false); // only delete first IPv4 header
+>             }
+18560c18665
+<         logpf("To MSM hash gives %#x\n", hash_label);
+---
+>         logpf("To MSM hash gives %#x, %#x, %#x\n", hash_label, ecmp_chv, tunnel_chv);
+18693a18799,18816
+>             logpf("routing_dest_fill_in_sw_fabric_header Done\n");
+>             if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM)
+>                {
+>                 logpf("msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM for MSM frames\n");
+>                 logpf("lag_dest: 0x%x, 0x%x\n", lag_dest.idx, lag_dest.port);
+>                 unsigned tmp_fr_len = frame->frame_length();
+>                 //tmp_fr_len += 5;
+>                 frame->delete_subframe(FR_SEGMENT_IPV4_HDR, false); // only delete first IPv4 header
+>                 fr_len -= (tmp_fr_len - frame->frame_length());
+>                 fr_len -= SW_FAB_HDR_L2TP_EXTRA__BYTES;
+>                 sw_fabric_hdr.common.has_l2tp_extra = 1;
+>                 UINT8 *sw_hdr_ptr = (UINT8 *) &sw_fabric_hdr;
+>                 logpf("Sw Hdr:\n");
+>                 for (unsigned i = 0; i < sizeof(sw_fabric_hdr); i++)
+>                     logpf("%02x ", sw_hdr_ptr[i]);
+>                 logpf("\n");
+>                }
+>         logpf("fr_len Now : %d @ %d & actual-len: %d\n", fr_len, __LINE__, frame->frame_length());
+18710a18834,18839
+>                 UINT8 *sw_hdr_ptr = (UINT8 *) &sw_fabric_hdr;
+>                 logpf("Sw Hdr:\n");
+>                 for (unsigned i = 0; i < sizeof(sw_fabric_hdr); i++)
+>                     logpf("%02x ", sw_hdr_ptr[i]);
+>                 logpf("\n");
+>         logpf("fr_len Now : %d @ %d & actual-len: %d\n", fr_len, __LINE__, frame->frame_length());
+18729a18859
+>         logpf("fr_len: %d @ %d\n", fr_len, __LINE__);
+18767a18898,18903
+>         logpf("sdp_policed_length: %d, fr_len: %d frame_length: %d, atm_overhead: %d, fr_len_for_stats: %d\n", sdp_policed_length, fr_len, frame->frame_length(), atm_overhead, fr_len_for_stats);
+>         if (msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM) {
+>             logpf ("msm_tb_type == INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM for MSM @ %d\n", __LINE__);
+>             //fr_len_for_stats = fr_len;
+>             //fr_len_for_stats = 0;
+>         }
+22644a22781,22871
+> void L3_SAP::l3_sap_build_test_frame_for_l2tp_mg_subscriber(SUBSCRIBER_BASE * sub, L3_SVC * retail_svc, ROUTING_TABLE_ENTRY * rte, SUBSCRIBER_BASE * src_sub, UINT16 filter_list_test, TO_MSM_REASON msm_type, SUBSCRIBER_BASE * src_alt_sub, UINT16 cpm_type, INGRESS_MSM_TEST_BENCH_TYPE msm_tb_type)
+>     {
+>     MAC_ADDR src_mac = MAC_ADDR(zero_sa);
+>     PPPOE_SESSION_ID sess_id = 0;
+>     UINT16 udpDp = UDP_PORT_L2TP;
+> 
+>     VRF_ID test_vrf = retail_svc ? retail_svc->get_vrf_id() : vrf_id;
+>     if (sub)                          // either specify destination subscriber or the destination rte
+>         {
+>         assert(!rte);
+>         rte = sub->get_rte();
+>         }
+>     assert(rte);
+> 
+>     IPV4_ROUTING_TABLE_ENTRY *ipv4_rte = dynamic_cast<IPV4_ROUTING_TABLE_ENTRY *>(rte);
+>     IPV6_ROUTING_TABLE_ENTRY *ipv6_rte = dynamic_cast<IPV6_ROUTING_TABLE_ENTRY *>(rte);
+> 
+>     if (!src_sub && sub_entries.size())
+>         {
+>         if (ipv4_rte)
+>             src_sub = get_first_v4_subscriber();
+> #if (NPCHIP == 1)
+>         else
+>             src_sub = get_first_v6_subscriber();
+> #endif
+>         }
+>     if (src_sub)
+>         {
+>         src_mac = src_sub->get_mac_sa();
+>         if ((force_error == FORCE_ERROR_DUPLICATE_SUB_APP_INDEX) && sub)
+>             sess_id = sub->get_pppoe_sess_id();
+>         else
+>             sess_id = src_sub->get_pppoe_sess_id();
+>         if ((force_error == FORCE_ERROR_ANTI_SPOOF) && !src_sub->sub_uses_ip_antispoof())
+>             src_mac.mac.b[5] ^= 1;
+>         }
+>     Frame * incoming_mac_hdr = intf_build_layer2_header(get_ingress_phys_port(), src_mac, ipv6_rte ? INTF_FRAME_TYPE_IPV6 : INTF_FRAME_TYPE_IPV4, NULL, sess_id);
+> 
+>     UINT32 fr_len;
+>     if (sub_entries.size())
+>         {
+>         if (ipv4_rte)
+>             {
+>             IPV4_SUBSCRIBER *ipv4_src_sub = dynamic_cast<IPV4_SUBSCRIBER *>(src_sub);
+>             assert(ipv4_src_sub);
+>             IPV4_SUBSCRIBER *ipv4_sub = dynamic_cast<IPV4_SUBSCRIBER *>(sub);
+>             IP_ADDR src_ip = ipv4_src_sub->get_ip_addr();
+>             if (force_error == FORCE_ERROR_ANTI_SPOOF)
+>                 src_ip.ip.b[3] ^= 1;
+>             fr_len = ipv4_rte->v4_rte_build_routing_dest_test_frame(incoming_mac_hdr, test_vrf, src_ip, this, false, NULL,
+>                                                                     udpDp, cpm_type, msm_type, ipv4_sub, src_alt_sub ? src_alt_sub : ipv4_src_sub, NULL, false, false, NULL, NULL, NULL, msm_tb_type);    // src_alt_sub used for v4 NAT w/ v6 with MAC antispoof
+>             }
+>         else
+>             {
+> #if (NPCHIP == 1)
+>             IPV6_SUBSCRIBER *ipv6_src_sub = dynamic_cast<IPV6_SUBSCRIBER *>(src_sub);
+>             assert(ipv6_src_sub);
+>             IPV6_SUBSCRIBER *ipv6_sub = dynamic_cast<IPV6_SUBSCRIBER *>(sub);
+> 
+>             fr_len = ipv6_rte->v6_rte_build_routing_dest_test_frame(incoming_mac_hdr, test_vrf, 
+>                                                                     ipv6_src_sub->get_ipv6_addr_and_set_host_bits(/*rand_host_bits*/true, /*make_bad_subnet*/force_error == FORCE_ERROR_ANTI_SPOOF),
+>                                                                     this, /*vprn_from_network*/false, /*igp_shortcut_lsp*/NULL,
+>                                                                     udpDp, /*cpm_frame_type*/cpm_type, msm_type, filter_list_test, ipv6_sub, src_alt_sub ? src_alt_sub : ipv6_src_sub);
+> #endif
+>             }
+>         }
+>     else
+>         {
+>         if (ipv4_rte)
+>             {
+>             IPV4_SUBSCRIBER *ipv4_sub = dynamic_cast<IPV4_SUBSCRIBER *>(sub);
+> 
+>             fr_len = ipv4_rte->v4_rte_build_routing_dest_test_frame(incoming_mac_hdr, test_vrf, this,
+>                             /*vprn_from_network*/ false, /*igp_shortcut_lsp*/ NULL, 
+>                             udpDp, /*cpm_frame_type*/ cpm_type, msm_type, ipv4_sub, NULL, NULL, false, false, NULL, msm_tb_type); 
+>             }
+>         else
+>             fr_len = ipv6_rte->v6_rte_build_routing_dest_test_frame(incoming_mac_hdr, test_vrf, this, false, NULL, 0, cpm_type, msm_type, filter_list_test, sub);
+>         }
+> 
+>     if (fr_len & FRAME_WAS_DROPPED_FLAG_LEN)
+>         {
+>         if (force_error != FORCE_ERROR_ENCAP_INVALID)
+>             add_expected_drop(fr_len & 0xffff);
+>         }
+>     else if (fr_len)
+>         {
+>         add_expected_frame(fr_len);
+>         }
+>     }
+> 
+22963a23191,23236
+> void LOCAL_SUBNET::subnet_build_subscriber_frames_for_l2tp_mg(L3_SAP * sap, L3_SVC * retail_svc)
+>     {
+>     UINT32 fr_cnt = 1;
+>     for (list<SUBSCRIBER_BASE *>::iterator ptr = subscribers.begin(); ptr != subscribers.end(); ptr++)
+>         {
+>         SUBSCRIBER_BASE *sub = *ptr;
+>         //sap->l3_sap_build_test_frame_for_subscriber(sub, retail_svc);
+>         logpf ("L2TP MG subs - Frame: %d\n", fr_cnt++);
+>         sap->l3_sap_build_test_frame_for_l2tp_mg_subscriber(sub, retail_svc, NULL, NULL, IP_FLT_TEST_INVALID, 0, NULL, TO_CPM_RAW_REASON_PPPOE_CONTROL, INGRESS_MSM_TEST_BENCH_TYPE_L2TP_CTRL);
+>         logpf ("L2TP MG subs - Frame: %d\n", fr_cnt++);
+>         sap->l3_sap_build_test_frame_for_l2tp_mg_subscriber(sub, retail_svc, NULL, NULL, IP_FLT_TEST_INVALID, TO_MSM_REASON_L2TP_OR_EXT, NULL, 0, INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM);
+> 
+> #if 0
+>         if (sub->is_l2tp_sub() && !sub->is_unreachable() && !sent_l2tp_variants)
+>             {
+>                 logpf("sub->is_l2tp_sub()\n");
+>             l2tp_flags = L2TP_SET_CTRL_BIT;
+>             sap->l3_sap_build_test_frame_for_subscriber(sub, retail_svc);
+>             l2tp_flags = L2TP_ADD_LENGTH_OPT;
+>             sap->l3_sap_build_test_frame_for_subscriber(sub, retail_svc);
+> 
+>             l2tp_flags = L2TP_ADD_OFFSET_OPT;
+>             sap->l3_sap_build_test_frame_for_subscriber(sub, retail_svc);
+>             l2tp_flags = L2TP_ADD_SEQUENCE_OPTS;
+>             sap->l3_sap_build_test_frame_for_subscriber(sub, retail_svc);
+>             l2tp_flags = L2TP_ADD_LENGTH_OFFSET_AND_SEQUENCE_OPTS;
+>             sap->l3_sap_build_test_frame_for_subscriber(sub, retail_svc);
+>             l2tp_flags = L2TP_SET_CTRL_BIT_AND_OPTS;
+>             sap->l3_sap_build_test_frame_for_subscriber(sub, retail_svc);
+> 
+>             l2tp_flags = L2TP_IP_HDR_HAS_OPTIONS;
+>             sap->l3_sap_build_test_frame_for_subscriber(sub, retail_svc);
+> 
+>             l2tp_flags = L2TP_NORMAL;
+>             }
+> #endif
+>         }
+> #if 0
+> #ifdef FORCE_ERRORS
+>     force_error = FORCE_ERROR_TTL_EXPIRED;
+>     sap->l3_sap_build_test_frame_for_subscriber(*(subscribers.begin()), retail_svc);
+>     force_error = FORCE_ERROR_NONE;
+> #endif
+> #endif
+>     }
+> 
+28675a28949,28955
+>         else if (encap == MSM_ENCAP_L2TP)
+>             {
+>             logpf("Encap is L2TP ");
+>             sw_fabric_header.parm.raw.main.to_msm.reason.msm_reason = TO_MSM_REASON_L2TP_OR_EXT;
+>             //tunnel_id.composite.session.session = sess_composite.composite.session.session;
+>             logpf("tid.sess: 0x%x, sess.sess: 0x%x  ", tunnel_id.composite.session.session, sess_composite.composite.session.session);
+>             }
+28699a28980,28985
+>         if (encap == MSM_ENCAP_L2TP)
+>             {
+>             logpf("L2TP ");
+>             msm_tb_type = INGRESS_MSM_TEST_BENCH_TYPE_L2TP_MSM;
+>             }
+> 
+28866a29153,29155
+>                 if (encap == MSM_ENCAP_L2TP)
+>                     ip_source.v4 = gw->get_ip(direction);
+>                 logpf("Route packet to endpoint %d with IP %s SA %s\n", nh->get_nh_index(), IP_ADDR2STR(IP_ADDR(ip_dest.v4)), IP_ADDR2STR(IP_ADDR(ip_source.v4)));
+28871a29161,29163
+>             logpf("is_ipv6: %d\n", is_ipv6);
+>             if (encap == MSM_ENCAP_L2TP) is_ipv6 = 0;
+> 
+28886a29179
+>                 logpf("is_gtp_ext != 0\n");
+28925a29219,29221
+>                 if (encap == MSM_ENCAP_L2TP)
+>                     ip = new IPV4_Hdr (TOS, 0, ttl, IP_PROTOCOL_ICMP, gw->get_ip(direction), use_nh_addr ? IP_ADDR(nh->v4) : RAND_IP);
+>                 else
+28968,28974c29264,29301
+<                 *frame += ip;
+<                 if (tcpframe) *ip += tcpframe;
+<                 if (udpframe) *ip += udpframe;
+<                 *frame += new Random_Data(large_frame_len);
+<                 ip->calc_ip_checksum_and_length();
+<                 if (tcpframe) tcpframe->calc_tcp_checksum();
+<                 if (udpframe) udpframe->calc_udp_checksum();
+---
+>                     *frame += ip;
+> #if 0
+>                 if (encap == MSM_ENCAP_L2TP)
+>                 {
+> 
+>                     add_l2tp_headers(frame, 0x03e8, 0xffec, 1);
+>                     if (0) {
+>                     UDP_HEADER udp = {};
+>                     udp.ports.source = UDP_PORT_L2TP;
+>                     udp.ports.dest = UDP_PORT_L2TP;
+>                     udpframe = new UDP_Data(&udp);
+> 
+>                     L2TP_FULL_HEADER l2tp_hdr = { };
+>                     l2tp_hdr.flags_and_vers.version = L2TP_VERSION;
+>                     l2tp_hdr.ids.tunnel_id = 0x03e8;
+>                     l2tp_hdr.ids.session_id = 0xffec;
+>                     L2TP_Hdr *l2tp_data = new L2TP_Hdr(&l2tp_hdr);
+>                     POS_ADDR_AND_CTRL ac = { POS_ADDR_VAL, POS_CTRL_VAL };
+>                     l2tp_data->insert_subframe_after(new POS_Addr_Ctrl(&ac));
+> 
+> 
+>                     *frame += udpframe;
+>                     *frame += l2tp_data;
+>                     }
+>                     *frame += new PPP_Protocol_Id(PPP_PROTOCOL_IPV4);
+>                     *frame += new IPV4_Hdr();
+>                     frame->delete_subframe(FR_SEGMENT_IPV4_HDR, false); // only delete first IPv4 header
+>                 }
+>                 else
+> #endif
+>                 {
+>                     if (tcpframe) *ip += tcpframe;
+>                     if (udpframe) *ip += udpframe;
+>                     *frame += new Random_Data(large_frame_len);
+>                     ip->calc_ip_checksum_and_length();
+>                     if (tcpframe) tcpframe->calc_tcp_checksum();
+>                     if (udpframe) udpframe->calc_udp_checksum();
+>                 }
+28988a29316
+>                 logpf ("MSM session frame\n");
+29007a29336
+>             logpf("packet_len_for_stats: %d\n", packet_len_for_stats);
+29028a29358
+>                 logpf("s->is_redirect()...\n");
+29074a29405
+>             logpf("Afetr sdf: %d\n", __LINE__);
+29076a29408
+>                     logpf("Error - No SDF or Bearer SDF %d (%d)\n", s->get_sdf_id(), s->get_local_sdf_id());
+29140a29473
+>             logpf("Afetr sdf: %d\n", __LINE__);
+29176a29510
+>                     logpf("NULL Encap\n");
+29261c29595,29642
+<         
+---
+>                     else if (encap == MSM_ENCAP_L2TP)
+>                     {
+>                         SW_FAB_HDR_L2TP_EXTRA l2tp_extra = {};
+> 
+>                         //msm_protocol = IP_PROTOCOL_L2TP;
+>                         UINT8 l2tp_lsb, l2tp_msb;
+>                         UINT8 bitsof_l2tp_tunnel_id_lsb = 8;
+> 
+>                         l2tp_msb = ((b->get_tunnel_id(direction) >> (L2TP_TUNNEL_ID__BITS+bitsof_l2tp_tunnel_id_lsb)) & ((1 << (L2TP_TUNNEL_ID__BITS-bitsof_l2tp_tunnel_id_lsb)) - 1));
+>                         l2tp_lsb = ((b->get_tunnel_id(direction) >> L2TP_TUNNEL_ID__BITS) & ((1 << L2TP_TUNNEL_ID__BITS) - 1));
+> 
+>                         l2tp_extra.binding_and_session.session_id = (b->get_tunnel_id(direction) & ((1 << L2TP_TUNNEL_ID__BITS) - 1));
+>                         //l2tp_extra.binding_and_session.binding_index = b->get_tunnel_id(direction);
+>                         l2tp_extra.binding_and_session.binding_index = (l2tp_msb << bitsof_l2tp_tunnel_id_lsb) & (1 << bitsof_l2tp_tunnel_id_lsb);
+>                         l2tp_extra.binding_and_session.binding_index |= ((l2tp_lsb) & ((1 << bitsof_l2tp_tunnel_id_lsb) - 1));
+>                         l2tp_extra.binding_and_session.ip_not_ppp = 1;
+>                         logpf("sess: 0x%x, bind-msb: 0x%x, lsb: 0x%x, bind: 0x%x\n", l2tp_extra.binding_and_session.session_id, l2tp_msb, l2tp_lsb, l2tp_extra.binding_and_session.binding_index);
+>                         frame->insert_subframe_after(new L2TP_Extra_Hdr(&l2tp_extra));
+>                         //packet_len_for_stats -= IPV4_HEADER__BYTES;
+>                         //packet_len_for_stats += SW_FAB_HDR_L2TP_EXTRA__BYTES;
+> 
+> #if 0
+>                     add_l2tp_headers(frame, 0x03e8, 0xffec, 1);
+>                     if (0) {
+>                     UDP_HEADER udp = {};
+>                     udp.ports.source = UDP_PORT_L2TP;
+>                     udp.ports.dest = UDP_PORT_L2TP;
+>                     udpframe = new UDP_Data(&udp);
+> 
+>                     L2TP_FULL_HEADER l2tp_hdr = { };
+>                     l2tp_hdr.flags_and_vers.version = L2TP_VERSION;
+>                     l2tp_hdr.ids.tunnel_id = 0x03e8;
+>                     l2tp_hdr.ids.session_id = 0xffec;
+>                     L2TP_Hdr *l2tp_data = new L2TP_Hdr(&l2tp_hdr);
+>                     POS_ADDR_AND_CTRL ac = { POS_ADDR_VAL, POS_CTRL_VAL };
+>                     l2tp_data->insert_subframe_after(new POS_Addr_Ctrl(&ac));
+> 
+> 
+>                     *frame += udpframe;
+>                     *frame += l2tp_data;
+>                     }
+>                     *frame += new PPP_Protocol_Id(PPP_PROTOCOL_IPV4);
+>                     *frame += new IPV4_Hdr();
+>                     frame->delete_subframe(FR_SEGMENT_IPV4_HDR, false); // only delete first IPv4 header
+> #endif
+>                 }
+> 
+> 
+29265a29647
+>                     if (encap != MSM_ENCAP_L2TP)
+29303c29685
+<                         logpf("Send packet from source %s TOS 0x%02x\n", IP_ADDR2STR(gw->get_ip(direction)), TOS);
+---
+>                         logpf("Send packet from source %s to 0x%x TOS 0x%02x\n", IP_ADDR2STR(gw->get_ip(direction)), nh->v4, TOS);
+29315a29698
+>                 logpf("%s: Calling common_rte_build_routing_dest_test_frame\n", __FUNCTION__);
+29405a29789,29793
+>                 if (encap == MSM_ENCAP_L2TP)
+>                 {
+>                     //dpi_num_bytes = expected_fr_len - SW_FABRIC_HEADER__BYTES - T_Q2_HEADER__BYTES;
+>                     //dpi_num_bytes = expected_fr_len;
+>                 }
+Index: pchip/tb/tests/iom/ingress/ingress_ip.h
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/tb/tests/iom/ingress/ingress_ip.h,v
+retrieving revision 1.256.2.12
+diff -r1.256.2.12 ingress_ip.h
+347c347
+<     UINT8                           get_if_lag_profile_index(ALL_DEST_INDICES adi) { return lag_profile_index; }
+---
+>     UINT8                           get_if_lag_profile_index(ALL_DEST_INDICES adi) { logpf("lag_profile_index for Network Interface: %u\n", lag_profile_index); return lag_profile_index; }
+774a775
+>     void                        subnet_build_subscriber_frames_for_l2tp_mg(L3_SAP * sap, L3_SVC * retail = NULL);
+Index: pchip/tb/tests/iom/ingress/ingress_main.cpp
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/tb/tests/iom/ingress/ingress_main.cpp,v
+retrieving revision 1.1260.2.39
+diff -r1.1260.2.39 ingress_main.cpp
+9108a9109,9123
+>     logpf("Start L2TP MG subs\n");
+> 
+>     VPRN sub_mgmt_vprn3;
+>     L3_SAP sub_mgmt_vprn_sap9 (&sub_mgmt_vprn3, &port0eq);
+>     sub_mgmt_vprn_sap9.set_ip(IP_ADDR(33, 1, 1, 1), 24);
+> 
+>     LOCAL_SUBNET * vs7_subnet = sub_mgmt_vprn_sap9.get_subnet();
+>     vs7_subnet->set_is_l2tp_subnet();
+>     IPV4_ROUTING_TABLE_ENTRY * vs7_rte = add_host_subnet (&sub_mgmt_vprn_sap9, &sub_mgmt_vprn3, false);
+> 
+>     IPV4_SUBSCRIBER vprn1_sub17 (RAND_MAC, IP_ADDR(33, 1, 1, 1), next_pppoe_sess_id++, SUB_QUEUE_NORMAL);  // PPPoE
+>     vprn1_sub17.bind_to_l2tp_mg_subnet(vs7_subnet, &sub_mgmt_vprn_sap9, vs7_rte, &vprn_sub_spoke2);
+> 
+>     logpf("Done L2TP MG subs\n");
+> 
+9598a9614
+>     logpf("msm_nh42\n");
+9599a9616
+>     logpf("msm_nh62\n");
+9601a9619
+>     logpf("msm_sdf_nh42\n");
+9602a9621
+>     logpf("msm_sdf_nh62\n");
+9603a9623
+>     logpf("msm_sdf_nh42_dl\n");
+9606a9627
+>     logpf("msm_nh40_gw1\n");
+9607a9629
+>     logpf("msm_nh41_gw1\n");
+9608a9631
+>     logpf("msm_nh60_gw1\n");
+9609a9633
+>     logpf("msm_nh61_gw1\n");
+9611a9636
+>     logpf("msm_nh40_gw2\n");
+9612a9638
+>     logpf("msm_nh41_gw2\n");
+9613a9640
+>     logpf("msm_nh60_gw2\n");
+9614a9642
+>     logpf("msm_nh61_gw2\n");
+9617a9646
+>     logpf("msm_nh40_gw3\n");
+9618a9648
+>     logpf("msm_nh41_gw3\n");
+9619a9650
+>     logpf("msm_nh60_gw3\n");
+9620a9652
+>     logpf("msm_nh61_gw3\n");
+9623a9656
+>     logpf("MSM SESSIONS NOW....\nmsm_sess1\n");
+9624a9658
+>     logpf("msm_sess2\n");
+9625a9660
+>     logpf("msm_sess3\n");
+9626a9662
+>     logpf("msm_sess4\n");
+9627a9664
+>     logpf("msm_sess5\n");
+9628a9666
+>     logpf("msm_sess6\n");
+9629a9668
+>     logpf("msm_sess7\n");
+9630a9670
+>     logpf("msm_sess8\n");
+9631a9672
+>     logpf("msm_sess9\n");
+9632a9674
+>     logpf("msm_sess10\n");
+9659a9702,9704
+>     logpf("MSM L2TP Sessions\n");
+>     MSM_SESSION msm_sess_mg_l2tp(0xa09, 0x009a, gw1);
+>     logpf("Done ALL SESSIONS...\n");
+9755a9801
+>     logpf("MSM session DPI msm_sess_dpi2 ADD BEARER: 0x%x\n", bearer_tunnel_id);
+9756a9803
+>     logpf("MSM session DPI 2nd time msm_sess_dpi2 ADD BEARER: 0x%x\n", bearer_tunnel_id);
+9757a9805
+>     logpf("msm_sess_dpi2 ADD BEARER DONEEEEEEEE\n");
+9774a9823,9828
+>     logpf ("add_encap MSM_ENCAP_L2TP Uplink\n");
+>     msm_sess_mg_l2tp.add_encap(true, &msm_nh40_gw1, MSM_ENCAP_L2TP);
+>     logpf ("add_encap MSM_ENCAP_L2TP Downlink\n");
+>     msm_sess_mg_l2tp.add_encap(false, &msm_nh41_gw1, MSM_ENCAP_L2TP);
+>     logpf ("add_bearer MSM_ENCAP_L2TP\n");
+>     msm_sess_mg_l2tp.add_bearer(bearer_tunnel_id, 1);  bearer_tunnel_id += 0x01010100;
+13183a13238,13242
+>         SET_FRAME_PHASE("L2TP MG LAC");
+>         logpf("Start L2TP MG subs - building frames\n");
+>         vs7_subnet->subnet_build_subscriber_frames_for_l2tp_mg(&sub_mgmt_vprn_sap9);
+>         logpf("Done L2TP MG subs - building frames\n");
+> 
+13289c13348
+<         SET_FRAME_PHASE("MSM session");
+---
+>         SET_FRAME_PHASE("MSM session-1");
+13306c13365
+<         SET_FRAME_PHASE("MSM session");
+---
+>         SET_FRAME_PHASE("MSM session-2");
+13307a13367
+>         logpf("Building MSM Session-2 Downlink frames\n");
+13308a13369
+>         logpf("Building MSM Session-2 Uplink frames\n");
+13379d13439
+< 
+13383a13444,13452
+> 
+>         SET_FRAME_PHASE("MSM session L2TP");
+>         logpf("Building MSM Session L2TP frames\n");
+>         logpf("Building MSM Session L2TP frames - Uplink\n");
+>         msm_sess_mg_l2tp.build_frames(true, &mdaport_msg);
+>         logpf("Building MSM Session L2TP frames - Downlink\n");
+>         //msm_sess_mg_l2tp.build_frames(false, &mdaport_msg);
+>         logpf("Done - Building MSM Session L2TP frames\n");
+> 
+Index: pchip/tb/tests/iom/ingress/ingress_svc.h
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/tb/tests/iom/ingress/ingress_svc.h,v
+retrieving revision 1.373.2.5
+diff -r1.373.2.5 ingress_svc.h
+1372a1373
+>     void                    l3_sap_build_test_frame_for_l2tp_mg_subscriber(SUBSCRIBER_BASE * sub, L3_SVC * retail = NULL, ROUTING_TABLE_ENTRY * rte = NULL, SUBSCRIBER_BASE * src_sub = NULL, UINT16 filter_list_test = IP_FLT_TEST_INVALID, TO_MSM_REASON msm_type = 0, SUBSCRIBER_BASE * src_alt_sub = NULL, UINT16 cpm_type = 0, INGRESS_MSM_TEST_BENCH_TYPE msm_tb_type = INGRESS_MSM_TEST_BENCH_TYPE_NONE);
+1373a1375
+>     void                    l3_sap_build_l2tp_test_frame_for_subscriber(SUBSCRIBER_BASE * src_sub, ROUTING_TABLE_ENTRY * rte = NULL);
+1660a1663
+>     bool                            is_l2tp_mg() const { return l2tp_mg; }
+1715a1719
+>     bool                            l2tp_mg;
+1762a1767
+>     void                            bind_to_l2tp_mg_subnet(LOCAL_SUBNET * sub, SAP_ENDPOINT * dest_sap, IPV4_ROUTING_TABLE_ENTRY *rte, L3_SDP_ENDPOINT *src_ep);
+Index: pchip/tb/tests/iom/ingress/ingress_tables.cpp
+===================================================================
+RCS file: /hwcvs/vhdl/pchip/tb/tests/iom/ingress/ingress_tables.cpp,v
+retrieving revision 1.1224.2.27
+diff -r1.1224.2.27 ingress_tables.cpp
+26a27
+> //
+9287a9289
+>     logpf("in %s is_lag: %d\n", __FUNCTION__, get_nh_vport()?get_nh_vport()->is_lag():-1);
+12988a12991,12992
+>         rec->is_l2tp_mg = is_l2tp_mg();
+>         logpf("rec->is_lac: %d, is_l2tp_mg: %d, is_l2tp_lns_sub: %d, is_l2tp_sub: %d, is_gtp_sub: %d, !lns_sub && l2tp_sub: %d\n", rec->is_lac, rec->is_l2tp_mg, is_l2tp_lns_sub(), is_l2tp_sub(), is_gtp_sub(), (!is_l2tp_lns_sub() && is_l2tp_sub()));
+12998a13003,13008
+>         logpf("msm_chunk_id: 0x%x (%d), tun_id: 0x%x, (%d)\n", rec->msm_chunk_id, rec->msm_chunk_id, get_l2tp_tunnel_id(), get_l2tp_tunnel_id());
+>         if (rec->is_l2tp_mg) {
+>             rec->dest_sap_index = 0;
+>             rec->msm_chunk_id = GET_CHUNK_ID(get_l2tp_tunnel_id());
+>         }
+>         logpf("msm_chunk_id: 0x%x (%d), tun_id: 0x%x, (%d)\n", rec->msm_chunk_id, rec->msm_chunk_id, get_l2tp_tunnel_id(), get_l2tp_tunnel_id());
+13546a13557,13586
+> void IPV4_SUBSCRIBER::bind_to_l2tp_mg_subnet(LOCAL_SUBNET * sub, SAP_ENDPOINT * ds, IPV4_ROUTING_TABLE_ENTRY *rte, L3_SDP_ENDPOINT *src_ep)
+>     {
+>     subnet = sub;
+>     dest_sap = ds;
+>     this->rte = rte;
+>     this->redirect_if = NULL;
+>     dest_sap_is_down = false;
+>     send_using_vrrp_src_mac = false;
+>     this->l2tp_mg = true;//is_l2tp_mg;
+> 
+>     subnet->add_subscriber(this);
+>     l2tp_tunnel_id = src_ep->get_l2tp_tunnel_id();
+>     set_l2tp_session_id();
+> 
+>     assert(ds);
+> 
+> #if (NPCHIP == 0)
+>     INGRESS_SUB_NEXTHOP_LOOKUP_KEY key = {};
+>     INGRESS_SUB_NEXTHOP_RECORD rec = {};
+>     fill_in_sub_nexthop_recs(&key, &rec, NULL);
+>     hash_INGRESS_SUB_NEXTHOP->add_entry(&rec, &key, sub_host_index, NULL, this, extra_hash_chain_entries);
+> #else
+>     INGRESS_NP_SUB_NEXTHOP_LOOKUP_KEY key = {};
+>     INGRESS_NP_SUB_NEXTHOP_RECORD rec = {};
+>     fill_in_sub_nexthop_recs(&key, &rec, NULL);
+>     hash_INGRESS_NP_SUB_NEXTHOP->add_entry(&rec, &key, sub_host_index, NULL, this, extra_hash_chain_entries);
+>     logpf("writing ingress tables for %s lns subscriber tunnel_in=0x%x session_id=%u\n", subnet->get_is_l2tp_subnet() ? "L2TP" : "GTP", key.l2tp.tunnel_id, key.l2tp.session_id);
+> #endif
+>     }
+> 
+14283c14323
+<         assert(encap == MSM_ENCAP_NONE || encap == MSM_ENCAP_PBR);
+---
+>         assert(encap == MSM_ENCAP_NONE || encap == MSM_ENCAP_PBR || encap == MSM_ENCAP_L2TP);
