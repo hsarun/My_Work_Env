@@ -9,3 +9,4 @@ git commit -am "comments"
 git push
 
 
+git dts merge <bugid>-MG00
