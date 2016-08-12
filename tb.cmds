@@ -1,0 +1,17 @@
+
+
+cvs -d ":pserver:arunsr@barge:/hwcvs" co -r  TESTBENCH_0_0_MOBILE_X3 vhdl
+cvs -d ":pserver:arunsr@barge:/hwcvs" co -r TESTBENCH_8_0F_MOBILE vhdl
+cvs -d ":pserver:arunsr@barge:/hwcvs" co -r TESTBENCH_8_0_future_MOBILE_X3 vhdl
+
+
+patch -p0 < ~/ws/test-bench/vhdl.diff
+vhdl test-bench/<dir-name>
+
+TB Source-Code:
+pchip/tb/tests/iom/
+
+npchip
+gop -e lava_msm_egress
+vi sim/lava_msm_egress/rtl.linux/log
+
