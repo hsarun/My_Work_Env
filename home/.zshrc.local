@@ -1,0 +1,87 @@
+function exists { which $1 &> /dev/null }
+
+if exists percol; then
+    function percol_select_history() {
+        local tac
+        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+        BUFFER=$($tac ~/.zsh_history | sed 's/^: [0-9]*:[0-9]*;//' | percol --query "$LBUFFER")
+        CURSOR=$#BUFFER         # move cursor
+        zle -R -c               # refresh
+    }
+
+    zle -N percol_select_history
+    bindkey '^R' percol_select_history
+fi
+
+setopt extendedglob
+#emulate bash -c 'source ~/access-UK/bash/bashrc_for_zsh'
+export DISABLE_AUTO_TITLE=true
+
+__git_files () {
+      _wanted files expl 'local files' _files
+}
+
+#autojump
+[[ -s /home/arunsr/.autojump/etc/profile.d/autojump.sh ]] && source /home/arunsr/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
+
+#Up arrow should not display global history. ctrl-p to display global history
+
+bindkey '^[[A' up-line-or-local-history
+bindkey '^[[B' down-line-or-local-history
+#bindkey "${key[Up]}" up-line-or-local-history
+#bindkey "${key[Down]}" down-line-or-local-history
+bindkey '^[[1;5A' up-line-or-local-history
+bindkey '^[[1;5B' down-line-or-local-history
+
+up-line-or-local-history() {
+   zle set-local-history 1
+   zle up-line-or-history
+   zle set-local-history 0
+}
+zle -N up-line-or-local-history
+down-line-or-local-history() {
+   zle set-local-history 1
+   zle down-line-or-history
+   zle set-local-history 0
+}
+zle -N down-line-or-local-history
+
+#UDAY - Below line shows git-status of git working dir w.r.t origin in PS1
+#source /home/udayakut/access-UK/zsh/zsh-git-prompt/zshrc.sh
+
+#UDAY - change PS1 to have git info
+#With pwd in the PROMPT
+PROMPT='${ret_status}%{$fg_bold[green]%}%p%{$fg[cyan]$(get_pwd) %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}=>$ %{$reset_color%}'
+
+#With just current working directory
+#PROMPT='${ret_status}%{$fg_bold[green]%}%p%{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_super_status)%{$fg_bold[blue]%}=>$ %{$reset_color%}'
+
+function get_pwd() {
+  echo "${PWD/$HOME/~}"
+}
+
+#percol - Interactive version of pgrep and pkill -- ppgrep and ppkill
+function ppgrep() {
+    if [[ $1 == "" ]]; then
+        PERCOL=percol
+    else
+        PERCOL="percol --query $1"
+    fi
+    ps aux | eval $PERCOL | awk '{ print $2 }'
+}
+
+function ppkill() {
+    if [[ $1 =~ "^-" ]]; then
+        QUERY=""            # options only
+    else
+        QUERY=$1            # with a query
+        [[ $# > 0 ]] && shift
+    fi
+    ppgrep $QUERY | xargs kill $*
+}
+
+
+source ~/.zshrc.bashrc.local
+
+

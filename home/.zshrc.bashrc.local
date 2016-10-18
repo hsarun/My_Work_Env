@@ -1,0 +1,181 @@
+######################################################################################################
+# Bringing in .bashrc for .zshrc
+######################################################################################################
+
+
+java=`which java`   # Must be before we overwrite the Windows path
+
+if $(uname -a | grep -qi cygwin)
+then
+    export OSTYPE=cygwin
+    cygwin=1
+    export WIND_HOST_TYPE=x86-win32
+    export DESKTOP_2=1
+    export PATH=/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin
+elif uname -a | grep -iq ming ; then
+    #. /etc/profile
+    export "PATH=${PATH}:/usr/local/timostools"
+    return
+else
+    export OSTYPE=linux
+    cygwin=0
+    export WIND_HOST_TYPE=x86-linux
+fi
+
+
+if [ -z $USER ] && [ ! -z $USERNAME ]
+then
+    export USER=$USERNAME
+fi
+if [ -z $USERNAME ] && [ ! -z $USER ]
+then
+    export USERNAME=$USER
+fi
+
+
+# This is not needed to build TiMOS. The build environment figures it out
+# automatically. But, it is here just to catch incorrecty installed software
+# installations to make it easier for me to debug an installation somebody
+# has screwed up.
+export WIND_BASE=/usr/local/tornado-2.0
+export EMACS_BASE=/usr/local/emacs-20.6
+
+export TMP=/tmp
+export TEMP=/tmp
+
+#
+# CVS things
+#
+export CVSROOT=":pserver:$USER@cvspc.mv.usa.alcatel.com:/swdev/cvsrep"
+export GASHROOT=":pserver:$USER@gashpc.mv.usa.alcatel.com:/swdev/cvsrep"
+export ADMINROOT=":pserver:$USER@cvspc.mv.usa.alcatel.com:/swdev/adminrep"
+export CVSREAD=TRUE
+
+#
+# Things for building PANOS
+#
+export MAKE_MODE=UNIX
+# The default TiMOS build targets.
+export TGT_HW=i386
+export TGT_SYS=both
+
+#
+# Set up the path. It's done in stages...
+#
+if [ $cygwin -eq 1 -a -d /etc/alternatives ]
+then
+    export PATH=${PATH}:/etc/alternatives
+fi
+
+#
+# Wind River Tornado
+# 
+if [ -d ${WIND_BASE}/host/${WIND_HOST_TYPE}/bin ]
+then
+    export PATH=${PATH}:${WIND_BASE}/host/${WIND_HOST_TYPE}/bin
+fi
+
+#
+# Various tools that may or may not exist
+#
+
+# Emacs
+if [ -d ${EMACS_BASE}/bin ]
+then
+    export PATH=${PATH}:${EMACS_BASE}/bin
+fi
+
+# VI-clone
+if [ -d /usr/local/vim56 ]
+then
+    export PATH=${PATH}:/usr/local/vim56
+fi
+
+# TCL
+if [ -d /usr/local/tcl/bin ]
+then
+    export PATH=${PATH}:/usr/local/tcl/bin
+fi
+
+#
+# Sun's java compiler. The thing gets installed in different
+# places depending upon the particular versions. Something that revs
+# once per month is sort of a problem... Try and "guess" at the most recent
+# one. Surely the most recent is the "best", right?
+#
+
+if [ -n "$java" ]; then
+    PATH=${PATH}:$(dirname $java)
+else
+    jdk='/ProgramData/Oracle/Java/javapath'
+    if [ -d $jdk ]; then
+        export PATH="${PATH}:$jdk"   #no /bin here
+    else
+        jdk=$(/bin/ls -d -t /j2sdk* 2>/dev/null | head -1)
+        if [ "${jdk}" != "" ]
+        then
+            export PATH="${PATH}:${jdk}/bin"
+        else
+            jdk=$(/bin/ls -d -t /jdk* 2>/dev/null | head -1)
+            if [ "${jdk}" != "" ]
+            then
+                export PATH="${PATH}:${jdk}/bin"
+            fi
+        fi
+    fi
+fi
+
+#
+# If you have timostools, then use it
+#
+if [ -d /usr/local/timostools ]
+then
+    export PATH="/usr/local/timostools:${PATH}"
+
+    # Enable git tab-complete and fancy git prompting for linux users
+    if [ $cygwin -eq 0 ]; then
+        #source /usr/local/timostools/git.d/git-completion.bash
+        #source /usr/local/timostools/git.d/git-prompt.sh
+
+        # git prompt configuration
+#        GIT_PS1_SHOWUPSTREAM=auto
+#        GIT_PS1_SHOWCOLORHINTS=1
+#        GIT_PS1_SHOWDIRTYSTATE=1
+#        GIT_PS1_SHOWUNTRACKEDFILES=1
+#        GIT_PS1_STATESEPARATOR=' '
+#        export PROMPT_COMMAND='__git_ps1 "\w" " > "'
+    fi
+
+else
+    echo "You do not appear to have the SW development tools."
+fi
+
+#
+# Some aliases specific to our development
+#
+alias panos='cd $HOME/ws/panos'
+
+#
+# Do a 'cvs -n up' which shows all files in the currrent directory
+# and below which need to be updated or are modified. But, filter out
+# all of the noise lines that cvs generates as it traverses a file tree
+#
+alias cvsnup='cvs -n -q up -P -d 2>/dev/null | grep -v "^\?"'
+alias cvsup='cvs -z9 -q up -P -d 2>/dev/null | grep -v "^\?"'
+alias cvsedit='cvs edit'
+alias cvschanged="cvs -n -f -q up -dPR 2>/dev/null | grep '^[MARC?] '"
+alias cvschanged2='cvs -z9 -q status 2>&1 | grep Status | egrep -v "(Up-to|Needs Patch)"'
+alias cvsstatus='cvs status | grep Status'
+
+
+
+############################################################################################
+# Rest of the stuff....
+source ~/.bashrc.local
+#emulate bash -c 'source ~/.bashrc.local'
+#emulate bash -c '. ~/.bashrc.local'
+
+source ~/.myalias
+#emulate bash -c 'source ~/.myalias'
+#emulate bash -c '. ~/.myalias'
+
