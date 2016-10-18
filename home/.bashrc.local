@@ -149,7 +149,7 @@ function run_suite() {
         if [ $# -eq 1 ]; then
             suiteName=$1
             echo "Suite-Name: $1"
-            if [ $UK_STYLE -eq 1 ]; then
+            if [ $UK_STYLE = 1 ]; then
                 ws=$MY_PROJECT
                 wsName=`basename $MY_PROJECT`
             else
