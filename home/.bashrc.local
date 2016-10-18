@@ -45,8 +45,8 @@ alias setb='set b=$PWD'
 alias setc='set c=$PWD'
 alias setd='set d=$PWD'
 
-unalias mv
-unalias rm
+#unalias mv
+#unalias rm
 
 
 #
@@ -84,6 +84,102 @@ alias rapidedit='cd $p/rapidlogic ; cvs edit panos.ccp panos.rcp panos.wcp rc_op
 export EMAIL_ADDR=Arun.Srinivasa@alcatel-lucent.com
 #source /usr/local/timostools/git-dts
 
+
+#
+# CVS things
+#
+export VHDLUSERNAME=arunsr
+export VHDLROOT=":pserver:$VHDLUSERNAME@172.22.0.10:/hwcvs"
+
+#
+# VHDL environment things
+#
+export HW_SYNCED=/hwdev/synced
+export OSTYPE=linux
+export OS=Linux
+export PERL=/usr
+export PATH=".:/hwdev/hwmisc/apps/modeltech/6.1g/linux_x86_64:$PATH"
+
+function vhdl() {
+    export MY_PROJECT=$HOME/ws/$1/vhdl
+    export PERL5LIB=$MY_PROJECT/common/scripts/lib
+    export PANOS=$HOME/ws/$1/panos 
+    DO_ALIAS=1
+    . ${MY_PROJECT}/common/scripts/unix/setup.bash
+    #caecfg
+    #. ${MY_PROJECT}/common/scripts/unix/caecfg_bash
+    cd $MY_PROJECT
+}
+
+export MODEL_TECH=/hwdev/hwmisc/apps/modeltech/6.1g/linux_x86_64/modeltech
+export MGLS_LICENSE_FILE=3100@bkeyserver:1717@sls4m9.stgl.sel.alcatel.de:1717@sls1ki.stgl.sel.alcatel.de:1717@slsc5c.stgl.sel.alcatel.de
+
+#function run_suite() {
+#        if [ $# -eq 1 ]; then
+#            suiteName=$1
+#            if [ $UK_STYLE = 1 ]; then
+#                ws=$MY_PROJECT
+#                wsName=`basename $MY_PROJECT`
+#            else
+#                ws=$(expr "$PWD" : "\(/.*\(panos\|vhdl[^/]*\)\)")
+#                if [ $OSTYPE = 'linux' ]; then 
+#                    wsName=$(expr "$PWD" : "^$HOME\/ws\/\([^\/]*\)")
+#                else
+#                    wsName=$(expr "$ws" : "\/\(.*\)")
+#                fi
+#            fi 
+#            if [ -z "$wsName" ]; then
+#                echo "ERROR: Unable to determine workspace from current directory: $PWD"
+#                exit
+#            fi
+#        else
+#            wsName=$1
+#            suiteName=$2
+#            if [ $OSTYPE = 'linux' ]; then
+#                ws=$HOME/ws/$wsName/vhdl
+#            else
+#                ws=/$wsName/vhdl
+#            fi
+#        fi
+#        $ws/pchip/scripts/testbench_scripts/run_suite.sh $wsName $ws/pchip/scripts/testbench_scripts/testbench_suites/$suiteName.testsuite
+#    }
+
+function run_suite() {
+        echo $#
+        if [ $# -eq 1 ]; then
+            suiteName=$1
+            echo "Suite-Name: $1"
+            if [ $UK_STYLE -eq 1 ]; then
+                ws=$MY_PROJECT
+                wsName=`basename $MY_PROJECT`
+            else
+                ws=$(expr "$PWD" : "\(/.*\(panos\|vhdl[^/]*\)\)")
+                if [ $OSTYPE = 'linux' ]; then 
+                    wsName=$(expr "$PWD" : "^$HOME\/ws\/\([^\/]*\)")
+                else
+                    wsName=$(expr "$ws" : "\/\(.*\)")
+                fi
+            fi 
+            if [ -z "$wsName" ]; then
+                echo "ERROR: Unable to determine workspace from current directory: $PWD"
+                exit
+            fi
+        else
+            wsName=$1
+            suiteName=$2
+            if [ $OSTYPE = 'linux' ]; then
+                ws=$HOME/ws/$wsName/vhdl
+            else
+                ws=/$wsName/vhdl
+            fi
+        fi
+        echo "ws: $ws"
+        echo "wsName: $wsName"
+        echo "suiteName: $suiteName"
+        $ws/pchip/scripts/testbench_scripts/run_suite.sh $wsName $ws/pchip/scripts/testbench_scripts/testbench_suites/$suiteName.testsuite
+    }
+
+
 i386 () { cd bin/7xxx-i386/
           cp iom.tim i386-iom.tim
           cp cpm.tim i386-cpm.tim
@@ -109,9 +205,9 @@ i386np () { cd bin/7xxx-i386/
           scp i3*.tim $1@$1.ih.lucent.com:/home/$1/images
           cd ../.. ;}
 hops () { cd bin/7xxx-hops/
-          scp *.tim $1@$1.mv.usa.alcatel.com:/home/$1/images
+          scp *.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
           cd ../7xxx-chile/
-          scp isa-aa.tim $1@$1.mv.usa.alcatel.com:/home/$1/images
+          scp isa-aa.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
           cd ../.. ;}
 hopsn () { cd bin/7xxx-hops/
           scp *.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
@@ -141,16 +237,15 @@ queen () { cd bin/7xxx-i386/
            cp boot.tim i386-boot.tim
            cp both.tim i386-both.tim
            cp isa-aa.tim i386-isa-aa.tim
-           scp i3*.tim
-           arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+           scp i3*.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
            cd ../.. ;}
 
 queenhops () { cd bin/7xxx-hops/
           scp *.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
           cd ../7xxx-chile/
-          scp isa-aa.tim
-          arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+          scp isa-aa.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
           cd ../.. ;}
+
 
 # $1: Test Bed Name
 # $2: Reason

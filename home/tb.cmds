@@ -1,8 +1,9 @@
 
 
-cvs -d ":pserver:arunsr@barge:/hwcvs" co -r  TESTBENCH_0_0_MOBILE_X3 vhdl
+cvs -d ":pserver:arunsr@barge:/hwcvs" co -r TESTBENCH_0_0_MOBILE_X3 vhdl
 cvs -d ":pserver:arunsr@barge:/hwcvs" co -r TESTBENCH_8_0F_MOBILE vhdl
-cvs -d ":pserver:arunsr@barge:/hwcvs" co -r TESTBENCH_8_0_future_MOBILE_X3 vhdl
+cvs -d ":pserver:arunsr@barge:/hwcvs" co -r TESTBENCH_8_0S_MOBILE vhdl
+
 
 
 patch -p0 < ~/ws/test-bench/vhdl.diff
@@ -14,4 +15,43 @@ pchip/tb/tests/iom/
 npchip
 gop -e lava_msm_egress
 vi sim/lava_msm_egress/rtl.linux/log
+
+
+
+➜ ~/ws/test-bench/l2tp.tb.8s/vhdl/pchip/tb/tests/iom/ingress =>$ cvs commit
+cvs commit: Examining .
+
+Checking in egress.h;
+/hwcvs/vhdl/pchip/tb/tests/iom/egress/egress.h,v  <--  egress.h
+new revision: 1.605.2.12.2.2; previous revision: 1.605.2.12.2.1
+done
+
+------> And the Copy Paste the o/p to the bug...
+And if u want to see the CVS code, after opening the link in the bug, replace the IP with 'barge'
+
+
+
+
+On Common M/C:
+
+1. Create .bashrc.local and call it from .bashrc
+https://twiki.mv.usa.alcatel.com/bin/view/SRPG_SwTools/PchipSwDevLinuxSetup
+
+2. cvs -d ":pserver:arunsr@barge:/hwcvs" login
+                        and login using eng/na02 password
+
+3. create ~/.gitconfig and copy from your machine...
+
+4. git login gitpanos.mv.usa.alcatel.com
+                        and login using eng/na02 password
+
+5. cvs -d ":pserver:arunsr@barge:/hwcvs" co -r  TESTBENCH_0_0_MOBILE_X3 vhdl
+
+6. git co -r TiMOS-MG_0_0 panos
+
+7. cd vhdl ; vhdl <dir-name>
+
+8. npchip
+
+9. gop -e lava_ingress
 

@@ -250,19 +250,19 @@ set tags=tags
 "source  ~/.vim/plugin/cscope_maps.vim
 
 "Key Mappings for quickfix
-set cscopequickfix=s-,c-,d-,i-,t-,f-,e-
-:map <C-Up> :cope 15<CR>
-:map <C-Down> :ccl<CR>
-:map <C-Right> :cn<CR>
-:map <C-Left> :cp<CR>
+"set cscopequickfix=s-,c-,d-,i-,t-,f-,e-
+":map <C-Up> :cope 15<CR>
+":map <C-Down> :ccl<CR>
+":map <C-Right> :cn<CR>
+":map <C-Left> :cp<CR>
 
 "Key Mappings for BufExplorer - To work on multiple buffers in the same VIM window
-let bufExplorerOpenMode=1
-let bufExplorerSplitBelow=1
-let bufExplorerSplitHorzSize=10
-:map <S-Right> :bnext<CR>
-:map <S-Left>  :bprev<CR>
-:map <S-Up>  \bs
+"let bufExplorerOpenMode=1
+"let bufExplorerSplitBelow=1
+"let bufExplorerSplitHorzSize=10
+":map <S-Right> :bnext<CR>
+":map <S-Left>  :bprev<CR>
+":map <S-Up>  \bs
 
 
 "SHIFT-Insert are Paste

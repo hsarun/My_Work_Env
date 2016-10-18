@@ -7,7 +7,8 @@ alias cdws='cd $HOME/ws'
 
 alias startvnc="vncserver -depth 24 -geometry 1200x900"
 alias startvnc169="vncserver -depth 24 -geometry 1280x750"
-alias startvnc169monitor="vncserver -depth 24 -geometry 1440x850"
+#alias startvnc169monitor="vncserver -depth 24 -geometry 1440x850"
+alias startvnc169monitor="vncserver -depth 24 -geometry 1920x1080"
 
 
 
