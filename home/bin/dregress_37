@@ -105,32 +105,18 @@ dumpRegressParams();
 }
 sub getRegressParamsLocation
 {
-my $dir = cwd();
-my $rpext = "make/regress.params";
-my $rpfile = "$main::root/$rpext";
+my $rpext = "regress.params";
 if( main::globalRoot() ) {
-$rpfile = "$main::root/$rpext";
-}
-my $rc = `ls -la $rpfile 2>/dev/null`;
-if( $rc) {
-return($rpfile);
-}
-my @dirs = `find -O3 /home/$main::user -type d -name \"panos\" -print -prune`;
-unless(@dirs) {
-die("regress.params not found - please keep this file in $main::root\n");
-}
-foreach my $panos (@dirs) {
-chomp($panos);
-$rpfile = "$panos/rpext";
-my $rc = `ls -la $rpfile 2>/dev/null`;
-if( $rc) {
-chdir($panos);
-system("cvs -z9 update $rpext 2>/dev/null");
-chdir($dir);
+my $rpfile = "$main::root/$rpext";
+if( -e $rpfile ) {
 return($rpfile);
 }
 }
-die("regress.params not found - please keep this file in $main::root\n");
+my $timosRegress = "/usr/local/timostools/regress.params";
+if( -e $timosRegress ) {
+return($timosRegress);
+}
+die("regress.params not found\n");
 }
 sub dumpRegressParams
 {
@@ -163,6 +149,7 @@ print $fd "@lines";
 if($main::dflag){printf("$state:\n");print "@lines"; printf("\n");}
 close $fd;
 }
+1;
 package testBeds;
 use strict;
 use IO::File;
@@ -181,8 +168,12 @@ our $vmstatus = "";
 our $hwstatus = "";
 our $simstatus = "";
 my $tbfile = "/tmp/testbed$$.status";
+my $blacklist = "blacklistTB.txt";
 my $osName=`/bin/uname -s`;
 chomp($osName);
+my $vmidle = 0;
+my $hwidle = 0;
+my $simidle = 0;
 sub findTestBeds
 {
 if( $main::dflag) {printf("My OS is $osName\n");}
@@ -192,6 +183,8 @@ doit("idle", "VM");
 if($vmtcount == 0 ) {
 printf("No idle VM testbeds available - looking for inprogress VM\n");
 doit("inprogress", "VM");
+} else {
+$vmidle = 1;    
 }
 }
 if( isHwAllowed() ) {
@@ -199,6 +192,8 @@ doit("idle", "HW");
 if($hwtcount == 0 ) {
 printf("No idle HW testbeds available - looking for inprogress HW\n");
 doit("inprogress", "HW");
+} else {
+$hwidle = 1;    
 }
 }
 if( isSimAllowed() ) {
@@ -206,6 +201,8 @@ doit("idle", "SIM");
 if($simtcount == 0 ) {
 printf("No idle SIM testbeds available - looking for inprogress SIM\n");
 doit("inprogress", "SIM");
+} else {
+$simidle = 1;   
 }
 }
 $tcount = $vmtcount + $hwtcount + $simtcount;
@@ -368,7 +365,11 @@ return(1);
 if( $host =~ /scale/
 || $host =~ /gash/ 
 || $host =~ /cli/ 
+|| $host =~ /red/ 
 || $host =~ /endur/ ) {
+return(0);
+}
+if( isBlackList( $host ) ) {
 return(0);
 }
 if( $regressParams::regressParams{$host}{'allowed'} == 0 ) {
@@ -418,11 +419,47 @@ return(1);
 }
 return(0);
 }
+my %blackList = ();
+sub readBlacklist
+{
+my $file = "";
+if( -e "/home/$main::user/$blacklist" ) {
+$file = "/home/$main::user/$blacklist";
+}
+if( -e $blacklist ) {
+$file = $blacklist;
+}
+if( -e "$main::root/$blacklist" ) {
+$file = "$main::root/$blacklist";
+}
+if( -e "/tmp/$blacklist" ) {
+$file = "/tmp/$blacklist";
+}
+unless ($file ) {
+if( $main::dflag) { printf("No blacklist file\n"); }
+return;
+}
+my @contents = `cat $file 2> /dev/null`;
+foreach my $line (@contents) {
+chomp($line);
+$blackList{$line} = 1;
+if( $main::dflag) { printf("$line is blacklist TB\n"); }
+}
+}
+sub isBlackList
+{
+my $tb = shift;
+if( $blackList{$tb} ) {
+return 1;
+}
+return 0;
+}
 sub selectTestBed
 {
+my $tbtype = shift;
 my $index = 1;
 my $cntr = 1;
-if( isVmAllowed() ) {
+if( isVmAllowed() && ($tbtype eq "ANY" || $tbtype eq "VM") ) {
 printf("\n\n\t\tVM Testbeds ($vmstatus):\n\t\t");
 for my $choice (@vmtestbed) {
 printf("%2d) %-15s", $index, $vmtestbed[$cntr - 1]);
@@ -433,7 +470,7 @@ $index++;
 $cntr++;
 } 
 }
-if( isHwAllowed() ) {
+if( isHwAllowed() && ($tbtype eq "ANY" || $tbtype eq "HW") ) {
 $cntr = 1;
 printf("\n\n\t\tHW Testbeds ($hwstatus):\n\t\t");
 for my $choice (@hwtestbed) {
@@ -445,7 +482,7 @@ $index++;
 $cntr++;
 } 
 }
-if( isSimAllowed() ) {
+if( isSimAllowed() && ($tbtype eq "ANY" || $tbtype eq "SIM") ) {
 $cntr = 1;
 printf("\n\n\t\tSIM Testbeds ($simstatus):\n\t\t");
 for my $choice (@simtestbed) {
@@ -489,6 +526,9 @@ if( $tbtype eq "ANY" ) {
 if( ($lastvm + $lasthw + $lastsim) >= $tcount ) {
 $lastvm = $lastsim = $lasthw = 0;
 }
+if( $vmidle == 0 && $hwidle == 0 && $simidle == 0 ) {
+return( selectTestBed($tbtype) );
+}
 if( $vmtcount && $lastvm <= ($vmtcount-1) ) {
 return($vmtestbed[$lastvm++]);
 }
@@ -503,6 +543,9 @@ if( $tbtype eq "VM" ) {
 if( $lastvm >= $vmtcount ) {
 $lastvm = 0;
 }
+if( $vmidle == 0 ) {
+return( selectTestBed($tbtype) );
+}
 if( $vmtcount && $lastvm <= ($vmtcount-1) ) {
 return($vmtestbed[$lastvm++]);
 }
@@ -511,6 +554,9 @@ if( $tbtype eq "HW" ) {
 if( $lasthw >= $hwtcount ) {
 $lasthw = 0;
 }
+if( $hwidle == 0 ) {
+return( selectTestBed($tbtype) );
+}
 if( $hwtcount && $lasthw <= ($hwtcount-1) ) {
 return($hwtestbed[$lasthw++]);
 }
@@ -518,6 +564,9 @@ return($hwtestbed[$lasthw++]);
 if( $tbtype eq "SIM" ) {
 if( $lastsim >= $simtcount ) {
 $lastsim = 0;
+}
+if( $simidle == 0 ) {
+return( selectTestBed($tbtype) );
 }
 if( $simtcount && $lastsim <= ($simtcount-1) ) {
 return($simtestbed[$lastsim++]);
@@ -864,7 +913,7 @@ if( $pkg eq "paging" ) {
 doit(@paging);
 return;
 }
-if( $pkg eq "idlesessiontimeout" ) { 
+if( $pkg eq "idlesesstimeout" ) { 
 doit(@idlesesstimeout);
 return;
 }
@@ -972,7 +1021,7 @@ printf("\t\t$num: $str: $suite\trunLevel: $runlevel\n");
 } else {
 if( $testBeds::select ) {
 printf("\n\t\tSelect Testbed for $str: $suite Runlevel $runlevel");
-$testbed = testBeds::selectTestBed();
+$testbed = testBeds::selectTestBed("ANY");
 unless( $testbed ) {
 printf("\t\tAuto assign testbed . . .\n");
 $testbed = testBeds::getTestBed("ANY");
@@ -1085,7 +1134,7 @@ if( $main::acctTest ) {
 $cmd .= "-acctRunExpress true ";
 }
 } elsif( $suite eq "priority" ) {
-$cmd = "$regress -testbed $testbed -runLevel $runlevel -reason \"$main::reason\" ";
+$cmd = "$regress -priority P0 -testbed $testbed -runLevel $runlevel -reason \"$main::reason\" ";
 if( $main::startPriority ) {
 $cmd .= "-startPriority $main::startPriority ";
 } else {
@@ -1224,7 +1273,7 @@ scheduleRegress();
 }
 1;
 package main;
-my $version="v30";
+my $version="v31.1";
 use strict;
 use Cwd;
 our $dflag = 0;
@@ -1272,6 +1321,7 @@ getRoot();
 getSite();
 getCvsTag();
 regressParams::getRegressParams();
+testBeds::readBlacklist();
 testBeds::findTestBeds();
 unless ($reason) {
 $reason = "$root :$version";
@@ -1583,6 +1633,10 @@ next;
 }
 if ( $a eq "-v3" ) {
 $subTopology = "ismMgV3";
+next;
+}
+if ( $a eq "-plasma" ) {
+$subTopology = "plasmaMgV3";
 next;
 }
 if ( $a eq "-v2s" ) {
