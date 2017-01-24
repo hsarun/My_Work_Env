@@ -1585,6 +1585,10 @@ if ( $a eq "-v3" ) {
 $subTopology = "ismMgV3";
 next;
 }
+if ( $a eq "-v3p" ) {
+$subTopology = "plasmaMgV3";
+next;
+}
 if ( $a eq "-v2s" ) {
 $subTopology = "mgScalingV2";
 next;
@@ -1645,6 +1649,7 @@ printf("\t-v2: Use subTopology ismMgB (Default)\n");
 printf("\t-v2s: Use subTopology mgScalingV2\n");
 printf("\t-v3: Use subTopology ismMgV3\n");
 printf("\t-v3s: Use subTopology mgScalingV3\n");
+printf("\t-v3p: Use subTopology plasmaMgV3\n");
 printf("\t-vfp: Use subTopology vfp\n");
 printf("\t-vfps: Use subTopology vfp Scaling\n");
 printf("\t-vm : If used, only VM testbeds will used\n");
