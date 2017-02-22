@@ -1606,6 +1606,10 @@ if ( $a eq "-vfps" ) {
 $subTopology = "vfpScaling";
 next;
 }
+if ( $a eq "-vfpC" ) {
+$subTopology = "vfpDutC";
+next;
+}
 if ( $a eq "-regressDbg" ) {
 $regressDbg = 1;
 next;
@@ -1652,6 +1656,7 @@ printf("\t-v3s: Use subTopology mgScalingV3\n");
 printf("\t-v3p: Use subTopology plasmaMgV3\n");
 printf("\t-vfp: Use subTopology vfp\n");
 printf("\t-vfps: Use subTopology vfp Scaling\n");
+printf("\t-vfpC: Use subTopology vfpDutC\n");
 printf("\t-vm : If used, only VM testbeds will used\n");
 printf("\t-hw : If used, only HW testbeds will used\n");
 printf("\t-sim : If used, only SIM testbeds will used\n");
