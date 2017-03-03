@@ -113,7 +113,7 @@ cd $DIR
         [ -n "$GEN_DIR_BASE" ] && find $GEN_DIR_BASE \( -type f \)
     fi
 ) | \
-    egrep -i '\.([chlys](xx|pp)*|cc|hh|tcl)$' | \
+    egrep -i '\.([chlys](xx|pp)*|cc|hh|tcl|inc)$' | \
     sed -e '/\/CVS\//d' -e '/\/RCS\//d' -e 's/^\.\///' -r -e '/^(panos\/)?(lib.*|bin.*|deps.*|objs.*|\.git|\.hg)\//d' -e '/gen\/.*\/work\//d' | \
     sort > $LIST_FILE
 
