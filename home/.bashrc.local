@@ -84,6 +84,7 @@ alias rapidedit='cd $p/rapidlogic ; cvs edit panos.ccp panos.rcp panos.wcp rc_op
 export EMAIL_ADDR=Arun.Srinivasa@alcatel-lucent.com
 #source /usr/local/timostools/git-dts
 
+export GIT_CO_USE_WORKTREES=1
 
 #
 # CVS things
@@ -179,6 +180,180 @@ function run_suite() {
         $ws/pchip/scripts/testbench_scripts/run_suite.sh $wsName $ws/pchip/scripts/testbench_scripts/testbench_suites/$suiteName.testsuite
     }
 
+function run_v1_hw_suite() {
+        echo $#
+        if [ $# -eq 0 ]; then
+            suiteName='hw'
+            if [ $UK_STYLE = 1 ]; then
+                ws=$MY_PROJECT
+                wsName=`basename $MY_PROJECT`
+            else
+                ws=$(expr "$PWD" : "\(/.*\(panos\|vhdl[^/]*\)\)")
+                if [ $OSTYPE = 'linux' ]; then 
+                    wsName=$(expr "$PWD" : "^$HOME\/ws\/\([^\/]*\)")
+                else
+                    wsName=$(expr "$ws" : "\/\(.*\)")
+                fi
+            fi 
+            if [ -z "$wsName" ]; then
+                echo "ERROR: Unable to determine workspace from current directory: $PWD"
+                exit
+            fi
+        elif [ $# -eq 1 ]; then
+            suiteName=$1
+            echo "Suite-Name: $1"
+            if [ $UK_STYLE = 1 ]; then
+                ws=$MY_PROJECT
+                wsName=`basename $MY_PROJECT`
+            else
+                ws=$(expr "$PWD" : "\(/.*\(panos\|vhdl[^/]*\)\)")
+                if [ $OSTYPE = 'linux' ]; then 
+                    wsName=$(expr "$PWD" : "^$HOME\/ws\/\([^\/]*\)")
+                else
+                    wsName=$(expr "$ws" : "\/\(.*\)")
+                fi
+            fi 
+            if [ -z "$wsName" ]; then
+                echo "ERROR: Unable to determine workspace from current directory: $PWD"
+                exit
+            fi
+        else
+            wsName=$1
+            suiteName=$2
+            if [ $OSTYPE = 'linux' ]; then
+                ws=$HOME/ws/$wsName/vhdl
+            else
+                ws=/$wsName/vhdl
+            fi
+        fi
+        echo "ws: $ws"
+        echo "wsName: $wsName"
+        echo "suiteName: $suiteName"
+        echo "Running v1 Test-bench-cases" > ~/ws/testbench_results/$wsName-$suiteName
+        npchip
+        echo "egress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S egress
+        echo "lava_egress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S lava_egress
+        echo "ingress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S ingress
+        echo "lava_ingress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S lava_ingress
+        echo "lava_msm_ingress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S lava_msm_ingress
+        echo "lava_msm_egress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S lava_msm_egress
+        echo "pumice_msm_ingress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S pumice_msm_ingress
+        echo "pumice_msm_egress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S pumice_msm_egress
+        echo "All Done" >> ~/ws/testbench_results/$wsName-$suiteName
+    }
+
+function run_v3_hw_suite() {
+        echo $#
+        if [ $# -eq 1 ]; then
+            suiteName=$1
+            echo "Suite-Name: $1"
+            if [ $UK_STYLE = 1 ]; then
+                ws=$MY_PROJECT
+                wsName=`basename $MY_PROJECT`
+            else
+                ws=$(expr "$PWD" : "\(/.*\(panos\|vhdl[^/]*\)\)")
+                if [ $OSTYPE = 'linux' ]; then 
+                    wsName=$(expr "$PWD" : "^$HOME\/ws\/\([^\/]*\)")
+                else
+                    wsName=$(expr "$ws" : "\/\(.*\)")
+                fi
+            fi 
+            if [ -z "$wsName" ]; then
+                echo "ERROR: Unable to determine workspace from current directory: $PWD"
+                exit
+            fi
+        else
+            wsName=$1
+            suiteName=$2
+            if [ $OSTYPE = 'linux' ]; then
+                ws=$HOME/ws/$wsName/vhdl
+            else
+                ws=/$wsName/vhdl
+            fi
+        fi
+        echo "ws: $ws"
+        echo "wsName: $wsName"
+        echo "suiteName: $suiteName"
+        echo "Running v3 Test-bench-cases" > ~/ws/testbench_results/$wsName-$suiteName
+        np3chip
+        echo "egress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S egress
+        echo "lava_egress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S lava_egress
+        echo "ingress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S ingress
+        echo "lava_ingress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S lava_ingress
+        echo "pumice_msm_ingress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S pumice_msm_ingress
+        echo "pumice_msm_egress" >> ~/ws/testbench_results/$wsName-$suiteName
+        gop -S pumice_msm_egress
+        echo "All Done" >> ~/ws/testbench_results/$wsName-$suiteName
+    }
+
+function run_hw_suite() {
+        echo $#
+        if [ $# -eq 0 ]; then
+            suiteName="hw"
+            echo "PWD=$PWD"
+            if [ $UK_STYLE = 1 ]; then
+                ws=$MY_PROJECT
+                wsName=`basename $MY_PROJECT`
+            else
+                ws=$(expr "$PWD" : "\(/.*\(panos\|vhdl[^/]*\)\)")
+                if [ $OSTYPE = 'linux' ]; then 
+                    wsName=$(expr "$PWD" : "^$HOME\/ws\/\([^\/]*\)")
+                else
+                    wsName=$(expr "$ws" : "\/\(.*\)")
+                fi
+            fi 
+            if [ -z "$wsName" ]; then
+                echo "ERROR: Unable to determine workspace from current directory: $PWD"
+#                exit
+            fi
+        fi
+        if [ $# -eq 1 ]; then
+            suiteName=$1
+            echo "Suite-Name: $1"
+            if [ $UK_STYLE = 1 ]; then
+                ws=$MY_PROJECT
+                wsName=`basename $MY_PROJECT`
+            else
+                ws=$(expr "$PWD" : "\(/.*\(panos\|vhdl[^/]*\)\)")
+                if [ $OSTYPE = 'linux' ]; then 
+                    wsName=$(expr "$PWD" : "^$HOME\/ws\/\([^\/]*\)")
+                else
+                    wsName=$(expr "$ws" : "\/\(.*\)")
+                fi
+            fi 
+            if [ -z "$wsName" ]; then
+                echo "ERROR: Unable to determine workspace from current directory: $PWD"
+%                exit
+            fi
+        else
+            wsName=$1
+            suiteName=$2
+            if [ $OSTYPE = 'linux' ]; then
+                ws=$HOME/ws/$wsName/vhdl
+            else
+                ws=/$wsName/vhdl
+            fi
+        fi
+        echo "ws: $ws"
+        echo "wsName: $wsName"
+        echo "suiteName: $suiteName"
+    #    run_v1_hw_suite();
+    #    run_v3_hw_suite();
+    }
+
 
 i386 () { cd bin/7xxx-i386/
           cp iom.tim i386-iom.tim
@@ -196,6 +371,25 @@ i386n () { cd bin/7xxx-i386/
           cp isa-aa.tim i386-isa-aa.tim
           scp i3*.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
           cd ../.. ;}
+i386perfImageGet () { make/distws.sh -get "bin/7xxx-i386,*.qcow2"
+          make/distws.sh -get "bin/vm/7xxx-i386,*.qcow2"
+          make/distws.sh -get "bin/7xxx-i386,*.tim"
+          make/distws.sh -get "bin/7xxx-i386,*.bin"
+          make/distws.sh -get "bin/vm/7xx-i386,*.tim"
+          make/distws.sh -get "bin/vm/7xx-i386,*.bin" ; }
+i386perf () { cd bin/7xxx-i386/
+          cp iom.tim i386-iom.tim
+          cp cpm.tim i386-cpm.tim
+          cp boot.tim i386-boot.tim
+          cp both.tim i386-both.tim
+          cp isa-aa.tim i386-isa-aa.tim
+          cp vmcontainer.qcow2 i386-vmcontainer.qcow2
+          cp vxrom.bin i386-vxrom.bin
+          scp i3* $1@$1.us.alcatel-lucent.com:/home/$1/images
+          #scp vxrom.bin $1@$1.us.alcatel-lucent.com:/home/$1/images
+          cd ../..
+          scp bin/vm/7xxx-i386/* $1@$1.us.alcatel-lucent.com:/home/$1/images
+          }
 i386np () { cd bin/7xxx-i386/
           cp iom.tim i386-iom.tim
           cp cpm.tim i386-cpm.tim
@@ -237,8 +431,21 @@ queen () { cd bin/7xxx-i386/
            cp boot.tim i386-boot.tim
            cp both.tim i386-both.tim
            cp isa-aa.tim i386-isa-aa.tim
-           scp i3*.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+           scp i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
            cd ../.. ;}
+
+queenperf () { cd bin/7xxx-i386/
+           cp iom.tim i386-iom.tim
+           cp cpm.tim i386-cpm.tim
+           cp boot.tim i386-boot.tim
+           cp both.tim i386-both.tim
+           cp isa-aa.tim i386-isa-aa.tim
+           cp vmcontainer.qcow2 i386-vmcontainer.qcow2
+           scp i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+           scp vxrom.bin arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+           cd ../..
+           scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1;
+           }
 
 queenhops () { cd bin/7xxx-hops/
           scp *.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
@@ -328,7 +535,8 @@ dregrv3submit () {
 
 # $1: Reason
 dregrvfpsubmit () {
-    dregress -vfp -reason $1 -pkg express;
+    #dregress -vfp -reason $1 -pkg express;
+    dregress -vfp -reason $1 -pkg basic;
 }
 
 # $1: Reason
