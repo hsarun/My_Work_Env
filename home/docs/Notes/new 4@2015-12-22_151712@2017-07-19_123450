@@ -1,0 +1,50 @@
+psimfilter 5,101,"process-msm","",1,5
+psimfilter 5,101,"process-msm=1, reason=2","",1,5 (Uplink?) (2=TO_MSM_REASON_GTP_USER)
+
+psimfilter 5,1,"msm-frame=1","",1,5
+psimfilter 5,1,"packet-direction=1","",1,1 (uplink=1)
+psimfilter 5,101,"direction=0","",1,30
+psimfilter 5,101,"idle-extract=1","",1,1
+
+
+psimfilter 5,1,"dipv4=5.127.255.0","",1,1
+psimfilter 5,1,"dipv4=10.20.2.3","",1,30
+psimfilter 5,1,"mscp-reason=2","",1,1
+
+psimfilter 5,1,"msm-dpi-data=","",1,10
+
+psimfilter 5,1,"distat=67","",1,1
+psimfilter 5,2,"distat=61","",1,1
+psimfilter 5,101,"destat=61","",1,1
+
+
+smgrDumpPdnTable 1
+
+smgrDumpDbgSummary 1
+
+[002 m 01/25/16 22:57:37.092]  4:simPchipSim-2:PCHIPSIM:DLO 4A-P1I: chain: 0x0, voq_num: 0x99, cntxt: 0x144, fcout: 0xb4, qnum: 0x35, p2mp: 0x0
+[002 m 01/25/16 22:57:37.092]  4:simPchipSim-2:PCHIPSIM:DLO 4A-P1I: MSM LI peer 1 context 1 ice 0
+
+
+
+[004 m 01/25/16 22:59:25.059]  4:simPchipSim-2:PCHIPSIM:DLO 4A-P1I: chain: 0x0, voq_num: 0xa1, cntxt: 0x200, fcout: 0xb4, qnum: 0x36, p2mp: 0x0
+[004 m 01/25/16 22:59:25.059]  4:simPchipSim-2:PCHIPSIM:DLO 4A-P1I: MSM LI peer 1 context 5 ice 4
+
+
+sudo vconfig add eth1 30
+sudo ifconfig eth1.30 2.0.0.1
+sudo ip route add 10.0.4.33/32 via 2.0.0.3
+sudo ping -I 2.0.0.1 10.0.4.33 -c1
+
+
+psimfilter 5,1,"dipv4=10.0.4.33","",1,10 
+
+
+
+show router 300 route-table
+show router 300 interface
+
+
+------------------------------
+
+psimfilter 5,101,"v4-acl-qos-128","",1,5	 
