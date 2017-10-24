@@ -1,0 +1,43 @@
+cvs co -r TiMOS-MG_0_0 panos
+
+
+Pre checkin tests:
+
+
+regress -testbed mvltevm25 -priority P0  -subTopology ismMgV3 -nobuild -reason "dts 194888 20876" -runLevel express   -> express suites
+for eg: http://mvltetb93.us.alcatel-lucent.com/results/2015/Month_10/Oct_28/12:50:41.ipd-mobile-dev/masterlog_list.html
+
+
+regress -testbed mvltevm25 -runSuite mgQuick -priority P0  -subTopology ismMgV3 -nobuild -reason "dts 194888 20876" -runLevel quick  -> mgquick
+for eg:  http://mvltevm65.us.alcatel-lucent.com/results/2015/Month_10/Oct_27/12:55:35.Siddharth.Sambamoorthy/masterlog_list.html
+
+regress -subTopology vfp -testbed mvltevm22 -runLevel express -reason vfp_express -nobuild;
+
+
+Making review requests:
+Inside panos directory:
+make/review -draft
+
+https://review.mv.usa.alcatel.com
+
+Crossporting a change from one branch to another
+Supppose you’ve checked in a change to mg00 branch and you want to crossport it to mg70s use the following command(make sure your mg70s branch is clean)
+dts -merge "167826-M00" -nb –doit
+
+Before committing in the code make sure you do a cvsup and a mk
+
+Committing in the code
+
+cvs commit -m "DTS217997 changes to enable ipreas to be configured in ipsec mda, receive and process packets and also count stats."
+
+Mkcurrent
+
+
+
+Create a patch: download from reviewboard or  $cvs diff -u > patch
+Apply a patch 
+patch -p0 < review97687.patch.diffs
+patch -p1 < review97687.patch.diffs
+
+
+git co --branch-name mg90s -r TiMOS-MG_9_0_current

@@ -1,0 +1,1 @@
+/configure card 4 mda 2 mda-type "isa-aa-v"

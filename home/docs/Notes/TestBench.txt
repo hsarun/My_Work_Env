@@ -1,0 +1,30 @@
+
+cvs login
+cvs -d ":pserver:arunsr@barge:/hwcvs" login
+
+cvs -d ":pserver:arunsr@barge:/hwcvs" co -r TESTBENCH_9_0S_MOBILE vhdl
+
+run_suite csim
+
+vhdl/np3chip/sim/pumice_msm_ingress/rtl.linux/log
+
+
+search for "Frame check FAILED"
+gop -e lava_ingress
+gop -e pumice_msm_ingress
+
+
+ingress_test_main()
+
+
+
+npchip > gop -S pumice_msm_ingress
+npchip > gop -S ingress
+
+npchip > gop -S egress ; gop -S lava_msm_ingress ; gop -S lava_msm_egress ; gop -S pumice_msm_egress
+
+np3chip > gop -S pumice_msm_ingress
+np3chip > gop -S pumice_msm_egress
+np3chip > gop -S ingress
+np3chip > gop -S egress
+

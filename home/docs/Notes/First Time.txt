@@ -1,0 +1,83 @@
+Testbed status - http://135.227.254.40/status/
+
+Vnc to mvltetb6.us.alcatel-lucent.com:1 (if mvltetb6 is reserved by  you) – vnc pw is “tigris”
+
+You can also ssh - ssh mvltetb6@mvltetb6.us.alcatel-lucent.com (pw – tigris)
+
+MME sim (NO) -? DUT-A (SGW) -? DUT-C (PGW) 
+DUT-B will be used for redundancy 
+
+Testbed (inside VNC):
+
+bash> mklinks current 0.0 7750mg
+bash> restore_gash -cvs_tag TiMOS-MG_0_0 -subTopology ismMgB /ismMgV3/vfp/mgScalingV2/mgScalingV3/vfpScaling -bofa disableChecks
+
+bash> mklinks future 9.0 7750mg   / link_dir latest_f 7750mg/9.0
+restore_gash -cvs_tag TiMOS-MG_9_0_future -subTopology ismMgB /ismMgV3/vfp/mgScalingV2/mgScalingV3/vfpScaling -bofa disableChecks
+
+bash> mklinks current 9.0 7750mg / link_dir latest_s 7750mg/9.0
+restore_gash -cvs_tag TiMOS-MG_9_0_current -subTopology ismMgB /ismMgV3/vfp/mgScalingV2/mgScalingV3/vfpScaling -bofa disableChecks
+
+bash> mklinks future 8.0 7750mg   / link_dir latest_f 7750mg/8.0
+restore_gash -cvs_tag TiMOS-MG_8_0_future -subTopology ismMgB /ismMgV3/vfp/mgScalingV2/mgScalingV3/vfpScaling -bofa disableChecks
+
+bash> mklinks current 8.0 7750mg / link_dir latest_s 7750mg/8.0
+restore_gash -cvs_tag TiMOS-MG_8_0_current -subTopology ismMgB /ismMgV3/vfp/mgScalingV2/mgScalingV3/vfpScaling -bofa disableChecks
+
+bash> ~/ws/gash/bin/powercycle.tcl $USER
+once the DUTs are up,  (DUT login/pw – admin/admin) – show card
+bash> gash
+
+setup
+gash> configTestBedNetOwl sgwPgw  -sgiRouting true -addressType 4 -sgwHA true -pgwHA true
+
+debug commands:
+A:Dut-C# show version
+A:Dut-C# show mobile-gateway system
+
+to attach
+gash > doAttach -profId 1 -grpId 1 -imsi 111111111111111 -mei 111111111111111 -msisdn 11111111111 -pdn-type 4 -numUE 1
+
+debug commands:
+*A:Dut-C# show mobile-gateway pdn bearer-context
+Msm:
+3->jsh
+Iom3#dmsms 0 1 ( refer iom_debug.cpp) 
+
+to send traffic
+gash> sendMmeCommand "proc send-tpdu imsi 111111111111111 5 100 17 auto 1235 15.1.1.1 2432 999"
+3->jsh
+Iom3#dmsms 0 1 ( refer iom_debug.cpp) 
+
+to detach
+gash> doDetach  -profId 1 -grpId 1
+
+
+Traces:
+
+ICC messages (type in MSM)
+icc_log_help
+icc_log_enable 1
+icc_log_display 1 0 118 <socket number - 118>
+icc_log_display 1 121 <ICC_SOCKET_MSM_STAT_TABLE>
+
+MSM traces
+iomtrace 0 (0 enable 1 disable)
+iomtrace 1
+traceLimitDisable / traceLimitEnable
+tracepointSet 0 0 0 0 "fn_name"
+tracepointSet 0 0 0 0 "msm_ipcs_config_listener"
+tracepointClear 0 0 0 0 "MSM_SDF_INSTANCE::~MSM_SDF_INSTANCE()"
+tracepointSet MOD_IP_REAS_FP 0 0 0 "ip_reas_main_dispatch"
+tracepointSet MOD_IP_REAS_FP 0 0 0 0
+tracepointClearAll
+
+CPM:
+kernel
+jsh
+traceLimitEnable
+tracepointSet 0 0 0 0 "bgp_nhres_fnh_map_update"
+tracepointSet 0 0 0 0 "bgp_vpn_nhres_fnh_map_fill_info"
+
+shell cardcmd 3 shellInit 65535 1
+/usr/global/tools/lte/wireshark/current/x86_64/bin/wireshark &

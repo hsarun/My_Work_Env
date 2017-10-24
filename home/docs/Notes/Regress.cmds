@@ -1,0 +1,30 @@
+Policer suites::::
+
+regress -cvs_tag TiMOS-MG_0_0 -priority P2 -runLevel regular -runSuite ltePolicer ltePolicerHA ggsnPolicer ggsnPolicerIxia policingUlDlPgwGgsnIx -testbed mvltehwrtb06 -nobuild -subTopology ismMgB -reason iccrx_policer_suites;
+regress -cvs_tag TiMOS-MG_0_0 -priority P2 -runLevel regular -runSuite ltePolicerHA -testbed mvltehwrtb06 -nobuild -subTopology ismMgB -reason iccrx_ltepolicerHA;
+regress -cvs_tag TiMOS-MG_0_0 -priority P2 -runLevel regular -runSuite ggsnPolicer ggsnPolicerIxia -testbed mvltehwrtb08 -nobuild -subTopology ismMgB -reason iccrx_ggsnpolicer;
+regress -cvs_tag TiMOS-MG_0_0 -priority P2 -runLevel regular -runSuite policingUlDlPgwGgsnIx -testbed mvltehwrtb08 -nobuild -subTopology ismMgB -regressInclude beta -reason iccrx_policingUlDlPgwGgsnIx;
+
+all:
+regress -cvs_tag TiMOS-MG_0_0 -priority P2 -runLevel regular -runSuite ltePolicer ltePolicerHA ggsnPolicer ggsnPolicerIxia policingUlDlPgwGgsnIx -testbed mvltehwrtb06 -nobuild -subTopology ismMgB -reason iccrx_ltepolicer_all;
+
+bball
+regress -notify arun.srinivasa@alcatel-lucent.com -testbed mvltehwrtb03 -runLevel medium -runSuite bbAll -nobuild
+
+chargingall
+regress -notify arun.srinivasa@alcatel-lucent.com -testbed mvltehwrtb17 -runLevel medium -runSuite chargingAll -nobuild
+
+
+Scaling tests:::::::
+
+regress -notify arun.srinivasa@alcatel-lucent.com -bofa disableChecks -runLevel regular -reason "bhcaTest43_1100K_sgwIcr_v3_80f" -nobuild  -runTest bhcaTest43_1100K_sgwIcr_v3  -testbed mvmgendur8 / mvltetb16 -priority P2
+
+regress -notify arun.srinivasa@alcatel-lucent.com -bofa disableChecks -runLevel regular -reason "iccrx_bhcaTest50_1200K_sgwPgw_v3_mg80f_listtask_polcreate" -nobuild -priority P1 -testbed mvmgendur8 / mvltetb16 -runTest bhcaTest50_1200K_sgwPgw_v3
+
+regress -notify arun.srinivasa@alcatel-lucent.com -bofa disableChecks -runLevel regular -reason "bhcaTest43_500K_sccgIcrVoLTE_v3_mg80f_runningcounter" -nobuild  -runTest bhcaTest43_500K_sccgIcrVoLTE_v3  -testbed mvmgendur8 / mvltetb16 -priority P2 -totalNumUes 400000
+
+regress -notify arun.srinivasa@alcatel-lucent.com  -runLevel extensive -runTest mgScalingSgwNg_1M_S1HO_V3 mgScalingPgwNg_NID_PGWICR_1M_V3 mgScalingSccg_pmipReattach_500K_V3 -bofa disableChecks -nobuild -reason iccrx_v3hw_ _extensive_tc_mg80f_debug -priority P0 -testbed mvltehwrtb18
+
+regress -notify arun.srinivasa@alcatel-lucent.com  -runLevel regular -runTest mgScalingPgwNg_500K_1500K_SP1_V3  -bofa disableChecks -nobuild -reason iccrx_v3hw_dedicated_bearer_scaling_beta -priority P1 -cvs_tag TiMOS-MG_8_0_current -testbed mvltehwrtb18
+
+regress -notify arun.srinivasa@alcatel-lucent.com  -runLevel regular -runTest mgScalingPgwNg_1M_V3 mgScalingPgwNg_80K_SP100_V3 mgScalingSgwNg_rf_1M_V3 -bofa disableChecks -nobuild -reason iccrx_v3hw_regular_tc_mg80f_debug -priority P0 -cvs_tag TiMOS-MG_8_0_future -testbed mvltehwrtb20

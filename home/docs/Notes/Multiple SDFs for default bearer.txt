@@ -1,0 +1,47 @@
+Steps on GASH:
+================
+runSuiteSetup sccgIratCallFlows
+
+On DUT-C CLI:
+
+# You need to shut the APN where the PRBs are referred to update the PRBs
+/config mobile pdn 1 apn "apnStaticPccRules" shut
+
+# Remove the PRBs from APN, to update the PRs QCI/ARP/Precendence/CRU/PRU
+/config mobile pdn 1 apn "apnStaticPccRules" static-pcc no default-policy-rule-base prb1
+/config mobile pdn 1 apn "apnStaticPccRules" static-pcc no default-policy-rule-base prb2
+/config mobile pdn 1 apn "apnStaticPccRules" static-pcc no default-policy-rule-base prb3
+
+# Remove the PRs from PRB, to update the PRs QCI/ARP/Precendence/CRU/PRU
+/configure mobile-gateway profile policy-options policy-rule-base "prb1" no policy-rule "pr1" 
+/configure mobile-gateway profile policy-options policy-rule-base "prb2" no policy-rule "pr2" 
+/configure mobile-gateway profile policy-options policy-rule-base "prb3" no policy-rule "pr3" 
+
+# Remove the PRs
+/configure mobile-gateway profile policy-options no policy-rule "pr1"
+/configure mobile-gateway profile policy-options no policy-rule "pr2"
+/configure mobile-gateway profile policy-options no policy-rule "pr3"
+
+# Re-config the PRs with needed QCI/ARP/Precendence/CRU/PRU ...you may mostly be interested in QCI/ARP/Precendence
+/configure mobile-gateway profile policy-options policy-rule "pr2" policy-rule-unit "pru2" charging-rule-unit "cru2" qci 9 arp 11 precedence 65071
+/configure mobile-gateway profile policy-options policy-rule "pr3" policy-rule-unit "pru3" charging-rule-unit "cru3" qci 9 arp 11 precedence 65061
+
+# Create PRBs with one or more PRs
+/configure mobile-gateway profile policy-options policy-rule-base "prb2" policy-rule "pr2" 
+/configure mobile-gateway profile policy-options policy-rule-base "prb2" policy-rule "pr3" 
+
+# Refer the PRBs under the APN...
+/config mobile pdn 1 apn "apnStaticPccRules" static-pcc default-policy-rule-base prb2
+
+# You need to no shut the APN where the PRBs are referred to update the PRBs
+/config mobile pdn 1 apn "apnStaticPccRules" no shut
+
+
+To creat an UE with static rules:
+==================================
+doAttach      -profId 3 -grpId 3 -sgwNum 3 -pgw-s5s8-address 16.16.16.16 -apn apnStaticPccRules -pdn-type 4 -default-bearer-context "9,11,9,1000000,1000000,0,0" -imsi 333333333333333 -mei 333333333333333 -msisdn 33333333333 -numUE 1
+
+To cleanup:
+============
+doDetach -profId 3 -grpId 3
+
