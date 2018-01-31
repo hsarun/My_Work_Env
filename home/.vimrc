@@ -39,6 +39,9 @@ Plugin 'jeetsukumaran/vim-buffersaurus'
 Plugin 'vim-scripts/vimtabs.vim'
 Plugin 'flazz/vim-colorschemes'
 
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
+
 "Plugin 'vim-scripts/ShowFunc.vim'
 "Plugin 'sjl/clam.vim'                         "Clam shellcmd
 "Plugin 'vim-scripts/OmniCppComplete'
@@ -276,7 +279,8 @@ imap <S-Insert>        <ESC><S-Insert>i
 if has("win32unix")
     let g:showfuncctagsbin="/usr/local/timostools/ctags"
 else
-    let g:showfuncctagsbin="/home/udayakut/software/ctags/ctags-5.8/installed_binaries/bin/ctags"
+"    let g:showfuncctagsbin="/home/udayakut/software/ctags/ctags-5.8/installed_binaries/bin/ctags"
+    let g:showfuncctagsbin="/usr/bin/ctags"
 endif
 let g:ctags_statusline=1
 let g:ctags_title=0
