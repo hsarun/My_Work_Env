@@ -83,6 +83,7 @@ alias rapidedit='cd $p/rapidlogic ; cvs edit panos.ccp panos.rcp panos.wcp rc_op
 
 export EMAIL_ADDR=Arun.Srinivasa@alcatel-lucent.com
 #source /usr/local/timostools/git-dts
+export REGRESS_FAMILY=MG
 
 export GIT_CO_USE_WORKTREES=1
 
@@ -371,6 +372,14 @@ i386n () { cd bin/7xxx-i386/
           cp isa-aa.tim i386-isa-aa.tim
           scp i3*.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
           cd ../.. ;}
+i386ng () { cd bin/7xxx-i386/
+          cp iom.tim i386-iom.tim
+          cp cpm.tim i386-cpm.tim
+          cp boot.tim i386-boot.tim
+          cp both.tim i386-both.tim
+          cp isa-aa.tim i386-isa-aa.tim
+          scp i3*.tim $1@$1:/home/$1/images
+          cd ../.. ;}
 i386perfImageGet () { make/distws.sh -get "bin/7xxx-i386,*.qcow2"
           make/distws.sh -get "bin/vm/7xxx-i386,*.qcow2"
           make/distws.sh -get "bin/7xxx-i386,*.tim"
@@ -441,8 +450,8 @@ queenperf () { cd bin/7xxx-i386/
            cp both.tim i386-both.tim
            cp isa-aa.tim i386-isa-aa.tim
            cp vmcontainer.qcow2 i386-vmcontainer.qcow2
+           cp vxrom.bin i386-vxrom.bin
            scp i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
-           scp vxrom.bin arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
            cd ../..
            scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1;
            }
