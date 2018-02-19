@@ -1,0 +1,83 @@
+# Nok Specific alias...
+
+
+txi386tb  () {
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+                sshpass -p 'tigris' scp bin/7xxx-i386/i3*.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+             }
+
+txhopstb  () {
+                sshpass -p 'tigris' scp bin/7xxx-hops/*.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+                sshpass -p 'tigris' scp bin/7xxx-chile/isa-aa.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+             }
+
+txperftb  () {
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+                cp bin/7xxx-i386/vmcontainer.qcow2 bin/7xxx-i386/i386-vmcontainer.qcow2
+                cp bin/7xxx-i386/vxrom.bin bin/7xxx-i386/i386-vxrom.bin
+                sshpass -p 'tigris' scp bin/7xxx-i386/i3* $1@$1.us.alcatel-lucent.com:/home/$1/images
+                sshpass -p 'tigris' scp bin/vm/7xxx-i386/* $1@$1.us.alcatel-lucent.com:/home/$1/images
+             }
+
+
+
+txi386q  () {
+               cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+               cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+               cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+               cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+               cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+               sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+            }
+
+txi386q1 () {
+               cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+               cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+               cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+               cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+               cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+               sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+            }
+
+txhopsq  () {
+                sshpass -p 'Myqueen12$' scp bin/7xxx-hops/*.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+                sshpass -p 'Myqueen12$' scp bin/7xxx-chile/isa-aa.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+            }
+
+txhopsq1 () {
+                sshpass -p 'Myqueen12$' scp bin/7xxx-hops/*.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+                sshpass -p 'Myqueen12$' scp bin/7xxx-chile/isa-aa.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+            }
+
+txperfq   () {
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+                cp bin/7xxx-i386/vmcontainer.qcow2 bin/7xxx-i386/i386-vmcontainer.qcow2
+                cp bin/7xxx-i386/vxrom.bin bin/7xxx-i386/i386-vxrom.bin
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+                sshpass -p 'Myqueen12$' scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+             }
+
+txperfq1  () {
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+                cp bin/7xxx-i386/vmcontainer.qcow2 bin/7xxx-i386/i386-vmcontainer.qcow2
+                cp bin/7xxx-i386/vxrom.bin bin/7xxx-i386/i386-vxrom.bin
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+                sshpass -p 'Myqueen12$' scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+             }
+
