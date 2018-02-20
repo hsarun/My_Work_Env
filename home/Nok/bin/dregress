@@ -123,7 +123,11 @@ if( -e $rpfile ) {
 return($rpfile);
 }
 }
-my $timosRegress = "/usr/local/timostools/regress.params";
+my $timosRegress = `echo "\${HOME:-/tmp/\$USER}/.regress/$rpext"`;
+chomp($timosRegress);
+unless (-e $timosRegress) {
+`regress > /dev/null 2>&1`;
+}
 if( -e $timosRegress ) {
 my $now = time;
 my $sec = (localtime($now))[0];
@@ -143,7 +147,7 @@ system("make timostools");
 }
 return($timosRegress);
 }
-die("regress.params not found\n");
+die("regress.params ($timosRegress) not found\n");
 }
 sub dumpRegressParams
 {
@@ -1513,7 +1517,7 @@ scheduleRegress();
 }
 1;
 package main;
-my $version="v33.7";
+my $version="v33.9";
 use strict;
 use Cwd;
 our $dflag = 0;
@@ -1549,7 +1553,7 @@ our $release = "0.0";
 parseArgs();
 unless( $package ) {
 unless( $showtb ) {
-printf("Nothing to run\n");	
+printf("Nothing to run\n");     
 printf("For help, Enter: $0 -h\n");
 exit;
 }
@@ -1716,15 +1720,9 @@ sub getCvsTag
 {
 my $cvsfile = "$main::root/CVS/Tag";
 my $lab = "";
-my $fd = new IO::File;
-unless( open($fd, "< $cvsfile") ){
-if($dflag){printf("Unable to open $cvsfile\n");}
-return(-1);
-}
-my $data = <$fd>;
-close($fd);
+my $data = `git symbolic-ref --short HEAD`;
 chomp($data);
-$data =~ s/TTiMOS-MG_//g;
+$data =~ s/TiMOS-MG_//g;
 $data =~ s/_current//g;
 $release = $data;
 $release =~ s/_/./g;
@@ -1735,7 +1733,7 @@ sub parseArgs
 my @T = @ARGV;
 my $argTest = 0;
 if ( scalar @T == 0 ) {
-printf("Must supply one or more parameters\n");	
+printf("Must supply one or more parameters\n"); 
 printf("For more help, Enter: $0 -h\n");
 exit(0);
 }

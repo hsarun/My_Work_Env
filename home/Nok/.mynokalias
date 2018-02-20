@@ -96,3 +96,39 @@ txperfq1  () {
                 sshpass -p 'Myqueen12$' scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
              }
 
+txq ()       {
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+                cp bin/7xxx-i386/vmcontainer.qcow2 bin/7xxx-i386/i386-vmcontainer.qcow2
+                cp bin/7xxx-i386/vxrom.bin bin/7xxx-i386/i386-vxrom.bin
+                echo "Copying bin/7xxx-i386/i3*..."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+                echo "Copying bin/vm/7xxx-i386/*..."
+                sshpass -p 'Myqueen12$' scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+                echo "Copying bin/7xxx-hops/*.tim..."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-hops/*.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+                echo "Copying bin/7xxx-chile/isa-aa.tim..."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-chile/isa-aa.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+            }
+
+txq1 ()     {
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+                cp bin/7xxx-i386/vmcontainer.qcow2 bin/7xxx-i386/i386-vmcontainer.qcow2
+                cp bin/7xxx-i386/vxrom.bin bin/7xxx-i386/i386-vxrom.bin
+                echo "Copying bin/7xxx-i386/i3*..."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+                echo "Copying bin/vm/7xxx-i386/*..."
+                sshpass -p 'Myqueen12$' scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+                echo "Copying bin/7xxx-hops/*.tim..."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-hops/*.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+                echo "Copying bin/7xxx-chile/isa-aa.tim..."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-chile/isa-aa.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+            }
+
