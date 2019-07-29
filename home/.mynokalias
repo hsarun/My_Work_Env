@@ -1,0 +1,227 @@
+# Nok Specific alias...
+
+
+txi386tb  () {
+                echo "bin/7xxx-i386/i386-iom.tim ...... to $1....."
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                echo "bin/7xxx-i386/i386-cpm.tim ...... to $1....."
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                echo "bin/7xxx-i386/i386-boot.tim ....... to $1....."
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                echo "bin/7xxx-i386/i386-both.tim ...... to $1....."
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                echo "bin/7xxx-i386/i386-isa-aa.tim ....... to $1....."
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+
+                sshpass -p 'tigris' scp bin/7xxx-i386/i3*.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+             }
+
+txhopstb  () {
+                echo "Copying bin/7xxx-hops/*.tim... to $1....."
+                sshpass -p 'tigris' scp bin/7xxx-hops/*.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+
+                echo "Copying bin/7xxx-chile/isa-aa.tim... to $1....."
+                sshpass -p 'tigris' scp bin/7xxx-chile/isa-aa.tim $1@$1.us.alcatel-lucent.com:/home/$1/images
+             }
+
+txperftb  () {
+                echo "bin/7xxx-i386/i386-iom.tim ...... to $1....."
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                echo "bin/7xxx-i386/i386-cpm.tim ...... to $1....."
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                echo "bin/7xxx-i386/i386-boot.tim ....... to $1....."
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                echo "bin/7xxx-i386/i386-both.tim ...... to $1....."
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                echo "bin/7xxx-i386/i386-isa-aa.tim ....... to $1....."
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+
+                echo "bin/7xxx-i386/i386-vmcontainer.qcow2 ....... to $1....."
+                cp bin/7xxx-i386/vmcontainer.qcow2 bin/7xxx-i386/i386-vmcontainer.qcow2
+
+                sshpass -p 'tigris' scp bin/7xxx-i386/i3* $1@$1.us.alcatel-lucent.com:/home/$1/images
+
+                echo "bin/7xxx-i386/i386-vxrom.bin ........ to $1....."
+                sshpass -p 'tigris' scp bin/7xxx-i386/vxrom.bin $1@$1.us.alcatel-lucent.com:/home/$1/images
+
+                echo "Copying bin/vm/7xxx-i386/*... to $1....."
+                sshpass -p 'tigris' scp bin/vm/7xxx-i386/* $1@$1.us.alcatel-lucent.com:/home/$1/images
+             }
+
+
+
+txi386q  ()  {
+                echo "bin/7xxx-i386/i386-iom.tim ...... In queen to $1....."
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                echo "bin/7xxx-i386/i386-cpm.tim ...... In queen to $1....."
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                echo "bin/7xxx-i386/i386-boot.tim ....... In queen to $1....."
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                echo "bin/7xxx-i386/i386-both.tim ...... In queen to $1....."
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                echo "bin/7xxx-i386/i386-isa-aa.tim ....... In queen to $1....."
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+             }
+
+txi386q1 ()  {
+                echo "bin/7xxx-i386/i386-iom.tim ...... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                echo "bin/7xxx-i386/i386-cpm.tim ...... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                echo "bin/7xxx-i386/i386-boot.tim ....... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                echo "bin/7xxx-i386/i386-both.tim ...... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                echo "bin/7xxx-i386/i386-isa-aa.tim ....... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "test/setup_cli.cfg ....... to /home/arunsr/img/ In queen ....."
+                sshpass -p 'Myqueen12$' scp test/setup_cli.cfg arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "test/teardown_cli.cfg ....... to /home/arunsr/img/ In queen ....."
+                sshpass -p 'Myqueen12$' scp test/teardown_cli.cfg arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+            }
+
+txhopsq  () {
+                echo "Copying bin/7xxx-hops/*.tim... In queen to $1....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-hops/*.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+
+                echo "Copying bin/7xxx-chile/isa-aa.tim... In queen to $1....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-chile/isa-aa.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+            }
+
+txhopsq1 () {
+                echo "Copying bin/7xxx-hops/*.tim... In queen to /home/arunsr/img/ ....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-hops/*.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "Copying bin/7xxx-chile/isa-aa.tim... In queen to /home/arunsr/img/ ....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-chile/isa-aa.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "test/setup_cli.cfg ....... to /home/arunsr/img/ In queen ....."
+                sshpass -p 'Myqueen12$' scp test/setup_cli.cfg arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "test/teardown_cli.cfg ....... to /home/arunsr/img/ In queen ....."
+                sshpass -p 'Myqueen12$' scp test/teardown_cli.cfg arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+            }
+
+txperfq   () {
+                echo "bin/7xxx-i386/i386-iom.tim ...... In queen to $1....."
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                echo "bin/7xxx-i386/i386-cpm.tim ...... In queen to $1....."
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                echo "bin/7xxx-i386/i386-boot.tim ....... In queen to $1....."
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                echo "bin/7xxx-i386/i386-both.tim ...... In queen to $1....."
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                echo "bin/7xxx-i386/i386-isa-aa.tim ....... In queen to $1....."
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+
+                echo "bin/7xxx-i386/i386-vmcontainer.qcow2 ....... In queen to $1....."
+                cp bin/7xxx-i386/vmcontainer.qcow2 bin/7xxx-i386/i386-vmcontainer.qcow2
+                echo "bin/7xxx-i386/i386-vxrom.bin ........ In queen to $1....."
+                cp bin/7xxx-i386/vxrom.bin bin/7xxx-i386/i386-vxrom.bin
+
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+                echo "Copying bin/vm/7xxx-i386/*... In queen to $1....."
+                sshpass -p 'Myqueen12$' scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+             }
+
+txperfq1  () {
+                echo "bin/7xxx-i386/i386-iom.tim ...... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                echo "bin/7xxx-i386/i386-cpm.tim ...... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                echo "bin/7xxx-i386/i386-boot.tim ....... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                echo "bin/7xxx-i386/i386-both.tim ...... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                echo "bin/7xxx-i386/i386-isa-aa.tim ....... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+
+                echo "bin/7xxx-i386/i386-vmcontainer.qcow2 ....... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/vmcontainer.qcow2 bin/7xxx-i386/i386-vmcontainer.qcow2
+
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "bin/7xxx-i386/i386-vxrom.bin ........ In queen to /home/arunsr/img/ ....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/vxrom.bin arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "Copying bin/vm/7xxx-i386/*... In queen to /home/arunsr/img/ ....."
+                sshpass -p 'Myqueen12$' scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "test/setup_cli.cfg ....... to /home/arunsr/img/ In queen ....."
+                sshpass -p 'Myqueen12$' scp test/setup_cli.cfg arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "test/teardown_cli.cfg ....... to /home/arunsr/img/ In queen ....."
+                sshpass -p 'Myqueen12$' scp test/teardown_cli.cfg arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+             }
+
+txq ()       {
+                echo "bin/7xxx-i386/i386-iom.tim ...... In queen to $1....."
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                echo "bin/7xxx-i386/i386-cpm.tim ...... In queen to $1....."
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                echo "bin/7xxx-i386/i386-boot.tim ....... In queen to $1....."
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                echo "bin/7xxx-i386/i386-both.tim ...... In queen to $1....."
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                echo "bin/7xxx-i386/i386-isa-aa.tim ....... In queen to $1....."
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+
+                echo "bin/7xxx-i386/i386-vmcontainer.qcow2 ....... In queen to $1....."
+                cp bin/7xxx-i386/vmcontainer.qcow2 bin/7xxx-i386/i386-vmcontainer.qcow2
+
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+
+                echo "bin/7xxx-i386/i386-vxrom.bin ........ In queen to $1....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/vxrom.bin arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1/
+
+                echo "Copying bin/vm/7xxx-i386/*... In queen to $1....."
+                sshpass -p 'Myqueen12$' scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+
+                echo "Copying bin/7xxx-hops/*.tim... In queen to $1....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-hops/*.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+
+                echo "Copying bin/7xxx-chile/isa-aa.tim... In queen to $1....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-chile/isa-aa.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/$1
+            }
+
+txq1 ()     {
+                echo "bin/7xxx-i386/i386-iom.tim ...... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/iom.tim bin/7xxx-i386/i386-iom.tim
+                echo "bin/7xxx-i386/i386-cpm.tim ...... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/cpm.tim bin/7xxx-i386/i386-cpm.tim
+                echo "bin/7xxx-i386/i386-boot.tim ....... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/boot.tim bin/7xxx-i386/i386-boot.tim
+                echo "bin/7xxx-i386/i386-both.tim ...... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/both.tim bin/7xxx-i386/i386-both.tim
+                echo "bin/7xxx-i386/i386-isa-aa.tim ....... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/isa-aa.tim bin/7xxx-i386/i386-isa-aa.tim
+
+                echo "bin/7xxx-i386/i386-vmcontainer.qcow2 ....... In queen to /home/arunsr/img/ ....."
+                cp bin/7xxx-i386/vmcontainer.qcow2 bin/7xxx-i386/i386-vmcontainer.qcow2
+
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/i3* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "bin/7xxx-i386/vxrom.bin ........ In queen to /home/arunsr/img/ ....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-i386/vxrom.bin arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "Copying bin/vm/7xxx-i386/*... In queen to /home/arunsr/img/ ....."
+                sshpass -p 'Myqueen12$' scp bin/vm/7xxx-i386/* arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "Copying bin/7xxx-hops/*.tim... In queen to /home/arunsr/img/ ....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-hops/*.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "Copying bin/7xxx-chile/isa-aa.tim... In queen to /home/arunsr/img/ ....."
+                sshpass -p 'Myqueen12$' scp bin/7xxx-chile/isa-aa.tim arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "test/setup_cli.cfg ....... to /home/arunsr/img/ In queen ....."
+                sshpass -p 'Myqueen12$' scp test/setup_cli.cfg arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+
+                echo "test/teardown_cli.cfg ....... to /home/arunsr/img/ In queen ....."
+                sshpass -p 'Myqueen12$' scp test/teardown_cli.cfg arunsr@queen2.mv.usa.alcatel.com:/home/arunsr/img/
+            }
+
