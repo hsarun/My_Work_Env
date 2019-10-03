@@ -49,13 +49,23 @@ zle -N down-line-or-local-history
 
 #UDAY - Below line shows git-status of git working dir w.r.t origin in PS1
 #source /home/udayakut/access-UK/zsh/zsh-git-prompt/zshrc.sh
+source /home/arunsr/zsh/zsh-git-prompt/zshrc.sh
 
 #UDAY - change PS1 to have git info
 #With pwd in the PROMPT
-PROMPT='${ret_status}%{$fg_bold[green]%}%p%{$fg[cyan]$(get_pwd) %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}=>$ %{$reset_color%}'
+if [[ $TMUX_Is_TMUX == 1 ]]; then
+    #PROMPT='${ret_status}%{$fg_bold[green]%}%p%{$fg[cyan]$(get_pwd) %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}=>$ %{$reset_color%}'
 
-#With just current working directory
-#PROMPT='${ret_status}%{$fg_bold[green]%}%p%{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_super_status)%{$fg_bold[blue]%}=>$ %{$reset_color%}'
+    #With just current working directory
+    #PROMPT='${ret_status}%{$fg_bold[green]%}%p%{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_super_status)%{$fg_bold[blue]%}=>$ %{$reset_color%}'
+    PROMPT='${ret_status}%{$fg_bold[green]%}%p%{$fg[cyan]%}$(get_pwd) %{$fg_bold[blue]%}$(git_super_status)%{$fg_bold[blue]%}=>$ %{$reset_color%}'
+else
+    #PROMPT='${ret_status}%{$fg_bold[green]%}%p%{$fg[cyan]$(get_pwd) %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}=>$ %{$reset_color%}'
+
+    #With just current working directory
+    #PROMPT='${ret_status}%{$fg_bold[green]%}%p%{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_super_status)%{$fg_bold[blue]%}=>$ %{$reset_color%}'
+    PROMPT='${ret_status}%{$fg_bold[green]%}%p%{$fg[cyan]%}$(get_pwd) %{$fg_bold[blue]%}$(git_super_status)%{$fg_bold[blue]%}=>$ %{$reset_color%}'
+fi
 
 function get_pwd() {
   echo "${PWD/$HOME/~}"
@@ -82,6 +92,9 @@ function ppkill() {
 }
 
 
-source ~/.zshrc.bashrc.local
-
+if [[ $TMUX_Is_TMUX == 1 ]]; then
+    source ~/.zshrc.bashrc.local
+else
+    source ~/.zshrc.bashrc.local
+fi
 

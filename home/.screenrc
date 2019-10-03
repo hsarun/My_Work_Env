@@ -299,4 +299,7 @@ bindkey -k F1  select 11
 bindkey -k F2  select 12
 
 
+TMUX_Is_TMUX=0
+
+
 

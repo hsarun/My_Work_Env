@@ -171,11 +171,27 @@ alias cvsstatus='cvs status | grep Status'
 
 ############################################################################################
 # Rest of the stuff....
-source ~/.bashrc.local
-#emulate bash -c 'source ~/.bashrc.local'
-#emulate bash -c '. ~/.bashrc.local'
+if [[ $TMUX_Is_TMUX == 1 ]]; then
+    #emulate bash -c '. ~/.bashrc.local'
+    #emulate sh -c 'source ~/.bashrc.local'
 
-source ~/.myalias
-#emulate bash -c 'source ~/.myalias'
-#emulate bash -c '. ~/.myalias'
+    #emulate bash -c '. ~/.myalias'
+    #emulate sh -c 'source ~/.myalias'
+
+    #emulate bash -c '. ~/.myalias'
+    #emulate sh -c 'source ~/.myalias'
+
+    source ~/.bashrc.local
+
+    source ~/.myalias
+
+    source ~/.mynokalias
+else
+    source ~/.bashrc.local
+
+    source ~/.myalias
+
+    source ~/.mynokalias
+fi
+
 

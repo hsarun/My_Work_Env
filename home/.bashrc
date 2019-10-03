@@ -8,7 +8,7 @@
 #
 #   Description:        Default .bashrc for new developers on PANOS using DESKTOP_2: Win7 + Cygwin 1.5
 #
-# Note - you should try not to modify this file if you can help it. You can
+# Note - you must not to modify this file. You can
 # put your personal settings in .bashrc.local which this file will 'source'
 # automatically.
 #
@@ -17,7 +17,7 @@
 #
 #                 Source Control System Information
 #
-#   $Id: .bashrc,v 1.13 2015/11/19 16:41:29 vigiroux Exp $
+#   $Id$
 #
 ###########################################################################
 #
@@ -25,35 +25,34 @@
 #
 ###########################################################################
 
-
-java=`which java`   # Must be before we overwrite the Windows path
-
-if $(uname -a | grep -qi cygwin)
-then
+case "$(uname -o)" in
+  Cygwin*)
+    [ -f ~/.bashrc_cygwin ] && source ~/.bashrc_cygwin
+    # Must be before we overwrite the Windows path
+    [ -n "$java" ] || java=$(which java 2> /dev/null)
     export OSTYPE=cygwin
     cygwin=1
     export WIND_HOST_TYPE=x86-win32
     export DESKTOP_2=1
     export PATH=/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin
-elif uname -a | grep -iq ming ; then
-    #. /etc/profile
+    ;;
+  Msys*)
     export "PATH=${PATH}:/usr/local/timostools"
     return
-else
+    ;;
+  *Linux*)
+    java=$(which java 2> /dev/null)
     export OSTYPE=linux
     cygwin=0
     export WIND_HOST_TYPE=x86-linux
-fi
+    export PATH=/usr/local/bin:/bin:/usr/bin
+    export GTK_THEME=Default
+    ;;
+esac
 
-if [ -z $USER ] && [ ! -z $USERNAME ]
-then
-    export USER=$USERNAME
-fi
-if [ -z $USERNAME ] && [ ! -z $USER ]
-then
-    export USERNAME=$USER
-fi
-
+: "${USER:=$USERNAME}"
+: "${USERNAME:=$USER}"
+export USER USERNAME
 
 # This is not needed to build TiMOS. The build environment figures it out
 # automatically. But, it is here just to catch incorrecty installed software
@@ -78,7 +77,7 @@ export CVSREAD=TRUE
 #
 export MAKE_MODE=UNIX
 # The default TiMOS build targets.
-export TGT_HW=i386
+export TGT_HW=x86_64
 export TGT_SYS=both
 
 #
@@ -139,25 +138,21 @@ fi
 # one. Surely the most recent is the "best", right?
 #
 
-if [ -n "$java" ]; then
-    PATH=${PATH}:$(dirname $java)
-else
+if [ -z "$java" -a $cygwin -eq 1 ]; then
     jdk='/ProgramData/Oracle/Java/javapath'
-    if [ -d $jdk ]; then
-        export PATH="${PATH}:$jdk"   #no /bin here
-    else
-        jdk=$(/bin/ls -d -t /j2sdk* 2>/dev/null | head -1)
-        if [ "${jdk}" != "" ]
-        then
-            export PATH="${PATH}:${jdk}/bin"
-        else
+    if [ ! -d "$jdk" ]; then
+        jdk="$(/bin/ls -d -t /j2sdk* 2>/dev/null | head -1)"
+        if [ ! -d "$jdk" ]; then
             jdk=$(/bin/ls -d -t /jdk* 2>/dev/null | head -1)
-            if [ "${jdk}" != "" ]
-            then
-                export PATH="${PATH}:${jdk}/bin"
-            fi
+        fi
+        if [ -d "$jdk" ]; then
+            java="$jdk/bin"
         fi
     fi
+fi
+
+if [ -n "$java" ]; then
+    PATH=${PATH}:"${java%/java}"
 fi
 
 #
@@ -180,26 +175,48 @@ then
         GIT_PS1_STATESEPARATOR=' '
         export PROMPT_COMMAND='__git_ps1 "\w" " > "'
     fi
+    # If you want to disable these, do not modify this file, put this in your ~/.bashrc.local
+    # unset PROMPT_COMMAND    # To disable the prompt that tells you about your branch and what files you have modified.
+    # complete -r git gitk    # To disable the tab-completion of git commands
 
+    if [ -d /usr/local/timostools/git.d/man ]; then
+       export MANPATH=":/usr/local/timostools/git.d/man"
+    fi
 else
     echo "You do not appear to have the SW development tools."
 fi
 
-#
-# Put standard Windows system path next
-#
 if [ $cygwin -eq 1 ]
 then
-    export PATH="${PATH}:$(cygpath -a -u $SYSTEMROOT)/system32"
-    export PATH="${PATH}:$(cygpath -a -u $SYSTEMROOT)"
-    export PATH="${PATH}:$(cygpath -a -u $SYSTEMROOT)/system32/Wbem"
-    export PATH="${PATH}:$(cygpath -a -u $SYSTEMROOT)/system32/WindowsPowerShell/v1.0"
+    #
+    # Put standard Windows system path next
+    #
+    [ -n "$CYGPATH_SYSROOT" ] || CYGPATH_SYSROOT="$(cygpath -a -u "$SYSTEMROOT")"
+    export PATH="${PATH}:$CYGPATH_SYSROOT/system32"
+    export PATH="${PATH}:$CYGPATH_SYSROOT"
+    export PATH="${PATH}:$CYGPATH_SYSROOT/system32/Wbem"
+    export PATH="${PATH}:$CYGPATH_SYSROOT/system32/WindowsPowerShell/v1.0"
+
+    if [ -d /cygdrive/c -a ! -d /cygdrive/c/tmp ]
+    then
+        mkdir -p /cygdrive/c/tmp
+    fi
+    if [ -d /cygdrive/d -a ! -d /cygdrive/d/tmp -a -w /cygdrive/d ]
+    then
+        mkdir -p /cygdrive/d/tmp
+    fi
+
+    cat > ~/.bashrc_cygwin <<eof
+export java="$java"
+export CYGPATH_SYSROOT="$CYGPATH_SYSROOT"
+eof
+
 fi
 
 #
 # If you have a bin in your home directory, we'll use it
 #
-if [ -d ${HOME}/bin ]
+if [ -d "$HOME"/bin ]
 then
     export PATH="${PATH}:${HOME}/bin"
 fi
@@ -212,17 +229,9 @@ export PATH="${PATH}:."
 #
 # Make sure the temp directories exist
 #
-if [ ! -d $TMP ]
+if [ -n "$TMP" -a ! -d "$TMP" ]
 then
-    mkdir -p $TMP
-fi
-if [ -d /cygdrive/c -a ! -d /cygdrive/c/tmp ]
-then
-    mkdir -p /cygdrive/c/tmp
-fi
-if [ -d /cygdrive/d -a ! -d /cygdrive/d/tmp ]
-then
-    mkdir -p /cygdrive/d/tmp
+    mkdir -p "$TMP"
 fi
 
 #
@@ -266,7 +275,7 @@ alias dir='ls -lF'
 alias h=history
 alias la='ls -a'
 alias ll='ls -l'
-alias ls='ls -F --color=auto'
+alias ls='ls -F'
 alias more=less
 alias mv='mv -i'
 alias ren='mv -i'
@@ -295,18 +304,7 @@ alias cvsstatus='cvs status | grep Status'
 # If you prefer windows-style editing (using arrow keys), don't use anything.
 #set -o vi
 
-#make an intelligent guess as to what your DISPLAY env var should be
-if [ -z ${DISPLAY:=""} ]; then
-    XSERVER=$(who am i | /bin/awk '{print $6}' | /bin/sed 's/[()]//g')
-    XSERVER=${XSERVER%%:*}
-    if [[ -z ${XSERVER}  || ${XSERVER} == $(hostname) || ${XSERVER} == "unix" ]]; then 
-      export DISPLAY=$(hostname):0.0		# Display on local host
-    else		
-      export DISPLAY=${XSERVER}:0.0	# Display on remote host
-    fi
-fi
-
-unset JAVA_HOME
+unset JAVA_HOME java
 
 #
 # Finally, if a ~/.bashrc.local exists, source it
@@ -316,9 +314,12 @@ then
     source ~/.bashrc.local
 fi
 
-if [ -f ~/.bashrc.panos ]; then
-        . ~/.bashrc.panos
+if [ -e ~/.myalias ]
+then
+    source ~/.myalias
 fi
 
-source ~/.myalias
-
+if [ -e ~/.mynokalias ]
+then
+    source ~/.mynokalias
+fi

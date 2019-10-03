@@ -38,6 +38,8 @@ Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'jeetsukumaran/vim-buffersaurus'
 Plugin 'vim-scripts/vimtabs.vim'
 Plugin 'flazz/vim-colorschemes'
+"Plugin 'itchyny/lightline.vim'
+Plugin 'airblade/vim-gitgutter'
 
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
