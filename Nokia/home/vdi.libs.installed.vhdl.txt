@@ -1,0 +1,45 @@
+#Make VHDL run on a VDI with Ubuntu
+
+sudo apt-get install libXt-devel
+sudo apt-get install libxt-dev
+sudo apt-get install libxext-dev
+
+sudo apt-get install gmake
+
+sudo apt-get install bison
+sudo apt-get install flex
+
+
+sudo apt-get install gcc-4.8 g++-4.8 g++-4.8-multilib
+sudo apt-get install gcc-4.8 g++-4.8
+sudo apt-get install gcc-4 g++-4
+sudo apt-get install --reinstall libc6-dev
+sudo apt-get install gcc-multilib g++-multilib
+sudo apt-get install libc-dev
+
+
+
+
+/usr/lib64 =>$ ls -l
+total 0
+lrwxrwxrwx 1 root root 28 Dec 13 22:25 crti.o -> /lib/x86_64-linux-gnu/crti.o
+lrwxrwxrwx 1 root root 28 Dec 14 00:16 crtn.o -> /lib/x86_64-linux-gnu/crtn.o
+lrwxrwxrwx 1 root root 32 Dec 16  2020 ld-linux-x86-64.so.2 -> /lib/x86_64-linux-gnu/ld-2.31.so
+lrwxrwxrwx 1 root root 29 Dec 13 23:40 libc.so -> /lib/x86_64-linux-gnu/libc.so
+lrwxrwxrwx 1 root root 33 Dec 10 18:57 libelf.so.0 -> /lib/x86_64-linux-gnu/libelf.so.0
+lrwxrwxrwx 1 root root 44 Dec 13 22:40 libgpgme-pthread.so.11 -> /lib/x86_64-linux-gnu/libgpgme-pthread.so.11
+lrwxrwxrwx 1 root root 29 Dec 13 23:02 libm.so -> /lib/x86_64-linux-gnu/libm.so
+lrwxrwxrwx 1 root root 31 Dec 13 22:55 libm.so.6 -> /lib/x86_64-linux-gnu/libm.so.6
+lrwxrwxrwx 1 root root 35 Dec 13 22:41 libpthread.so -> /lib/x86_64-linux-gnu/libpthread.so
+lrwxrwxrwx 1 root root 37 Dec 13 22:41 libpthread.so.0 -> /lib/x86_64-linux-gnu/libpthread.so.0
+lrwxrwxrwx 1 root root 30 Dec 13 22:52 librt.so -> /lib/x86_64-linux-gnu/librt.so
+lrwxrwxrwx 1 root root 32 Dec 13 22:53 librt.so.1 -> /lib/x86_64-linux-gnu/librt.so.1
+
+
+
+ls -l /bin/sh
+lrwxrwxrwx 1 root root 4 Jul 31  2020 /bin/sh -> dash
+------- Changed to bash:
+ls -l sh
+lrwxrwxrwx 1 root root 4 Dec 14 12:25 sh -> bash
+
