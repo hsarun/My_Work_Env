@@ -1,0 +1,28 @@
+#!/bin/sh
+if [ `/bin/uname` = "SunOS" ] ; then
+    PATH=$PATH:/usr/cisco/bin:/usr/openwin/bin:/usr/dt/bin
+    export PATH
+    WM=/usr/cisco/bin/startxfce4
+else # Linux
+    PATH=$PATH:/usr/cisco/bin:/usr/X11R6/bin
+    export PATH
+    WM=/usr/bin/startxfce4
+fi
+if [ ! -x $WM ] ; then
+    # failsafe window manager choice
+    WM=twm
+fi
+if [ -r $HOME/.Xdefaults ] ; then
+    xrdb -merge $HOME/.Xdefaults
+fi
+if [ -x /usr/bin/vncconfig ]; then
+    /usr/bin/vncconfig -nowin &
+elif [ -x /usr/cisco/bin/autocutsel ] ; then
+    /usr/cisco/bin/autocutsel &
+fi
+if [ -x /usr/bin/vmware-toolbox ] ; then
+    /usr/bin/vmware-toolbox &
+fi
+#exec gnome-session
+exec startxfce4 
+

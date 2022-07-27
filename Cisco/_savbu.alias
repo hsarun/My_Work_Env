@@ -1,0 +1,83 @@
+# .savbu.alias
+
+alias xtb="xterm -bg black -fg white -cr red -fn lucidasanstypewriter-10&"
+alias xtg="xterm -bg DarkGreen -fg white -cr red -fn lucidasanstypewriter-10&"
+alias xtr="xterm -bg DarkRed -fg white -cr red -fn lucidasanstypewriter-10&"
+
+alias startvnc="vncserver -depth 24 -geometry 1200x900"
+alias startvnc169="vncserver -depth 24 -geometry 1280x750"
+alias startvnc169monitor="vncserver -depth 24 -geometry 1440x850"
+
+
+alias nuo2='ssh -X nuo-sw-build2'
+alias nuo3='ssh -X nuo-sw-build3'
+alias nuo4='ssh -X nuo-sw-build4'
+alias nuo5='ssh -X nuo-sw-build5'
+alias nuo6='ssh -X nuo-sw-build6'
+alias nuo7='ssh -X nuo-sw-build7'
+alias nuo8='ssh -X nuo-sw-build8'
+alias nuo9='ssh -X nuo-sw-build9'
+alias nuo10='ssh -X nuo-sw-build10'
+alias nuo11='ssh -X nuo-sw-build11'
+alias nuo12='ssh -X nuo-sw-build12'
+alias nuo13='ssh -X nuo-sw-build13'
+alias nuo14='ssh -X nuo-sw-build14'
+alias nuo15='ssh -X nuo-sw-build15'
+alias nuo16='ssh -X nuo-sw-build16'
+alias nuo17='ssh -X nuo-sw-build17'
+alias nuo18='ssh -X nuo-sw-build18'
+alias nuo19='ssh -X nuo-sw-build19'
+alias nuo20='ssh -X nuo-sw-build20'
+alias nuo21='ssh -X nuo-sw-build21'
+alias nuo22='ssh -X nuo-sw-build22'
+alias nuo23='ssh -X nuo-sw-build23'
+alias nuo24='ssh -X nuo-sw-build24'
+alias nuo25='ssh -X nuo-sw-build25'
+alias nuo26='ssh -X nuo-sw-build26'
+alias nuo27='ssh -X nuo-sw-build27'
+alias nuo28='ssh -X nuo-sw-build28'
+alias nuo29='ssh -X nuo-sw-build29'
+alias nuo30='ssh -X nuo-sw-build30'
+alias nuo31='ssh -X nuo-sw-build31'
+alias nuo32='ssh -X nuo-sw-build32'
+alias nuo33='ssh -X nuo-sw-build33'
+alias nuo34='ssh -X nuo-sw-build34'
+alias nuo35='ssh -X nuo-sw-build35'
+alias nuo36='ssh -X nuo-sw-build36'
+alias nuo37='ssh -X nuo-sw-build37'
+alias nuo38='ssh -X nuo-sw-build38'
+alias nuo39='ssh -X nuo-sw-build39'
+alias nuo40='ssh -X nuo-sw-build40'
+alias nuo41='ssh -X nuo-sw-build41'
+alias nuo42='ssh -X nuo-sw-build42'
+alias nuo43='ssh -X nuo-sw-build43'
+alias nuo44='ssh -X nuo-sw-build44'
+alias nuo45='ssh -X nuo-sw-build45'
+alias nuo46='ssh -X nuo-sw-build46'
+alias nuo47='ssh -X nuo-sw-build47'
+alias nuo48='ssh -X nuo-sw-build48'
+alias nuo49='ssh -X nuo-sw-build49'
+alias nuo50='ssh -X nuo-sw-build50'
+
+alias gldn='ssh -X savbu-golden-tftp'
+
+
+
+alias svb38='ssh -X savbu-sw-bulid38'
+alias svb39='ssh -X savbu-sw-bulid39'
+alias svb40='ssh -X savbu-sw-bulid40'
+alias svb41='ssh -X savbu-sw-bulid41'
+alias svb42='ssh -X savbu-sw-bulid42'
+alias svb43='ssh -X savbu-sw-bulid43'
+alias svb44='ssh -X savbu-sw-bulid44'
+alias svb45='ssh -X savbu-sw-bulid45'
+
+
+alias cmd1='ssh -X n3k-sw-bld1'
+alias cmd2='ssh -X n3k-sw-bld2'
+alias cmd3='ssh -X n3k-sw-bld3'
+alias cmd4='ssh -X n3k-sw-bld4'
+alias cmd5='ssh -X n3k-sw-bld5'
+
+alias ins61='ssh -X ins-sw-bld61'
+

@@ -1,0 +1,89 @@
+# .bashrc
+
+# User specific aliases and functions
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+#export P4CONFIG=".p4config"
+#export P4DIFF="/usr/bin/diff"
+export PS1="[\u@\h \W]\$ "
+                                                                                                                             
+# DISTCC and CCACHE related settings
+#export DISTCC_HOSTS='localhost fwsm-ilab2 fwsm-ilab1'
+#export CCACHE_DIR="/home/pkanyar/.ccache"
+#export CCACHE_PREFIX="distcc"
+                                                                                                                             
+# STARTING UP DISTCCD
+#alias start_distcc="distccd --allow 10.76.249.68 --daemon"
+                                                                                                                             
+# PATH SETTING
+#export PATH=/usr/tools/f1/H-i686-pc-linux-gnu/bin:$PATH:/users/pkanyar:/opt/nptools/bin:
+#export PATH=/usr/tools/f1/H-i686-pc-linux-gnu/bin:$PATH:/users/arunhsri:/opt/nptools/bin:
+#export PATH=$PATH:/usr/tools/f1/H-i686-pc-linux-gnu/bin:/users/arunhsri:/opt/nptools/bin:
+#export PATH=.:/usr/tools/f1/H-i686-pc-linux-gnu/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/kerberos/bin:/usr/local/bin:/users/arunhsri:/users/pkanyar:/opt/nptools/bin:/usr/local/etc:/usr/cisco/bin:/router/bin:/auto/perforce/p4bin/:$PATH
+
+#export PATH=.:/bin:/usr/bin:/usr/bin/X11/:/users/arunhsri:/usr/tools/f1/H-i686-pc-linux-gnu/bin/:/usr/cisco/bin:/usr/local/bin/:/opt/nptools/bin:/auto/perforce/p4bin/:/opt/atria/bin:/router/bin
+
+#export PATH=.:/bin:/usr/bin:/usr/bin/X11/:/users/arunhsri:/usr/tools/f1/H-i686-pc-linux-gnu/bin/:/usr/cisco/bin:/usr/local/bin/:/opt/nptools/bin:/auto/perforce/p4bin/:/opt/atria/bin:/router/bin:/usr/tools/f1-linux-2.6.17.8-44833/gcc-4.0.2-glibc-2.3.2/i686-unknown-linux-gnu/bin/:/usr/tools/f1_4.0.2/H-i686-pc-linux-gnu/bin/:/usr/tools/f1-linux/gcc-4.0.2-glibc-2.3.2/i686-unknown-linux-gnu/bin/:/usr/tools/f1-linux-2.6.17.8-glibc-2.3.6/i686-unknown-linux-gnu/bin/:/usr/tools/f1-linux-2.6.17.8-glibc-2.6.1/i686-unknown-linux-gnu/bin/:/usr/tools/f1-linux-2.6.17.8-glibc-2.6.1/lib/gcc/x86_64-unknown-linux-gnu/4.2.1/:/usr/tools/f1-linux-2.6.17.8-44833/gcc-4.0.2-glibc-2.3.2/i686-unknown-linux-gnu/lib/gcc/i686-unknown-linux-gnu/4.0.2
+
+export PATH=/usr/kerberos/bin:/usr/local/bin:/usr/local/etc:/bin:/usr/X11R6/bin:/usr/sbin:/sbin:/usr/bin:/usr/cisco/bin:
+
+# PREFERENCES FOR EDITORS
+#alias emb="emacs -fg white -bg black -cr red -fn lucidasanstypewriter-12&"
+#alias emw="emacs -fg black -bg white -cr red -fn lucidasanstypewriter-12&"
+#Some cool terminals for my viewing pleasure
+#alias xtb="xterm -bg black -fg white -cr red -fn lucidasanstypewriter-10&"
+#alias xtg="xterm -bg DarkGreen -fg white -cr red -fn lucidasanstypewriter-10&"
+#alias xtr="xterm -bg DarkRed -fg white -cr red -fn lucidasanstypewriter-10&"
+                                                                                                                             
+# PRINTER SETTINGS
+#export PRINTER="blr7-prn06a"
+                                                                                                                             
+                                                                                                                             
+# Some cool tricks
+# 1. To search and replace a prefix by a new one:
+# find . -name "ibm_4gs3_dispatch.c" -print | xargs perl -i -p -e s,CP_,IBM_4GS3_,g
+                                                                                                                             
+export TERM=xterm
+#alias gdbpix="/usr/tools/f1/H-i686-pc-linux-gnu/bin/i686-aout-gdb -nw"
+#alias gdbosr="/usr/tools/f1-linux-2.6.29.6-glibc-2.9/bin/i686-unknown-linux-gnu-gdb -nw lina"
+#alias gdbosr64="/usr/tools/f1-linux-2.6.29.6-glibc-2.9/bin/x86_64-unknown-linux-gnu-gdb -nw lina"
+#alias p4diff="p4 diff -dpC5"
+#alias p4revertall="tools/commitdiff | tools/p4_gen_patch > patch.txt; egrep ^Index: ./patch.txt | awk '{print $2}' | xargs p4 revert"
+
+### NP TOOLS related variables
+#export NPTOOLS_HOME=/opt/nptools
+#export NPTOOLS_USER_HOME=/users/arunhsri/
+
+export TERM=xterm-color
+#alias microcopy="cp fornax_ucode/np_sp/np3fornax.elf bundler/np3_nppico.elf; cp fornax_ucode/np_fp/nppico.elf bundler/np1_nppico.elf" 
+
+
+#alias psprint="a2ps -M A4 -C -g -o"
+
+
+#export PATH=$PATH:/usr/tools/f1-linux-2.6.17.8-44833/gcc-4.0.2-glibc-2.3.2/i686-unknown-linux-gnu/bin
+#export PATH=$PATH:/usr/tools/f1_4.0.2/H-i686-pc-linux-gnu/bin
+#export PATH=$PATH:/usr/tools/f1-linux/gcc-4.0.2-glibc-2.3.2/i686-unknown-linux-gnu/bin
+#export PATH=$PATH:/usr/tools/f1-linux-2.6.17.8-glibc-2.3.6/i686-unknown-linux-gnu/bin
+#export PATH=$PATH:/usr/tools/f1-linux-2.6.17.8-glibc-2.6.1/i686-unknown-linux-gnu/bin
+#export PATH=$PATH:/usr/tools/f1-linux-2.6.17.8-glibc-2.6.1/lib/gcc/x86_64-unknown-linux-gnu/4.2.1
+#export PATH=$PATH:/usr/tools/f1-linux-2.6.17.8-44833/gcc-4.0.2-glibc-2.3.2/i686-unknown-linux-gnu/lib/gcc/i686-unknown-linux-gnu/4.0.2
+
+
+alias l="ls -l"
+if [ $USER == "arunhsri" ]; then
+    #export SHELL=/bin/sh
+    source ~/.alias;
+    source ~/.minealias;
+    source ~/.savbu.alias;
+    export SHELL=bash
+    source ~/.savbu.build.bash
+fi
+
+#export SALIB_DEADTIME=5000
+
+

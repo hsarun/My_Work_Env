@@ -1,0 +1,38 @@
+#!/bin/sh
+# Generic $dotdir/.xsession
+# Engineering Services (ES)
+#
+
+##
+# <HACK>
+# This ghastliness is an attempt to configure the environment since
+# in their infinite wisdom our primary workstation OS vendor did not.
+file=/tmp/env.$$
+/bin/csh -c "env" > $file
+ifs="$IFS" IFS='
+'
+for line in `cat $file`; do
+	eval `echo $line | sed -e 's/^\([^=]*\)=\(.*\)$/\1='"'"'\2'"'"'/'`
+	eval export `echo $line | sed -e 's/^\([^=]*\)=\(.*\)$/\1/'`
+done
+rm -f $file
+IFS="$ifs"
+# </HACK>
+##
+
+##
+# Start a console.
+xterm -C -geometry 80x12+0+0 -font fixed -sb -sl 256 -T "console" -n "console" &
+
+##
+# Start a clock, put it in the upper right corner
+xclock -g -0+0 &
+
+##
+# Start an xterm.
+xterm -sb -sl 256 &
+
+##
+# Start the window manager.  Popular (supported) ones are 'olwm', 'twm' and
+# 'dtwm'.  Note that this command should NOT be started in the background.
+olwm

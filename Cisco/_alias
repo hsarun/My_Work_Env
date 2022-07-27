@@ -1,0 +1,42 @@
+alias cp='cp -i'
+alias mv='mv -i'
+
+
+
+#alias frnx1="cd /view1/arunhsri"
+#alias frnx2="cd /view2/arunhsri"
+#alias trgt="cd target/fornax"
+#alias npfp="cd fornax_ucode/np_fp/"
+#alias npsp="cd fornax_ucode/np_sp/"
+#alias fu="cd fornax_ucode/"
+#alias tgtsm="cd target/smp"
+#alias tgtln="cd target/lina"
+
+#alias fullmake="cd fornax_ucode ; make ; cp np_fp/nppico.elf ../bundler/np1_nppico.elf ; cp np_sp/np3fornax.elf ../bundler/np3_nppico.elf ; cd .. ; make "
+
+#alias fullmakesp="cd fornax_ucode/np_sp ; make ; cp np3fornax.elf ../../bundler/np3_nppico.elf ; cd ..; cd .. ; make "
+
+#alias fullmakefp="cd fornax_ucode/np_fp ; make ; cp nppico.elf ../../bundler/np1_nppico.elf ; cd ..; cd .. ; make "
+
+#alias cscopebuild="find . -name "*.[chs]" >filelist; find . -name "*.cpp" >>filelist;  cscope -b -q -i filelist"
+
+#alias npcscpebld="find . -name "*.[chs]" >filelist; find . -name "*.cpp" >>filelist;  find . -name "*.asm" >> filelist; find . -name "*.inc" >> filelist; cscope -b -q -i filelist"
+
+#alias npcscpebld='find . -name \*.[chs] >filelist; find . -name \*.cpp >>filelist;  find . -name \*.asm >> filelist; find . -name \*.inc >> filelist; cscope -b -q -i filelist'
+
+#alias npcscpebld1='find . -name \*.[chs] >filelist; find . -name \*.cpp >>filelist;  find . -name \*.asm >> filelist; find . -name \*.inc >> filelist; cscope -b -q -i filelist'
+
+#alias cvscope="export CSCOPE_EDITOR=/bin/vi; cscope -d -p3"
+#alias cvmscope="export CSCOPE_EDITOR=/usr/bin/vim; cscope -d -p3"
+#alias cvgmscope="export CSCOPE_EDITOR=/usr/bin/X11/gvim; cscope -d -p3"
+
+
+
+
+#alias a2l='addr2line -f -e pix.sym'
+
+#alias p4revertall="tools/commitdiff | tools/p4_gen_patch > patch.txt; egrep ^Index: ./patch.txt | awk '{print $2}' | xargs p4 revert; egrep ^CR_NEW_FILE_BEGIN ./patch.txt | awk '\''{print }'\'' | xargs p4 revert"
+
+#alias p4xpixrevertall='Xpix/tools/commitdiff | Xpix/tools/p4_gen_patch > patch.txt; egrep ^Index: ./patch.txt | awk '\''{print }'\'' | xargs p4 revert; egrep ^CR_NEW_FILE_BEGIN ./patch.txt | awk '\''{print }'\'' | xargs p4 revert'
+
+

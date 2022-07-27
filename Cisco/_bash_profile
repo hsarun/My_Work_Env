@@ -1,0 +1,4 @@
+[ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
+keychain -q ~/.ssh/id_rsa
+. ~/.ssh-agent-${HOSTNAME}
+
